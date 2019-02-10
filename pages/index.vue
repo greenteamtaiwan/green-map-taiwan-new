@@ -1,63 +1,40 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>For more information on Vuetify, check out the <a
-            href="https://vuetifyjs.com"
-            target="_blank"
-          >documentation</a>.</p>
-          <p>If you have questions, please join the official <a
-            href="https://chat.vuetifyjs.com/"
-            target="_blank"
-            title="chat"
-          >discord</a>.</p>
-          <p>Find a bug? Report it on the github <a
-            href="https://github.com/vuetifyjs/vuetify/issues"
-            target="_blank"
-            title="contribute"
-          >issue board</a>.</p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >Nuxt Documentation</a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >Nuxt GitHub</a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire"
-          >Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <v-container>
+    <h3>map</h3>
+    <l-map ref="myMap" :zoom="zoomLevel" :center="center" @click="mapClick" style="z-index: 1;">
+      <l-tilelayer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tilelayer>
+
+      <template>
+        <l-marker
+          :options="markerOptions"
+          :lat-lng="[23.413220, 121.219482]"
+          @mouseover="markerOver"
+          @mouseout="markerOut"
+          @click="markerClick"
+        >
+          <l-popup>
+            <h1>修理站</h1>
+            <v-btn @click="show = !show">詳細</v-btn>
+            <v-dialog width="500" v-model="show">
+              <v-card>
+                <v-card-title class="headline grey lighten-2" primary-title>
+                  <div>
+                    <div class="headline">修理站</div>
+                  </div>
+                </v-card-title>
+
+                <v-card-text>106台北市大安區敦化南路二段</v-card-text>
+                <v-card-actions>
+                  <v-btn flat color="blue">前往</v-btn>
+                </v-card-actions>
+                <v-divider></v-divider>
+              </v-card>
+            </v-dialog>
+          </l-popup>
+        </l-marker>
+      </template>
+    </l-map>
+  </v-container>
 </template>
 
 <script>
@@ -68,6 +45,37 @@ export default {
   components: {
     Logo,
     VuetifyLogo
+  },
+  data() {
+    return {
+      dialog: true,
+      show: false,
+      center: [23.41322, 121.219482],
+      zoomLevel: 9,
+      markerOptions: {
+        opacity: 0.5
+      }
+    }
+  },
+  methods: {
+    showModal: function() {
+      this.show = true
+    },
+    mapClick: function(event) {
+      console.log(this.$refs.myMap.mapObject._zoom)
+      if (this.$refs.myMap.mapObject._zoom < 15) {
+        alert('需要再縮小')
+      }
+    },
+    markerClick: function(event) {
+      this.center = [event.latlng.lat, event.latlng.lng]
+    },
+    markerOver: function(event) {
+      event.sourceTarget.setOpacity(1.0)
+    },
+    markerOut: function(event) {
+      event.sourceTarget.setOpacity(0.5)
+    }
   }
 }
 </script>
