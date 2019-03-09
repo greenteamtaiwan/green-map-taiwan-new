@@ -1,0 +1,11 @@
+
+Todo:
+  ✔ 四種類別放入資料庫 @done(19-03-09 15:08)
+  ✔ 地圖改用Google Map @done(19-03-09 15:46)
+  ✔ 撈取綠點 @done(19-03-09 17:42)
+  ☐ 綠點四種type分類
+  ☐ type選擇顯示，用Store
+  ☐ 優化infowindow UI
+  ☐ Deploy上線
+  優化:
+    ☐ Store撈取綠點
