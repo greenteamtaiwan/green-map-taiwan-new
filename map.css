@@ -1,0 +1,109 @@
+body {
+  background-color: #FAF6F0;
+  font-family: 微軟正黑體, Arial;
+  color: #231815;
+  font-size: 16px;
+}
+
+ul {
+  list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li{
+	background-color: white;
+}
+
+/*--navbar--*/
+.navbar-md{
+  display: none;
+  background-color: #ffffff;
+}
+.logo {
+  height:30px;
+  width:100px;
+}
+
+nav#gt-nav {
+  padding: 0 1rem;
+  border-bottom: 2px solid #44AD47;
+  background-color: white;
+}
+
+nav a#gt-brand {
+  width: 150px;
+}
+
+.navbar-nav li {
+  padding: 0 20px;
+}
+
+.navbar-nav li.active {
+  
+  border-bottom: 3px solid #44AD47;
+}
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link.active{
+  color: #44AD47;
+}
+
+.navbar-toggler{
+  border: none;
+}
+
+
+/*map*/
+
+.btn{
+	background-color: white;
+}
+
+.container-fluid {
+	margin-top: 40px;
+}
+
+.map-aside {
+	background-color: #D8E8DA;
+	padding: 0;
+}
+
+.recommend {
+	color:pink;
+	position: absolute;
+	font-weight: bold;
+}
+
+
+#sel2 {
+	margin-right:20px;
+}
+
+
+@media screen and (max-width:991px){
+  .hide-only-in-lg{
+    display: block;
+  }
+  .hide-only-in-md{
+    display: none;
+  }
+  .container, .row{
+    margin-top: 0;
+  }
+  /*--navbar--*/
+  nav#gt-nav{
+    padding: 0;
+    background-color: #D8E8DA;
+  }
+  .nav-item{
+    border: solid 1px #ffffff;
+  }
+  .nav-link{
+    padding: 20px;
+  }
+  .navbar-md{
+    display: block;
+    width: 100%;
+  }
+  .navbar-lg{
+    display: none;
+  }
