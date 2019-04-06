@@ -1,65 +1,7 @@
 <template>
   <div>
-    <v-navigation-drawer fixed clipped v-model="drawer" app>
-      <v-list dense>
-        <v-list-tile
-          v-for="item in items"
-          :key="item.text"
-          @click="item.checked = !item.checked"
-          v-bind:class="{'light-blue': item.checked}"
-        >
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-toolbar color="teal accent-3" dense fixed clipped-left app dark>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-icon class="mx-3">fa-youtube</v-icon>
-      <v-toolbar-title class="mr-5 align-center">
-        <span class="title">Green Map</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-toolbar>
+    <Navbar></Navbar>
     <v-container>
-      <h3>map</h3>
-      <!-- <l-map ref="myMap" :zoom="zoomLevel" :center="center" @click="mapClick" style="z-index: 1;">
-      <l-tilelayer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tilelayer>
-
-      <template>
-        <l-marker
-          :options="markerOptions"
-          :lat-lng="[23.413220, 121.219482]"
-          @mouseover="markerOver"
-          @mouseout="markerOut"
-          @click="markerClick"
-        >
-          <l-popup>
-            <h1>修理站</h1>
-            <v-btn @click="show = !show">詳細</v-btn>
-            <v-dialog width="500" v-model="show">
-              <v-card>
-                <v-card-title class="headline grey lighten-2" primary-title>
-                  <div>
-                    <div class="headline">修理站</div>
-                  </div>
-                </v-card-title>
-
-                <v-card-text>106台北市大安區敦化南路二段</v-card-text>
-                <v-card-actions>
-                  <v-btn flat color="blue">前往</v-btn>
-                </v-card-actions>
-                <v-divider></v-divider>
-              </v-card>
-            </v-dialog>
-          </l-popup>
-        </l-marker>
-      </template>
-      </l-map>-->
       <no-ssr>
         <gmap-map
           :center="center"
@@ -74,7 +16,6 @@
             :position="{lat: node.latitude, lng: node.longitude}"
             :clickable="true"
             :draggable="false"
-            @click="markerClick(node)"
           />
           <gmap-info-window
             :options="infoWindow.options"
@@ -120,6 +61,7 @@ import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 import * as firebase from 'firebase'
 import { defaultCoreCipherList } from 'constants'
+import Navbar from '~/components/Navbar.vue'
 
 const config = {
   apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
@@ -137,7 +79,8 @@ if (!firebase.apps.length) {
 export default {
   components: {
     Logo,
-    VuetifyLogo
+    VuetifyLogo,
+    Navbar
   },
   data() {
     return {
