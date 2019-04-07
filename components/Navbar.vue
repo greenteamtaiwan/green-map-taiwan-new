@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
     <div class="navbar-lg">
       <a class="navbar-brand" href="#" id="gt-brand">
-        <img src="../assets/img/GT logo.png" alt="GT logo" class="logo"></a>
+        <img src="~/assets/img/GT logo.png" alt="GT logo" class="logo"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -14,10 +14,11 @@
         <span class="navbar-toggler-icon"></span>
       </b-navbar-toggle>
       <a class="navbar-brand" href="#" id="gt-brand">
-        <img src="../assets/img/GT logo.png" alt="GT logo" class="logo"></a>
+        <img src="~/assets/img/GT logo.png" alt="GT logo" class="logo"></a>
+        <a class="nav-link map-link"  href="javascript:void(0);">綠色地圖</a>
     </div>
 
-    <b-collapse is-nav id="navbarNav">
+    <b-collapse is-nav id="navbarNav" style="position: relative">
       <ul class="navbar-nav">
         <li class="nav-item" data-id="stores">
           <a class="nav-link"  href="javascript:void(0);" data-id="#stores">推薦商家</a>
@@ -34,10 +35,8 @@
         <li class="nav-item" data-id="about">
           <a class="nav-link"  href="javascript:void(0);" data-id="#about">關於我們</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link"  href="javascript:void(0);" href="map.html">綠色地圖</a>
-        </li> -->
       </ul>
+      <a class="nav-link map-link"  href="javascript:void(0);">綠色地圖</a>
     </b-collapse is-nav>
   </nav>
 </template>
@@ -78,6 +77,31 @@ nav a#gt-brand {
   border: none;
 }
 
+.navbar-light .navbar-nav li a.map-link{
+  color: #44AD47;
+  border-bottom: solid 2px #44AD47;
+}
+
+.navbar-light .navbar-nav li a.map-link:hover{
+  color: #44AD47;
+}
+
+.nav-link{
+  height: 38px;
+}
+
+.nav-link.map-link{
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: #44AD47;
+  border-bottom: solid 2px;
+}
+.map-link:hover{
+  color: #44AD47;
+}
+
 @media screen and (max-width:991px){
   .hide-only-in-lg{
     display: block;
@@ -102,6 +126,10 @@ nav a#gt-brand {
   }
   .navbar-lg{
     display: none;
+  }
+  .map-link{
+    height: 40px;
+    padding: 0;
   }
 }
 </style>
