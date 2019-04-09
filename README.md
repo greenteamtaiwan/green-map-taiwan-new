@@ -19,4 +19,11 @@ $ npm start
 $ npm run generate
 ```
 
+## Deploy to gh-pages
+
+``` bash
+# push dist folder to gh-pages branch to deploy to gh-pages
+$ npm run deploy-to-git
+```
+
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
