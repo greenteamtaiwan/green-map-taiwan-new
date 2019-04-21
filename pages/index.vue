@@ -1,18 +1,16 @@
 <template>
   <div>
-    <Navbar/>
+    <Navbar :cities="cities" :typeOptions="items"/>
     <b-container id='map-container'>
-      <b-row>
-        <b-col lg='3' class='map-aside-container' v-class="{'hide-sidebar': hideSidebar}">
-          <Sidebar :typeOptions="items" :cities="cities"/>
-        </b-col>
+      <ShopList  />
+      <b-row>  
         <b-col lg='12' class='map'>
           <no-ssr>
             <gmap-map
               :center="center"
               :zoom="zoomLevel"
               map-type-id="roadmap"
-              style="width: 100%; height: calc(100vh - 40px);"
+              style="width: 100%; height: calc(100vh - 60px);"
             >
               <gmap-marker
                 :key="index"
@@ -31,21 +29,16 @@
                 style="width: 100px;"
               >
                 <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                  <h1>{{infoWindow.node.name}}</h1>
-                  <img src="~/assets/img/icon_like.svg" height="20" width="20">
+                  <img src="~/assets/img/picture 1.jpg" width="110px" height="80px">
+                  <div style="padding: 10px;">
+                    <h1>{{infoWindow.node.name}}</h1>
+                    <br/>
+                    <p style="margin-top: 10px;font-size: 14px">
+                      類別
+                      <span style="float:right;color:#4de680;font-weight:bold;">休息中</span>
+                    </p>  
+                  </div>
                 </div>
-                <p class='type'>類別</p>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <p class='address'>{{infoWindow.node.address}}</p>
-                  
-                    <button>
-                      <img src="~/assets/img/icon_down_arrow.svg" height="20" width="20" class='gmap-info-window-arrow'>
-                    </button>
-                  
-                </div>
-                <a :href="`https://www.google.com/maps/search/?api=1&query=${infoWindow.node.name}`" target="_blank" rel="noopener noreferer">
-                  <button class='google-map-button'>開啟 google map</button>
-                </a>
 
               </gmap-info-window>
             </gmap-map>
@@ -64,17 +57,6 @@
 
   html, body{
     overflow-y: hidden
-  }
-
-  .map-aside-container{
-    position: fixed;
-    left: 0;
-    z-index: 1;    
-    transition: left 1s;
-  }
-
-  .hide-sidebar{
-      left: -100%;
   }
 
   h1{
@@ -109,6 +91,10 @@
     margin: 0;
   }
 
+  li{
+    list-style-type: none;
+  }
+
   @media screen and (max-width:991px){
       html, body{
         overflow-y: initial;
@@ -121,7 +107,7 @@
   #map-container{
     padding: 0;
     margin: 0;
-    margin-top: 40px;
+    margin-top: 60px;
     max-width: unset;
   }
   #map-container > .row,
@@ -150,18 +136,13 @@
   .gmap-info-window-arrow{
     transform: rotate(-90deg)
   }
-
+  .gm-style-iw.gm-style-iw-c h1{
+    font-size: 20px;
+  }
   /*--覆蓋預設樣式--*/
-  .custom-select{
-    background: url('../assets/img/icon_down_arrow.svg') no-repeat right 0.75rem center/8px 10px;
-    background-color: #ffffff;
-    background-size: 15px 15px;
-  }
   .gm-style-iw.gm-style-iw-c{
-    width: 200px;
-  }
-  button.gm-ui-hover-effect{
-    display: none!important;
+    padding: 0;
+    height: 80px;
   }
 </style>
 
@@ -171,8 +152,7 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue'
 import * as firebase from 'firebase'
 import { defaultCoreCipherList } from 'constants'
 import Navbar from '~/components/Navbar.vue'
-import Sidebar from '~/components/Sidebar.vue'
-import SubSidebar from '~/components/SubSidebar.vue'
+import ShopList from '~/components/ShopList.vue'
 
 const config = {
   apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
@@ -192,8 +172,7 @@ export default {
     Logo,
     VuetifyLogo,
     Navbar,
-    Sidebar,
-    SubSidebar
+    ShopList
   },
   data() {
     return {

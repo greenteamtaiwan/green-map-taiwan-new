@@ -81,6 +81,6 @@ module.exports = {
     }
   },
   router: {
-    base: './'
+    base: '/green-map-taiwan-new/'
   }
 }

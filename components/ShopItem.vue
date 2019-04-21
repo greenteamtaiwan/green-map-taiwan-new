@@ -21,13 +21,12 @@
 <style scoped>
     .container{
         padding: 0;
-        margin-bottom: 10px;        
+        margin: 20px 0;        
     }
     
     .row{
         background-color: #ffffff;
         margin: 0;
-        padding: 10px;
     }
     
     .row > div{
@@ -46,7 +45,7 @@
     }
 
     .row > .shopItem-aside{
-        padding-left: 10px;
+        padding: 10px;
     }
 </style>
 

@@ -1,135 +1,105 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
-    <div class="navbar-lg">
-      <a class="navbar-brand" href="#" id="gt-brand">
-        <img src="~/assets/img/GT logo.png" alt="GT logo" class="logo"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class='map-logo'>
+      <img src='../assets/img/icon_map.svg' width="40px"/>
+      <img src='../assets/img/GT logo.png' width="40px"/>
     </div>
-    <div class="navbar-md">
-      <b-navbar-toggle type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </b-navbar-toggle>
-      <a class="navbar-brand" href="#" id="gt-brand">
-        <img src="~/assets/img/GT logo.png" alt="GT logo" class="logo"></a>
-        <a class="nav-link map-link"  href="javascript:void(0);">綠色地圖</a>
-    </div>
-
-    <b-collapse is-nav id="navbarNav" style="position: relative">
-      <ul class="navbar-nav">
-        <li class="nav-item" data-id="stores">
-          <a class="nav-link"  href="javascript:void(0);" data-id="#stores">推薦商家</a>
-        </li>
-        <li class="nav-item" data-id="news">
-          <a class="nav-link"  href="javascript:void(0);" data-id="#news">新聞趣事</a>
-        </li>
-        <li class="nav-item" data-id="activities">
-          <a class="nav-link"  href="javascript:void(0);" data-id="#activities">活動聚會</a>
-        </li>
-        <li class="nav-item" data-id="idea">
-          <a class="nav-link"  href="javascript:void(0);" data-id="#idea">零廢棄理念</a>
-        </li>
-        <li class="nav-item" data-id="about">
-          <a class="nav-link"  href="javascript:void(0);" data-id="#about">關於我們</a>
-        </li>
-      </ul>
-      <a class="nav-link map-link"  href="javascript:void(0);">綠色地圖</a>
-    </b-collapse is-nav>
+    <b-form inline class='sidebar-inline-form'>
+        <div class='navbar-middle'>
+          <b-form-select :value='1' :options="cities" class='cities-select'></b-form-select>
+          <a>城市推薦綠點</a>
+        </div>
+        <b-input-group class="search">
+            <b-input-group-prepend>
+                <b-button class="search-button" disable="true">
+                    <img src="~/assets/img/icon_search.svg" height="19" width="19">
+                </b-button>
+            </b-input-group-prepend>
+            <b-form-input placeholder= " 搜尋「裸賣」 " aria-label="Search"></b-form-input>
+        </b-input-group>
+    </b-form>
+    <SearchSidebar :show="false" :typeOptions="typeOptions" :style="{left: 'auto', right: 0, width: '300px'}"/>
   </nav>
 </template>
 
 <style>
-.navbar-md{
-  display: none;
-  background-color: #ffffff;
-}
-.logo {
-  height:30px;
-  width:100px;
-}
+  nav{
+    height: 60px;
+    border-bottom: solid 1px lightgray;
+    line-height: 40px;
+  }
 
-nav#gt-nav {
-  padding: 0 1rem;
-  border-bottom: 2px solid #44AD47;
-  background-color: white;
-}
+  nav > div, nav > form > div{
+    padding: 10px 20px;
+  }
 
-nav a#gt-brand {
-  width: 150px;
-}
-
-.navbar-nav li {
-  padding: 0 20px;
-}
-
-.navbar-nav li.active {
-  
-  border-bottom: 3px solid #44AD47;
-}
-.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link.active{
-  color: #44AD47;
-}
-
-.navbar-toggler{
-  border: none;
-}
-
-.navbar-light .navbar-nav li a.map-link{
-  color: #44AD47;
-  border-bottom: solid 2px #44AD47;
-}
-
-.navbar-light .navbar-nav li a.map-link:hover{
-  color: #44AD47;
-}
-
-.nav-link{
-  height: 38px;
-}
-
-.nav-link.map-link{
-  position: absolute;
-  right: 0;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  color: #44AD47;
-  border-bottom: solid 2px;
-}
-.map-link:hover{
-  color: #44AD47;
-}
-
-@media screen and (max-width:991px){
-  .hide-only-in-lg{
+  .map-logo img{
     display: block;
+    margin: 2px;
   }
-  .hide-only-in-md{
-    display: none;
+
+  .navbar-middle{
+    height: 60px;
+    border-left: solid 1px lightgray;
   }
-  /*--navbar--*/
-  nav#gt-nav{
-    padding: 0;
-    background-color: #D8E8DA;
+
+  .input-group.search{
+    height: 60px;
+    border-left: solid 1px lightgray;
+    position: absolute;
+    right: 0;
+    width: 300px; 
   }
-  .nav-item{
-    border: solid 1px #ffffff;
+
+  .search input{
+    background-color: rgba(0,0,0,0);
+    border: none;
+    border-radius: 0;
+    border-bottom: solid 1px;
+    height: 100%;
   }
-  .nav-link{
-    padding: 20px;
+
+  /*--覆蓋預設樣式--*/
+  .custom-select{
+    background: url('../assets/img/icon_down_arrow.svg') no-repeat right 0.75rem center/8px 10px;
+    background-size: 15px 15px;
+    border: none;
+    margin-right: 10px;
   }
-  .navbar-md{
-    display: block;
-    width: 100%;
+  button.gm-ui-hover-effect{
+    display: none!important;
+    
   }
-  .navbar-lg{
-    display: none;
+  .cities-select.custom-select{
+    width: 90px;
   }
-  .map-link{
-    height: 40px;
-    padding: 0;
+  button.btn.btn-secondary.search-button{
+    border: none;
+    border-radius: 0;
+    background-color: rgba(0,0,0,0); 
+    border-bottom: solid 1px black;
   }
-}
+  button.btn.btn-secondary.search-button:active{
+    background-color: rgba(0,0,0,0); 
+  }
 </style>
+
+<script>
+import SearchSidebar from '~/components/SearchSidebar.vue'
+
+export default {
+  components: {
+    SearchSidebar
+  },
+  props:{
+      typeOptions: {
+          type: Array,
+          default: []
+      },
+      cities: {
+          type: Array,
+          default: []
+      }
+  }
+}
+</script>
