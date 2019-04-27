@@ -1,13 +1,15 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
-    <div class='map-logo'>
-      <img src='../assets/img/icon_map.svg' width="40px"/>
-      <img src='../assets/img/GT logo.png' width="40px"/>
-    </div>
+    <nuxt-link to="/">
+      <div class='map-logo'>
+        <img src='../assets/img/icon_map.svg' width="40px"/>
+        <img src='../assets/img/GT logo.png' width="40px"/>
+      </div>
+    </nuxt-link>
     <b-form inline class='sidebar-inline-form'>
         <div class='navbar-middle'>
           <b-form-select :value='1' :options="cities" class='cities-select'></b-form-select>
-          <a>城市推薦綠點</a>
+          <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
         </div>
         <b-input-group class="search">
             <b-input-group-prepend>
@@ -23,10 +25,18 @@
 </template>
 
 <style>
+  a{
+    color: black;
+  }
+  a:hover{
+    text-decoration: none;
+    color: #44AD47;
+  }
   nav{
     height: 60px;
     border-bottom: solid 1px lightgray;
     line-height: 40px;
+    background-color: #ffffff;
   }
 
   nav > div, nav > form > div{
@@ -36,6 +46,7 @@
   .map-logo img{
     display: block;
     margin: 2px;
+    margin-right: 15px;
   }
 
   .navbar-middle{

@@ -1,145 +1,149 @@
 <template>
   <div>
     <Navbar :cities="cities" :typeOptions="items"/>
-    <b-container class='map-container'>
-      <ShopList  />
-      <b-row>  
-        <b-col lg='12' class='map'>
-          <no-ssr>
-            <gmap-map
-              :center="center"
-              :zoom="zoomLevel"
-              map-type-id="roadmap"
-              style="width: 100%; height: calc(100vh - 60px);"
-            >
-              <gmap-marker
-                :key="index"
-                v-for="(node, index) in nodes"
-                v-show="visiableItemArray.includes(node.type)"
-                :position="{lat: node.latitude, lng: node.longitude}"
-                :clickable="true"
-                :draggable="false"
-                @click="markerClick(node)"
-              />
-              <gmap-info-window
-                :options="infoWindow.options"
-                :position="infoWindow.positions"
-                :opened="infoWindow.isOpen"
-                @closeclick="infoWindow.isOpen=false"
-                style="width: 100px;"
-              >
-                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                  <img src="~/assets/img/picture 1.jpg" width="110px" height="80px">
-                  <div style="padding: 10px;">
-                    <h1>{{infoWindow.node.name}}</h1>
-                    <br/>
-                    <p style="margin-top: 10px;font-size: 14px;">
-                      類別
-                      <span style="float:right;color:#4de680;font-weight:bold;">休息中</span>
-                    </p>  
-                  </div>
-                </div>
+    <div class='shop-container'>
+        <div class='img-container'>
+            <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+            <div class="imgs">
+                <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+                <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+            </div>
+            <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+            <div class="imgs">
+                <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+                <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+            </div>
+        </div>
 
-              </gmap-info-window>
-            </gmap-map>
-          </no-ssr>
-        </b-col>
-      </b-row>
-      
-    </b-container>
+        <div class="shop-content-container">
+            <div class="shop-content">
+                <p class="recommend"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p>
+                <h1>商家名稱</h1>
+                <p class='type'>類別</p>
+                <p class="description">簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介</p>
+                
+            </div>
+            <div class="shop-content">
+                <p><img src="~/assets/img/icon_time.svg"/>電話</p>
+                <p><img src="~/assets/img/icon_location.svg"/>地址地址地址</p>
+                <p><img src="~/assets/img/icon_phone.svg"/>0000000000</p>
+                <p><img src="~/assets/img/icon_website.svg"/><a href="#">連結</a></p>
+                <p><img src="~/assets/img/icon_memo.svg"/>備註</p>
+                <no-ssr>
+                    <gmap-map
+                      :center="center"
+                      :zoom="zoomLevel"
+                      map-type-id="roadmap"
+                      style="width: 200px; height: 200px; position: absolute; right: 0; bottom: 0; margin: 10px;"
+                       :options="{
+                        zoomControl: false,
+                        mapTypeControl: false,
+                        scaleControl: false,
+                        streetViewControl: false,
+                        rotateControl: false,
+                        fullscreenControl: false,
+                        disableDefaultUi: false
+                      }"
+                    >
+                      <gmap-marker
+                        :key="index"
+                        v-for="(node, index) in nodes"
+                        v-show="visiableItemArray.includes(node.type)"
+                        :position="{lat: node.latitude, lng: node.longitude}"
+                        :clickable="true"
+                        :draggable="false"
+                        @click="markerClick(node)"
+                      />
+                    </gmap-map>
+                  </no-ssr>
+            </div> 
+        </div>
+    </div>
   </div>
 </template>
 
-<style>
-
+<style scoped>
   html, body{
-    overflow-y: hidden
+    overflow-y: auto!important;
   }
+    .shop-container{
+        margin-top: 60px;
+        min-height: calc(100vh - 60px);
+        background-color: #f3f4f5;
+    }
 
-  .map-container h1{
-    font-size: 16px;
-    font-weight: bold;
-    display: inline-block;
-    margin-right: 5px;
-    margin-bottom: 0;
-  }
+    .shop-container .img-container{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        background-color: #ffffff;
+    }
+    .shop-container .imgs{
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        margin-right: 5px;
+    }
+    .shop-container .imgs .img:nth-child(1){
+        margin-bottom: 5px;
+    }
+    h1{
+        text-align: center;
+        margin: 20px 0;
+    }
+    .img-container > .img{
+        flex: 2; 
+        margin-right: 5px;
+    }
+    .shop-container img{
+        width: 100%;
+        height: 100%;
+    }
 
-  .address{
-    margin: 10px 0;
-  }
-
-  .google-map-button{
-      color: #44AD47;
-      border-radius: 5px;
-      padding: 5px 20px;
-      border: solid 1px;
-      font-size: 12px;
-      display: block;
-      margin: auto;
-  }
-
-  p{
-    margin: 0;
-  }
-
-  .type{
-    color: #9FA0A0;
-    font-size: 13px;
-    margin: 0;
-  }
-
-  li{
-    list-style-type: none;
-  }
-
-  @media screen and (max-width:991px){
-      html, body{
-        overflow-y: initial;
-      }
-      .menu{
-          display: none;
-      }
-  }
-
-  .map-container{
-    padding: 0;
-    margin: 0;
-    margin-top: 60px;
-    max-width: unset;
-  }
-  .map-container > .row,
-  .map-container > .row > div {
-    margin: 0;
-    padding: 0;
-  }
-
-  p.recommend {
+    .shop-content-container{
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .shop-content{
+        background-color: #ffffff;
+        padding: 20px;
+        flex: 1;
+        align-items: stretch;
+        position: relative;
+    }
+    .shop-content:nth-child(1){
+        margin-right: 20px;
+    }
+    .type{
+        border-bottom: solid 1px lightgray;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        color: lightgray;
+        font-size: 14px;
+    }
+      p.recommend {
       color:#EE5593;
       font-weight: bold;
       display: flex;
       align-items: center;
+      justify-content: center;
   }
   .recommend img{
-    width: unset;
+    width: 16px;
     margin-right: 5px;
   }
-  p.type{
-    display: block;
-    color: lightgray;
-    font-size: 13px;
-  }
 
-  .gmap-info-window-arrow{
-    transform: rotate(-90deg)
-  }
-  .gm-style-iw.gm-style-iw-c h1{
-    font-size: 20px;
-  }
-  /*--覆蓋預設樣式--*/
-  .gm-style-iw.gm-style-iw-c{
-    padding: 0;
-    height: 80px;
-    font-family: 微軟正黑體;
+    .shop-content:nth-child(2) p{
+        display: flex; 
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+  .shop-content:nth-child(2) img{
+      width: 20px;
+      margin-right: 20px;
   }
 </style>
 
@@ -199,7 +203,7 @@ export default {
       dialog: true,
       show: false,
       center: { lat: 23.41322, lng: 121.219482 },
-      zoomLevel: 9,
+      zoomLevel: 13,
       markerOptions: {
         opacity: 0.5
       },
@@ -226,21 +230,21 @@ export default {
           icon: free_shop,
           type: 'free_shop',
           text: '免費商店',
-          checked: true
+          checked: false
         },
         {
           value: 2,
           icon: thrift_shop,
           type: 'thrift_shop',
           text: '二手商店',
-          checked: true
+          checked: false
         },
         {
           value: 2,
           icon: vegetarian_shop,
           type: 'vegetarian_shop',
           text: '素食店',
-          checked: true
+          checked: false
         }
       ],
       cities: [

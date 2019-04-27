@@ -10,6 +10,7 @@
 <style>
     .sidebar.show-sidebar{
         left: 0;
+        display: block;
     }
     .close-sidebar-button{
         z-index: 3;
@@ -31,6 +32,7 @@
         background-color: #f3f4f5;
         padding: 0;
         position: fixed;
+        display: none;
         top: 60px;
         left: -100%;
         z-index: 1;    

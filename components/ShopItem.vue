@@ -1,21 +1,22 @@
 <template>
-    <b-container>
-        <b-row>
-            <b-col lg='5' class='shopItem-main'>
-                <img src="~/assets/img/picture 1.jpg">
-            </b-col>
-            <b-col lg='7' class='shopItem-aside'>
-                <h3>商家名稱</h3><p class="recommend">
-                <img src="~/assets/img/icon_like.svg" height="20" width="20"> 推薦
-                </p>
-                <p class='type'>類別</p>
-                <br/>
-                <p>台北市 中山區<br>
-                中山北路一段 111號</p>
-                
-            </b-col>
-        </b-row>
-    </b-container>
+        <b-container>
+            <b-row>
+                <b-col lg='5' class='shopItem-main'>
+                    <nuxt-link to="/shop">
+                        <img src="~/assets/img/picture 1.jpg">
+                    </nuxt-link>
+                </b-col>
+                <b-col lg='7' class='shopItem-aside'>
+                    <p class="recommend"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p>
+                    <nuxt-link to="/shop">
+                        <h3>商家名稱</h3>
+                    </nuxt-link>
+                    <p class='type'>類別 ‧ <span class="running-status">營業中</span></p>
+                    <p class="description">簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介</p> 
+                </b-col>
+            </b-row>
+        </b-container>
+    
 </template>
 
 <style scoped>
@@ -46,6 +47,27 @@
 
     .row > .shopItem-aside{
         padding: 10px;
+    }
+
+    .type{
+        border-bottom: solid 1px lightgray;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+    }
+
+    .recommend{
+        justify-content: flex-end;
+    }
+    .recommend img{
+        width: 14px;
+    }
+
+    .recommend, .description, .type{
+        font-size: 14px;
+    }
+
+    .running-status{
+        color: #44AD47;
     }
 </style>
 
