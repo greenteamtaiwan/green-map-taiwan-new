@@ -1,7 +1,6 @@
 const pkg = require('./package')
-
-
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const base = process.env.NODE_ENV.trim() === 'development'?'':'/green-map-taiwan-new/';
 
 module.exports = {
   mode: 'universal',
@@ -81,6 +80,6 @@ module.exports = {
     }
   },
   router: {
-    base: '/green-map-taiwan-new/'
+    base: base
   }
 }
