@@ -9,27 +9,28 @@
                 <b-col lg='7' class='shopItem-aside'>
                     <p class="recommend"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p>
                     <nuxt-link to="/shop">
-                        <h3>商家名稱</h3>
+                        <!-- <h3>商家名稱 {{data}}</h3> -->
+                        <h3>商家名稱 :  {{selectedShops.name}}</h3>
                     </nuxt-link>
-                    <p class='type'>類別 ‧ <span class="running-status">營業中</span></p>
-                    <p class="description">簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介</p> 
+                    <p class='type'>類別 : {{selectedShops.type}} ‧ <span class="running-status">營業中</span></p>
+                    <p class="description">簡介: {{selectedShops.remark}} </p>
                 </b-col>
             </b-row>
         </b-container>
-    
+
 </template>
 
 <style scoped>
     .container{
         padding: 0;
-        margin: 20px 0;        
+        margin: 20px 0;
     }
-    
+
     .row{
         background-color: #ffffff;
         margin: 0;
     }
-    
+
     .row > div{
         padding: 0;
     }
@@ -71,3 +72,14 @@
     }
 </style>
 
+<script>
+
+export default {
+    props:{
+        selectedShops: {
+          type: Array,
+          default: []
+      }
+    }
+}
+</script>

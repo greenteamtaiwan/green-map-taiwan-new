@@ -1,11 +1,12 @@
 <template>
     <Sidebar :click="onCloseButtonClick" showCloseSidebarButton="true">
         <ul class="shopList" slot="content">
+            <ShopItem v-for="(item, index) in selectedShops" :key="index" :selectedShops="item"/>
+            <!-- <ShopItem :selectedShops="selectedShops"/> -->
+            <!-- <ShopItem/>
             <ShopItem/>
             <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
+            <ShopItem/> -->
         </ul>
     </Sidebar>
 </template>
@@ -39,7 +40,12 @@ export default {
         onCloseButtonClick: {
             type: Function,
             default: ()=>{}
-        }
+        },
+        selectedShops: {
+          type: Array,
+          default: []
+      }
+
     }
 }
 </script>
