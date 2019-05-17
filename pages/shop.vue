@@ -3,31 +3,31 @@
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class='shop-container'>
         <div class='img-container'>
-            <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+            <div class="img"><img :src="demoShop.pic1"/></div>
             <div class="imgs">
-                <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
-                <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+                <div class="img"><img :src="demoShop.pic2"/></div>
+                <div class="img"><img :src="demoShop.pic3"/></div>
             </div>
-            <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+            <div class="img"><img :src="demoShop.pic4"/></div>
             <div class="imgs">
-                <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
-                <div class="img"><img src="~/assets/img/picture 1.jpg"/></div>
+                <div class="img"><img :src="demoShop.pic5"/></div>
+                <div class="img"><img :src="demoShop.pic6"/></div>
             </div>
         </div>
 
         <div class="shop-content-container">
             <div class="shop-content">
                 <p class="recommend"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p>
-                <h1>商家名稱</h1>
-                <p class='type'>類別</p>
-                <p class="description">簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介</p>
-                
+                 <h1> {{ demoShop.name  }} </h1>
+                <p class='type'>{{ demoShop.type }}</p>
+                <p class="description">{{ demoShop.remark }}</p>
+
             </div>
             <div class="shop-content">
-                <p><img src="~/assets/img/icon_time.svg"/>電話</p>
-                <p><img src="~/assets/img/icon_location.svg"/>地址地址地址</p>
-                <p><img src="~/assets/img/icon_phone.svg"/>0000000000</p>
-                <p><img src="~/assets/img/icon_website.svg"/><a href="#">連結</a></p>
+                <p><img src="~/assets/img/icon_time.svg"/>{{ demoShop.business_time }}</p>
+                <p><img src="~/assets/img/icon_location.svg"/>{{ demoShop.address }}</p>
+                <p><img src="~/assets/img/icon_phone.svg"/>{{ demoShop.phone }}</p>
+                <p><img src="~/assets/img/icon_website.svg"/><a href="#">{{ demoShop.url }}</a></p>
                 <p><img src="~/assets/img/icon_memo.svg"/>備註</p>
                 <no-ssr>
                     <gmap-map
@@ -56,7 +56,7 @@
                       />
                     </gmap-map>
                   </no-ssr>
-            </div> 
+            </div>
         </div>
     </div>
   </div>
@@ -93,7 +93,7 @@
         margin: 20px 0;
     }
     .img-container > .img{
-        flex: 2; 
+        flex: 2;
         margin-right: 5px;
     }
     .shop-container img{
@@ -136,7 +136,7 @@
   }
 
     .shop-content:nth-child(2) p{
-        display: flex; 
+        display: flex;
         align-items: center;
         margin-bottom: 20px;
     }
@@ -266,7 +266,30 @@ export default {
         {value: '', text: "南投市"},
         {value: '', text: "澎湖市"},
         {value: '', text: "金門市"},
-      ]
+      ],
+      // *************************** demo shop ***********************
+      demoShop: {
+        "address" : "台中市中區三民路二段18巷6號",
+        "business_time" : "請注意粉絲頁",
+        "latitude" : 24.1422103,
+        "longitude" : 120.6589805,
+        "name" : "測試2號店-素食-禾",
+        "phone" : "04-22211700",
+        "remark" : "第一個在台灣實踐剩食利用的經營空間，嘗試開放共食、堅持以社區付的起的價格，推動在地市場的剩食，在地消耗。他們透過明日餐桌計畫，推動社區廚房減少食材過度浪費的問題。被人類拋棄的醜蔬果及剩餘食材，在這裡變身為一道道新鮮健康佳餚，來吧，走進這裡享受盛食，體會食材的美味，實踐真正的飲食零浪費。",
+        "type" : "剩食冰箱",
+        "url" : "https://www.facebook.com/7upkitchen/",
+        "logo": 'https://i.imgur.com/OiSniLG.jpg',
+        "stack":  [ 'tag1_Unpackaged', 'tag2_ZeroWaste', 'tag3', 'tag4' ],
+        "pic_fb_ProfilePic": 'https://scontent.ftpe8-4.fna.fbcdn.net/v/t1.0-9/38703274_2210299285852330_4242230006752739328_n.jpg?_nc_cat=102&_nc_ht=scontent.ftpe8-4.fna&oh=b23e90ae18f480e01b246cc3a03c9ac3&oe=5D719456',
+        "pic0_main": 'https://i.imgur.com/AUmRdBD.jpg',
+        "pic1": 'https://i.imgur.com/nRpuru2.jpg',
+        "pic2": 'https://i.imgur.com/TDOSd3k.jpg',
+        "pic3": 'https://i.imgur.com/eKOQDbN.jpg',
+        "pic4": 'https://i.imgur.com/iNL9nVA.jpg',
+        "pic5": 'https://i.imgur.com/fpDMHnW.jpg',
+        "pic6": 'https://i.imgur.com/QyiD7pp.jpg',
+      },
+      // END *************************** demo shop ***********************
     }
   },
   computed: {
