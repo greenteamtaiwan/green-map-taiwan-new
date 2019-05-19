@@ -41,7 +41,7 @@ export const state = () => ({
           checked: false
         }
       ],
-      subTypes: [
+      subtypes: [
         [
           "素食"
         ],
