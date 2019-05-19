@@ -53,6 +53,7 @@ export default {
         setType (type) {
             this.$store.commit("setType", type);
             this.$store.dispatch("getShops");
+            $nuxt.$router.push('/');
         },
         checkIfIsSelected (item) {
             return +this.$store.state.type === +item.value;
