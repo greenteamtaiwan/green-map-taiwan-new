@@ -81,7 +81,7 @@ module.exports = {
     }
   },
   router: {
-    base: '/'
+    base: base
   },
   configureWebpack: config => { config.output.globalObject = "this"; }
 }
