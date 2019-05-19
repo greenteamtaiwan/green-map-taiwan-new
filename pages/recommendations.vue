@@ -103,7 +103,7 @@
     }
     .shop .img{
       cursor: pointer;
-      height: 200px;
+      height: 250px;
       overflow: hidden;
       position: relative;
     }
