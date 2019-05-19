@@ -228,7 +228,7 @@ export default {
     }
   },
   mounted: function() {
-
+    this.$store.dispatch("getShops");
   },
   methods: {
 

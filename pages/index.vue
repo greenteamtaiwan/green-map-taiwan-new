@@ -195,6 +195,7 @@ export default {
     }
   },
   mounted: function() {
+    this.$store.dispatch("getShops");
     this.$store.dispatch("getUserLocation");
   },
   methods: {
