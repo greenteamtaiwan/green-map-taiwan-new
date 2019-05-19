@@ -3,15 +3,15 @@
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class='shop-container'>
         <div class='img-container'>
-            <div class="img"><img :src="demoShop.pic1"/></div>
+            <div class="img"><img :src="demoShop.photo1"/></div>
             <div class="imgs">
-                <div class="img"><img :src="demoShop.pic2"/></div>
-                <div class="img"><img :src="demoShop.pic3"/></div>
+                <div class="img"><img :src="demoShop.photo2"/></div>
+                <div class="img"><img :src="demoShop.photo3"/></div>
             </div>
-            <div class="img"><img :src="demoShop.pic4"/></div>
+            <div class="img"><img :src="demoShop.photo4"/></div>
             <div class="imgs">
-                <div class="img"><img :src="demoShop.pic5"/></div>
-                <div class="img"><img :src="demoShop.pic6"/></div>
+                <div class="img"><img :src="demoShop.photo5"/></div>
+                <div class="img"><img :src="demoShop.photo6"/></div>
             </div>
         </div>
 
@@ -20,7 +20,7 @@
                 <p class="recommend"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p>
                  <h1> {{ demoShop.name  }} </h1>
                 <p class='type'>{{ demoShop.type }}</p>
-                <p class="description">{{ demoShop.remark }}</p>
+                <p class="description">{{ demoShop.description }}</p>
 
             </div>
             <div class="shop-content">
@@ -28,7 +28,7 @@
                 <p><img src="~/assets/img/icon_location.svg"/>{{ demoShop.address }}</p>
                 <p><img src="~/assets/img/icon_phone.svg"/>{{ demoShop.phone }}</p>
                 <p><img src="~/assets/img/icon_website.svg"/><a href="#">{{ demoShop.url }}</a></p>
-                <p><img src="~/assets/img/icon_memo.svg"/>備註</p>
+                <p><img src="~/assets/img/icon_memo.svg"/>備註：子類別：{{ subTypes[demoShop.shop_type][demoShop.sub_shop_type] }}/位於{{ cities[demoShop.city].text }} /類別：{{ items[demoShop.shop_type].text }} </p>
                 <no-ssr>
                     <gmap-map
                       :center="center"
@@ -212,82 +212,101 @@ export default {
       drawer: true,
       items: [
         {
-          value: null,
-          icon: null,
-          type: null,
-          text: '所有分類',
-          checked: true
+            value: null,
+            text: '所有分類',
+            checked: true
         },
         {
-          value: 1,
-          icon: food_share,
-          type: 'food_share',
-          text: '食物分享櫃',
-          checked: true
+            value: 1,
+            text: '素食',
+            checked: true
         },
         {
-          value: 2,
-          icon: free_shop,
-          type: 'free_shop',
-          text: '免費商店',
-          checked: false
+            value: 2,
+            text: '二手市集/商店',
+            checked: true
         },
         {
-          value: 2,
-          icon: thrift_shop,
-          type: 'thrift_shop',
-          text: '二手商店',
-          checked: false
+            value: 3,
+            text: '免費市集/商店',
+            checked: true
         },
         {
-          value: 2,
-          icon: vegetarian_shop,
-          type: 'vegetarian_shop',
-          text: '素食店',
-          checked: false
+            value: 4,
+            text: '享食冰箱',
+            checked: true
+        },
+        {
+            value: 5,
+            text: '食物銀行',
+            checked: true
         }
       ],
       cities: [
         {value: '1', text: "台北市"},
-        {value: '', text: "桃園市"},
-        {value: '', text: "新竹市"},
-        {value: '', text: "苗栗市"},
-        {value: '', text: "台中市"},
-        {value: '', text: "彰化市"},
-        {value: '', text: "雲林市"},
-        {value: '', text: "嘉義市"},
-        {value: '', text: "台南市"},
-        {value: '', text: "高雄市"},
-        {value: '', text: "屏東市"},
-        {value: '', text: "台東市"},
-        {value: '', text: "花蓮市"},
-        {value: '', text: "宜蘭市"},
-        {value: '', text: "基隆市"},
-        {value: '', text: "南投市"},
-        {value: '', text: "澎湖市"},
-        {value: '', text: "金門市"},
+        {value: '2', text: "桃園市"},
+        {value: '3', text: "新竹市"},
+        {value: '4', text: "苗栗市"},
+        {value: '5', text: "台中市"},
+        {value: '6', text: "彰化市"},
+        {value: '7', text: "雲林市"},
+        {value: '8', text: "嘉義市"},
+        {value: '9', text: "台南市"},
+        {value: '10', text: "高雄市"},
+        {value: '11', text: "屏東市"},
+        {value: '12', text: "台東市"},
+        {value: '13', text: "花蓮市"},
+        {value: '14', text: "宜蘭市"},
+        {value: '15', text: "基隆市"},
+        {value: '16', text: "南投市"},
+        {value: '17', text: "澎湖市"},
+        {value: '18', text: "金門市"},
+      ],
+      subTypes: [
+        [
+            "素食"
+        ],
+        [
+            "二手商店",
+            "二手家具店",
+            "二手書店",
+            "二手電器行"
+        ],
+        [
+            "免費市集",
+            "免費商店"
+        ],
+        [
+            "享食冰箱"
+        ],
+        [
+            "食物銀行"
+        ]
       ],
       // *************************** demo shop ***********************
-      demoShop: {
-        "address" : "台中市中區三民路二段18巷6號",
-        "business_time" : "請注意粉絲頁",
-        "latitude" : 24.1422103,
-        "longitude" : 120.6589805,
-        "name" : "測試2號店-素食-禾",
-        "phone" : "04-22211700",
-        "remark" : "第一個在台灣實踐剩食利用的經營空間，嘗試開放共食、堅持以社區付的起的價格，推動在地市場的剩食，在地消耗。他們透過明日餐桌計畫，推動社區廚房減少食材過度浪費的問題。被人類拋棄的醜蔬果及剩餘食材，在這裡變身為一道道新鮮健康佳餚，來吧，走進這裡享受盛食，體會食材的美味，實踐真正的飲食零浪費。",
-        "type" : "剩食冰箱",
-        "url" : "https://www.facebook.com/7upkitchen/",
-        "logo": 'https://i.imgur.com/OiSniLG.jpg',
-        "stack":  [ 'tag1_Unpackaged', 'tag2_ZeroWaste', 'tag3', 'tag4' ],
-        "pic_fb_ProfilePic": 'https://scontent.ftpe8-4.fna.fbcdn.net/v/t1.0-9/38703274_2210299285852330_4242230006752739328_n.jpg?_nc_cat=102&_nc_ht=scontent.ftpe8-4.fna&oh=b23e90ae18f480e01b246cc3a03c9ac3&oe=5D719456',
-        "pic0_main": 'https://i.imgur.com/AUmRdBD.jpg',
-        "pic1": 'https://i.imgur.com/nRpuru2.jpg',
-        "pic2": 'https://i.imgur.com/TDOSd3k.jpg',
-        "pic3": 'https://i.imgur.com/eKOQDbN.jpg',
-        "pic4": 'https://i.imgur.com/iNL9nVA.jpg',
-        "pic5": 'https://i.imgur.com/fpDMHnW.jpg',
-        "pic6": 'https://i.imgur.com/QyiD7pp.jpg',
+       demoShop: {
+        is_recommended: true,
+        recommend_level: 1,
+        city: 0, // 對照city.js索引
+        address:"台北市大安區新生南路二段1號\r\n大安森林公園露天音樂台",
+        business_time:"週一9:00-20:00",
+        alt_bussiness_time: "每個雙月(日期會提前於粉專公告)",
+        latitude: 121.536231,
+        longitude: 25.025691,
+        name:"白象野曝",
+        phone:"02-2222-2222",
+        description:"白象野曝計畫是以分享為主題的野餐活動，在大安森林公園，每兩個月舉辦一次，透過交換或單純分享贈予，你我可以減少速食消費的現代問題。\r\n斷捨離讓我們學會過的知足簡單，而不再需要的東西可以為它找到延續的價值，就像帶來白象野曝，送給有需要的人，你也可能找到需要的二手物。\r\n「白象野曝」不是以物易物，而是所有的東西都是一個禮物，擁有者免費提供，讓有需要或喜歡的人可以帶走，讓分享的意義取代重複的浪費。",
+        shop_type: 3, // 對照types.js索引
+        sub_shop_type: 0, // 對照subTypes.js索引(如此案例為: subTypes[2][0])
+        url:"https://www.facebook.com/white.elephant.free/",
+        photo0: 'https://i.imgur.com/AUmRdBD.jpg',
+        photo1: 'https://i.imgur.com/nRpuru2.jpg',
+        photo2: 'https://i.imgur.com/TDOSd3k.jpg',
+        photo3: 'https://i.imgur.com/eKOQDbN.jpg',
+        photo4: 'https://i.imgur.com/iNL9nVA.jpg',
+        photo5: 'https://i.imgur.com/fpDMHnW.jpg',
+        photo6: 'https://i.imgur.com/QyiD7pp.jpg',
+        _tags: "二手市集, 免費市集"
       },
       // END *************************** demo shop ***********************
     }
