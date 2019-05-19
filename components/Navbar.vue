@@ -6,21 +6,24 @@
         <img src='../assets/img/GT logo.png' width="40px"/>
       </div>
     </nuxt-link>
-    <b-form inline class='sidebar-inline-form'>
+    <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
         <div class='navbar-middle'>
-          <b-form-select :value='1' :options="cities" class='cities-select'></b-form-select>
+          <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
           <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
         </div>
+        
+    </b-form>
+    <b-form inline @submit.stop.prevent @submit="search" id="search-container">
         <b-input-group class="search">
             <b-input-group-prepend>
-                <b-button class="search-button" disable="true">
+                <b-button class="search-button">
                     <img src="~/assets/img/icon_search.svg" height="19" width="19">
                 </b-button>
             </b-input-group-prepend>
-            <b-form-input placeholder= " 搜尋「裸賣」 " aria-label="Search"></b-form-input>
+            <b-form-input placeholder= " 搜尋「裸賣」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" :value="query"></b-form-input>
         </b-input-group>
     </b-form>
-    <SearchSidebar :show="false" :typeOptions="typeOptions" :style="{left: 'auto', right: 0, width: '300px'}"/>
+    <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions"/>
   </nav>
 </template>
 
@@ -97,20 +100,56 @@
 
 <script>
 import SearchSidebar from '~/components/SearchSidebar.vue'
+import { mapMutations } from 'vuex'
 
 export default {
+  data() {
+    return {
+      showSearchSidebar: false
+    }
+  },
+  mounted(){
+    window.addEventListener('click', this.closeSearchSidebar);
+  },
   components: {
     SearchSidebar
   },
-  props:{
-      typeOptions: {
-          type: Array,
-          default: []
-      },
-      cities: {
-          type: Array,
-          default: []
+  computed: {
+    typeOptions () {
+      return this.$store.state.sourceData.types.filter(option=>(option.checked));
+    },
+    cities () {
+      return this.$store.state.sourceData.cities
+    },
+    query () {
+      return this.$store.state.query;
+    },
+    city () {
+      return this.$store.state.city;
+    }
+  },
+  methods: {
+    search (e){
+      const query = e.target.elements["query"].value;
+      
+      this.$store.commit("setQuery", query);
+      this.$store.dispatch("getShops");
+      $nuxt.$router.push('/');
+    },
+    setCity (city){
+      this.$store.dispatch("setCityAndCenter", city);
+      this.$store.dispatch("getShops");
+      $nuxt.$router.push('/');
+    },
+    setShowSearchSidebar (showSearchSidebar){
+      this.showSearchSidebar = showSearchSidebar;
+    },
+    closeSearchSidebar (e){
+      if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#search-container").contains(e.target)){
+          console.log("close");
+          this.showSearchSidebar = false;
       }
+    }
   }
 }
 </script>

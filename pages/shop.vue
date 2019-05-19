@@ -17,24 +17,26 @@
 
         <div class="shop-content-container">
             <div class="shop-content">
-                <p class="recommend"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p>
-                <h1>商家名稱</h1>
-                <p class='type'>類別</p>
-                <p class="description">簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介</p>
+                <div class="recommend-container"><p class="recommend" v-if="shop.isreCommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
+                <h1>{{shop.name}}</h1>
+                <p class='type'>推薦</p>
+                <p class="description">{{shop.remark}}</p>
                 
             </div>
             <div class="shop-content">
-                <p><img src="~/assets/img/icon_time.svg"/>電話</p>
-                <p><img src="~/assets/img/icon_location.svg"/>地址地址地址</p>
-                <p><img src="~/assets/img/icon_phone.svg"/>0000000000</p>
-                <p><img src="~/assets/img/icon_website.svg"/><a href="#">連結</a></p>
-                <p><img src="~/assets/img/icon_memo.svg"/>備註</p>
+                <div style="width: calc(100% - 220px); marginRight: 20px;">
+                  <p v-if="shop.phone"><img src="~/assets/img/icon_time.svg"/>{{shop.phone}}</p>
+                  <p v-if="shop.address"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</p>
+                  <p v-if="shop.phone"><img src="~/assets/img/icon_phone.svg"/><a :href="`tel:${shop.phone}`">{{shop.phone}}</a></p>
+                  <p v-if="shop.url"><img src="~/assets/img/icon_website.svg"/><a :href="shop.url" target="_blank" rel="nofollow">{{shop.url}}</a></p>
+                </div>
+                <div style="width: 200px; position: relative;">
                 <no-ssr>
                     <gmap-map
-                      :center="center"
-                      :zoom="zoomLevel"
+                      :center="{lat: shop.latitude, lng: shop.longitude}"
+                      :zoom="13"
                       map-type-id="roadmap"
-                      style="width: 200px; height: 200px; position: absolute; right: 0; bottom: 0; margin: 10px;"
+                      style="width: 200px; height: 200px; position: absolute; right: 0; bottom: 0;"
                        :options="{
                         zoomControl: false,
                         mapTypeControl: false,
@@ -47,15 +49,13 @@
                     >
                       <gmap-marker
                         :key="index"
-                        v-for="(node, index) in nodes"
-                        v-show="visiableItemArray.includes(node.type)"
-                        :position="{lat: node.latitude, lng: node.longitude}"
+                        :position="{lat: shop.latitude, lng: shop.longitude}"
                         :clickable="true"
                         :draggable="false"
-                        @click="markerClick(node)"
                       />
                     </gmap-map>
                   </no-ssr>
+              </div>
             </div> 
         </div>
     </div>
@@ -112,9 +112,13 @@
         flex: 1;
         align-items: stretch;
         position: relative;
+        min-height: 240px;
     }
     .shop-content:nth-child(1){
         margin-right: 20px;
+    }
+    .shop-content:nth-child(2){
+        display: flex;
     }
     .type{
         border-bottom: solid 1px lightgray;
@@ -122,6 +126,9 @@
         padding-bottom: 20px;
         color: lightgray;
         font-size: 14px;
+    }
+    .recommend-container{
+      min-height: 24px;
     }
       p.recommend {
       color:#EE5593;
@@ -137,13 +144,13 @@
 
     .shop-content:nth-child(2) p{
         display: flex; 
-        align-items: center;
         margin-bottom: 20px;
     }
 
   .shop-content:nth-child(2) img{
       width: 20px;
       margin-right: 20px;
+      margin-top: 4px;
   }
 </style>
 
@@ -174,163 +181,23 @@ if (!firebase.apps.length) {
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo,
-    Navbar,
-    ShopList
+    Navbar
   },
   data() {
     return {
-      hideSidebar: true,
-      infoWindow: {
-        options: {
-          pixelOffset: {
-            width: 0,
-            height: -35
-          }
-        },
-        positions: { lat: 23.41322, lng: 121.219482 },
-        isOpen: false,
-        node: {}
-      },
-      showModal: false,
-      infowindowOptions: {
-        pixelOffset: {
-          width: 0,
-          height: -35
-        }
-      },
-      dialog: true,
-      show: false,
-      center: { lat: 23.41322, lng: 121.219482 },
-      zoomLevel: 13,
-      markerOptions: {
-        opacity: 0.5
-      },
-      rawNodes: [],
-      // for header
-      drawer: true,
-      items: [
-        {
-          value: null,
-          icon: null,
-          type: null,
-          text: '所有分類',
-          checked: true
-        },
-        {
-          value: 1,
-          icon: food_share,
-          type: 'food_share',
-          text: '食物分享櫃',
-          checked: true
-        },
-        {
-          value: 2,
-          icon: free_shop,
-          type: 'free_shop',
-          text: '免費商店',
-          checked: false
-        },
-        {
-          value: 2,
-          icon: thrift_shop,
-          type: 'thrift_shop',
-          text: '二手商店',
-          checked: false
-        },
-        {
-          value: 2,
-          icon: vegetarian_shop,
-          type: 'vegetarian_shop',
-          text: '素食店',
-          checked: false
-        }
-      ],
-      cities: [
-        {value: '1', text: "台北市"},
-        {value: '', text: "桃園市"},
-        {value: '', text: "新竹市"},
-        {value: '', text: "苗栗市"},
-        {value: '', text: "台中市"},
-        {value: '', text: "彰化市"},
-        {value: '', text: "雲林市"},
-        {value: '', text: "嘉義市"},
-        {value: '', text: "台南市"},
-        {value: '', text: "高雄市"},
-        {value: '', text: "屏東市"},
-        {value: '', text: "台東市"},
-        {value: '', text: "花蓮市"},
-        {value: '', text: "宜蘭市"},
-        {value: '', text: "基隆市"},
-        {value: '', text: "南投市"},
-        {value: '', text: "澎湖市"},
-        {value: '', text: "金門市"},
-      ]
+
     }
   },
   computed: {
-    visiableItemArray: function() {
-      let map = []
-      for (let index in this.items) {
-        let item = this.items[index]
-        if (item.checked) {
-          map.push(item.type)
-        }
-      }
-      return map
-    },
-    nodes: function() {
-      let nodes = []
-      for (let index in this.rawNodes) {
-        let rawNode = this.rawNodes[index]
-        if (this.visiableItemArray.includes(rawNode.type)) {
-          nodes.push(rawNode)
-        }
-      }
-
-      return nodes
+    shop: function() {
+      return this.$store.state.shop;
     }
   },
   mounted: function() {
-    firebase
-      .database()
-      .ref('nodes')
-      .once('value')
-      .then(snapshot => {
-        const data = snapshot.val();
 
-        console.log(data);
-
-        this.rawNodes = data;
-        this.center = {
-          lat: data[0].latitude,
-          lng: data[0].longitude
-        }
-      })
   },
   methods: {
-    mapClick: function(event) {
-      console.log(this.$refs.myMap.mapObject._zoom)
-      if (this.$refs.myMap.mapObject._zoom < 15) {
-        alert('需要再縮小')
-      }
-    },
-    markerClick: function(node) {
-      this.center = { lat: node.latitude, lng: node.longitude }
-      this.infoWindow = {
-        options: this.infowindowOptions,
-        positions: { lat: node.latitude, lng: node.longitude },
-        isOpen: true,
-        node: node
-      }
-    },
-    markerOver: function(event) {
-      event.sourceTarget.setOpacity(1.0)
-    },
-    markerOut: function(event) {
-      event.sourceTarget.setOpacity(0.5)
-    }
+
   }
 }
 </script>

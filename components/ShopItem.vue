@@ -1,18 +1,14 @@
 <template>
-        <b-container>
+        <b-container class="shopItem-container" @click="setShop">
             <b-row>
                 <b-col lg='5' class='shopItem-main'>
-                    <nuxt-link to="/shop">
-                        <img src="~/assets/img/picture 1.jpg">
-                    </nuxt-link>
+                    <img src="~/assets/img/picture 1.jpg">
                 </b-col>
                 <b-col lg='7' class='shopItem-aside'>
-                    <p class="recommend"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p>
-                    <nuxt-link to="/shop">
-                        <h3>商家名稱</h3>
-                    </nuxt-link>
-                    <p class='type'>類別 ‧ <span class="running-status">營業中</span></p>
-                    <p class="description">簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介</p> 
+                    <div class="recommend-container"><p class="recommend" v-if="shop.isRecommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
+                    <h3  v-line-clamp:20="1">{{shop.name}}</h3>
+                    <p class='type'>{{types[shop.type]}} ‧ <span class="running-status">營業中</span></p>
+                    <p class="description" v-line-clamp:20="2">{{shop.remark}}</p> 
                 </b-col>
             </b-row>
         </b-container>
@@ -20,9 +16,14 @@
 </template>
 
 <style scoped>
-    .container{
+    .shopItem-container{
         padding: 0;
         margin: 20px 0;        
+        cursor: pointer;
+    }
+
+    .shopItem-container:hover h3{
+        color: #44AD47;
     }
     
     .row{
@@ -55,6 +56,9 @@
         margin-bottom: 5px;
     }
 
+    .recommend-container{
+        min-height: 21px;
+    }
     .recommend{
         justify-content: flex-end;
     }
@@ -66,8 +70,33 @@
         font-size: 14px;
     }
 
+    .description {
+        min-height: 2rem;
+    }
+
     .running-status{
         color: #44AD47;
     }
 </style>
 
+<script>
+export default {
+    computed: {
+        types: function (){
+            return this.$store.state.sourceData.types;
+        }
+    },
+    props:{
+        shop: {
+            type: Object,
+            default: {}
+        }
+    },
+    methods:{
+        setShop: function() {
+            this.$store.commit("setShop", this.shop);
+            $nuxt.$router.push('/shop');
+        }
+    }
+}
+</script>

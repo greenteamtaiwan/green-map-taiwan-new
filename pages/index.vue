@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Navbar :cities="cities" :typeOptions="items"/>
+    <Navbar/>
     <b-container class='map-container'>
-      <ShopList  />
+      <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList"/>
       <b-row>  
         <b-col lg='12' class='map'>
           <no-ssr>
@@ -14,24 +14,26 @@
             >
               <gmap-marker
                 :key="index"
-                v-for="(node, index) in nodes"
-                v-show="visiableItemArray.includes(node.type)"
-                :position="{lat: node.latitude, lng: node.longitude}"
+                v-for="(shop, index) in shops"
+                v-show="visiableItemArray.includes(shop.type)"
+                :position="{lat: shop.latitude, lng: shop.longitude}"
                 :clickable="true"
                 :draggable="false"
-                @click="markerClick(node)"
+                :icon="{url: getIcon, scaledSize: {width: 45, height: 45} }"
+                @click="markerClick(shop, index)"
               />
               <gmap-info-window
-                :options="infoWindow.options"
-                :position="infoWindow.positions"
-                :opened="infoWindow.isOpen"
-                @closeclick="infoWindow.isOpen=false"
+                :options="{pixelOffset: {width: 0,height: -35}}"
+                
+                :opened="this.$store.state.shop !== null && Object.getOwnPropertyNames(this.$store.state.shop).length > 1"
+                :position="{lat: this.$store.state.shop.latitude || 0, lng: this.$store.state.shop.longitude || 0}"
+                @closeclick=""
                 style="width: 100px;"
               >
-                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <div class="info-window-container"  @click="setShop">
                   <img src="~/assets/img/picture 1.jpg" width="110px" height="80px">
-                  <div style="padding: 10px;">
-                    <h1>{{infoWindow.node.name}}</h1>
+                  <div style="padding: 10px; min-width: 150px;">
+                    <h1>{{this.$store.state.shop.name}}</h1>
                     <br/>
                     <p style="margin-top: 10px;font-size: 14px;">
                       類別
@@ -129,6 +131,16 @@
     font-size: 13px;
   }
 
+  .info-window-container{
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 5px;
+    cursor: pointer;
+  }
+  .info-window-container:hover h1{
+    color: #44AD47;
+  }
+
   .gmap-info-window-arrow{
     transform: rotate(-90deg)
   }
@@ -144,188 +156,72 @@
 </style>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-import * as firebase from 'firebase'
 import { defaultCoreCipherList } from 'constants'
 import Navbar from '~/components/Navbar.vue'
 import ShopList from '~/components/ShopList.vue'
-import food_share from '~/assets/img/icon_food_share.svg';
-import free_shop from '~/assets/img/icon_free_shop.svg';
-import thrift_shop from '~/assets/img/icon_thrift_shop.svg';
-import vegetarian_shop from '~/assets/img/icon_tag_vegetarian_shop.svg';
-
-const config = {
-  apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
-  authDomain: 'greenmaptaiwan.firebaseapp.com',
-  databaseURL: 'https://greenmaptaiwan.firebaseio.com',
-  projectId: 'greenmaptaiwan',
-  storageBucket: 'greenmaptaiwan.appspot.com',
-  messagingSenderId: '395267289672'
-}
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(config)
-}
+import markerIcon from '~/assets/img/icon_location.svg';
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo,
     Navbar,
     ShopList
   },
   data() {
     return {
-      hideSidebar: true,
-      infoWindow: {
-        options: {
-          pixelOffset: {
-            width: 0,
-            height: -35
-          }
-        },
-        positions: { lat: 23.41322, lng: 121.219482 },
-        isOpen: false,
-        node: {}
-      },
-      showModal: false,
-      infowindowOptions: {
-        pixelOffset: {
-          width: 0,
-          height: -35
-        }
-      },
-      dialog: true,
-      show: false,
-      center: { lat: 23.41322, lng: 121.219482 },
-      zoomLevel: 9,
-      markerOptions: {
-        opacity: 0.5
-      },
-      rawNodes: [],
-      // for header
-      drawer: true,
-      items: [
-        {
-          value: null,
-          icon: null,
-          type: null,
-          text: '所有分類',
-          checked: true
-        },
-        {
-          value: 1,
-          icon: food_share,
-          type: 'food_share',
-          text: '食物分享櫃',
-          checked: true
-        },
-        {
-          value: 2,
-          icon: free_shop,
-          type: 'free_shop',
-          text: '免費商店',
-          checked: true
-        },
-        {
-          value: 2,
-          icon: thrift_shop,
-          type: 'thrift_shop',
-          text: '二手商店',
-          checked: true
-        },
-        {
-          value: 2,
-          icon: vegetarian_shop,
-          type: 'vegetarian_shop',
-          text: '素食店',
-          checked: true
-        }
-      ],
-      cities: [
-        {value: '1', text: "台北市"},
-        {value: '', text: "桃園市"},
-        {value: '', text: "新竹市"},
-        {value: '', text: "苗栗市"},
-        {value: '', text: "台中市"},
-        {value: '', text: "彰化市"},
-        {value: '', text: "雲林市"},
-        {value: '', text: "嘉義市"},
-        {value: '', text: "台南市"},
-        {value: '', text: "高雄市"},
-        {value: '', text: "屏東市"},
-        {value: '', text: "台東市"},
-        {value: '', text: "花蓮市"},
-        {value: '', text: "宜蘭市"},
-        {value: '', text: "基隆市"},
-        {value: '', text: "南投市"},
-        {value: '', text: "澎湖市"},
-        {value: '', text: "金門市"},
-      ]
+      showShopList: true,
+      zoomLevel: 9
     }
   },
   computed: {
     visiableItemArray: function() {
       let map = []
-      for (let index in this.items) {
-        let item = this.items[index]
+      for (let index in this.$store.state.sourceData.types) {
+        let item = this.$store.state.sourceData.types[index]
         if (item.checked) {
           map.push(item.type)
         }
       }
       return map
     },
-    nodes: function() {
-      let nodes = []
-      for (let index in this.rawNodes) {
-        let rawNode = this.rawNodes[index]
-        if (this.visiableItemArray.includes(rawNode.type)) {
-          nodes.push(rawNode)
-        }
-      }
-
-      return nodes
+    shops: function() {
+      return this.$store.state.shops;
+    },
+    getIcon: function() {
+      return markerIcon;
+    },
+    center: function() {
+      return this.$store.state.center;
     }
   },
   mounted: function() {
-    firebase
-      .database()
-      .ref('nodes')
-      .once('value')
-      .then(snapshot => {
-        const data = snapshot.val();
-
-        console.log(data);
-
-        this.rawNodes = data;
-        this.center = {
-          lat: data[0].latitude,
-          lng: data[0].longitude
-        }
-      })
+    this.$store.dispatch("getUserLocation");
   },
   methods: {
     mapClick: function(event) {
-      console.log(this.$refs.myMap.mapObject._zoom)
+      // console.log(this.$refs.myMap.mapObject._zoom)
       if (this.$refs.myMap.mapObject._zoom < 15) {
         alert('需要再縮小')
       }
     },
-    markerClick: function(node) {
-      this.center = { lat: node.latitude, lng: node.longitude }
-      this.infoWindow = {
-        options: this.infowindowOptions,
-        positions: { lat: node.latitude, lng: node.longitude },
-        isOpen: true,
-        node: node
-      }
+    markerClick: function(shop, index) {
+      this.$store.commit("setCenter", { lat: shop.latitude, lng: shop.longitude });
+      this.$store.commit("markerOnClick", index);
+      this.$store.commit("setShop", shop);
     },
     markerOver: function(event) {
       event.sourceTarget.setOpacity(1.0)
     },
     markerOut: function(event) {
       event.sourceTarget.setOpacity(0.5)
+    },
+    toggleShopList: function() {
+      console.log('toggle');
+      this.showShopList = !this.showShopList;
+    },
+    setShop: function() {
+        this.$store.commit("setShop", this.$store.state.shop);
+        $nuxt.$router.push('/shop');
     }
   }
 }

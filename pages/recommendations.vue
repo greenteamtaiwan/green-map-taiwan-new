@@ -6,56 +6,40 @@
             <p>城市熱搜</p> 
             <ul class="tags">
                   <li v-for="(item, index) in tags">
-                    <nuxt-link to="/">
                         <img :src="item.icon"/>
                         <p>{{ item.name }}</p>
-                      </nuxt-link>
                   </li>
             </ul>
         </div>
-        <div class="first-shop">
+        <div class="first-shop shop">
             <div class="shop-content">
                 <p class="story-title"><span>● 綠點故事</span></p>
-                <nuxt-link to="/shop"><h2>商店名稱</h2></nuxt-link>
+                <h2 @click="setShop(firstShop)">{{firstShop.name}}</h2>
                 <p>
-                    簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介簡介
+                    {{firstShop.remark}}
                 </p>
-                <nuxt-link to="/shop">
+                
                   <p class="read-more">
-                    <span>閱讀更多</span>
+                    <span  @click="setShop(firstShop)">閱讀更多</span>
                     <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0" y="0" width="16" height="16" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;" xml:space="preserve" preserveAspectRatio="xMinYMin meet"><g><g>
                       <path class="active-path" d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751   c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0   c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z" data-original="#000000" data-old_color="#000000" />
                     </g></g> </svg>
                   </p>  
-                </nuxt-link>
+                
             </div>
-            <div class="img">
-              <nuxt-link to="/shop"><img src="~/assets/img/picture 1.jpg"/></nuxt-link>
+            <div class="img"  @click="setShop(firstShop)">
+              <img src="~/assets/img/picture 1.jpg"/>
               
             </div>
             
         </div>
 
         <div class="shops">
-            <div class="shop">
-                <nuxt-link to="/shop"><img src="~/assets/img/picture 1.jpg"/></nuxt-link>
+            <div class="shop" v-for="(shop, index) in this.$store.state.shops.slice(1, 4)" >
+                <img src="~/assets/img/picture 1.jpg" @click="setShop(shop)"/>
                 <div class="shop-content">
                     <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
-                    <nuxt-link to="/shop"><h2>商店名稱</h2></nuxt-link>
-                </div>
-            </div>
-            <div class="shop">
-                <nuxt-link to="/shop"><img src="~/assets/img/picture 1.jpg"/></nuxt-link>
-                <div class="shop-content">
-                    <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
-                    <nuxt-link to="/shop"><h2>商店名稱</h2></nuxt-link>
-                </div>
-            </div>
-            <div class="shop">
-                <nuxt-link to="/shop"><img src="~/assets/img/picture 1.jpg"/></nuxt-link>
-                <div class="shop-content">
-                    <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
-                    <nuxt-link to="/shop"><h2>商店名稱</h2></nuxt-link>
+                    <h2 @click="setShop(shop)">{{shop.name}}</h2>
                 </div>
             </div>
         </div>
@@ -107,6 +91,18 @@
         align-self: center;
     }
 
+    .shop{
+        width: calc(calc( 100% - 40px) / 3)
+    }
+
+    .shop h2:hover, .shop .read-more:hover{
+      color: #44AD47;
+      cursor: pointer;
+    }
+    .shop img{
+      cursor: pointer
+    }
+
     .first-shop{
         display: flex;
         flex-direction: row;
@@ -151,10 +147,6 @@
     .shops{
         display: flex;
         justify-content: space-between;
-    }
-
-    .shop{
-        width: calc(calc( 100% - 40px) / 3)
     }
 
     .story-title{
@@ -209,97 +201,7 @@ export default {
   },
   data() {
     return {
-      hideSidebar: true,
-      infoWindow: {
-        options: {
-          pixelOffset: {
-            width: 0,
-            height: -35
-          }
-        },
-        positions: { lat: 23.41322, lng: 121.219482 },
-        isOpen: false,
-        node: {}
-      },
-      showModal: false,
-      infowindowOptions: {
-        pixelOffset: {
-          width: 0,
-          height: -35
-        }
-      },
-      dialog: true,
-      show: false,
-      center: { lat: 23.41322, lng: 121.219482 },
-      zoomLevel: 9,
-      markerOptions: {
-        opacity: 0.5
-      },
-      rawNodes: [],
-      // for header
-      drawer: true,
-      items: [
-        {
-          value: null,
-          icon: null,
-          type: null,
-          text: '所有分類',
-          checked: true
-        },
-        {
-          value: 1,
-          icon: food_share,
-          type: 'food_share',
-          text: '食物分享櫃',
-          checked: true
-        },
-        {
-          value: 2,
-          icon: free_shop,
-          type: 'free_shop',
-          text: '免費商店',
-          checked: false
-        },
-        {
-          value: 2,
-          icon: thrift_shop,
-          type: 'thrift_shop',
-          text: '二手商店',
-          checked: false
-        },
-        {
-          value: 2,
-          icon: vegetarian_shop,
-          type: 'vegetarian_shop',
-          text: '素食店',
-          checked: false
-        }
-      ],
-      cities: [
-        {value: '1', text: "台北市"},
-        {value: '', text: "桃園市"},
-        {value: '', text: "新竹市"},
-        {value: '', text: "苗栗市"},
-        {value: '', text: "台中市"},
-        {value: '', text: "彰化市"},
-        {value: '', text: "雲林市"},
-        {value: '', text: "嘉義市"},
-        {value: '', text: "台南市"},
-        {value: '', text: "高雄市"},
-        {value: '', text: "屏東市"},
-        {value: '', text: "台東市"},
-        {value: '', text: "花蓮市"},
-        {value: '', text: "宜蘭市"},
-        {value: '', text: "基隆市"},
-        {value: '', text: "南投市"},
-        {value: '', text: "澎湖市"},
-        {value: '', text: "金門市"},
-      ],
       tags: [
-        // {
-        //   name: '愛心冰箱',
-        //   icon: ''
-        // },
         {
           name: '不塑',
           icon: non_plastic
@@ -312,10 +214,6 @@ export default {
           name: '零廢棄',
           icon: zero_waste
         },
-        // {
-        //   name: '二手商店',
-        //   icon: thrift_shop
-        // },
         {
           name: '環保商店',
           icon: recycling_shop
@@ -327,71 +225,22 @@ export default {
         {
           name: '無包裝商店',
           icon: shop_naked
-        },
-        // {
-        //   name: '環保商品',
-        //   icon: ''
-        // },
-        // {
-        //   name: '剩食餐廳',
-        //   icon: ''
-        // }
+        }
       ]
     }
   },
   computed: {
-    visiableItemArray: function() {
-      let map = []
-      for (let index in this.items) {
-        let item = this.items[index]
-        if (item.checked) {
-          map.push(item.type)
-        }
-      }
-      return map
-    },
-    nodes: function() {
-      let nodes = []
-      for (let index in this.rawNodes) {
-        let rawNode = this.rawNodes[index]
-        if (this.visiableItemArray.includes(rawNode.type)) {
-          nodes.push(rawNode)
-        }
-      }
-
-      return nodes
+    firstShop: function() {
+      return this.$store.state.shops[0];
     }
   },
   mounted: function() {
-    firebase
-      .database()
-      .ref('nodes')
-      .once('value')
-      .then(snapshot => {
-        this.rawNodes = snapshot.val()
-      })
+
   },
   methods: {
-    mapClick: function(event) {
-      console.log(this.$refs.myMap.mapObject._zoom)
-      if (this.$refs.myMap.mapObject._zoom < 15) {
-        alert('需要再縮小')
-      }
-    },
-    markerClick: function(node) {
-      this.center = { lat: node.latitude, lng: node.longitude }
-      this.infoWindow = {
-        options: this.infowindowOptions,
-        positions: { lat: node.latitude, lng: node.longitude },
-        isOpen: true,
-        node: node
-      }
-    },
-    markerOver: function(event) {
-      event.sourceTarget.setOpacity(1.0)
-    },
-    markerOut: function(event) {
-      event.sourceTarget.setOpacity(0.5)
+    setShop: function(shop) {
+        this.$store.commit("setShop", shop);
+        $nuxt.$router.push('/shop');
     }
   }
 }

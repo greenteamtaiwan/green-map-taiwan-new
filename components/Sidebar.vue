@@ -1,6 +1,6 @@
 <template>
-    <div class='sidebar' :class="{'show-sidebar': show}" style="style">
-        <button class='close-sidebar-button' :class="{'showCloseSidebarButton': showCloseSidebarButton}" :click="onCloseButtonClick">◂</button>
+    <div class='sidebar' :class="{'show-sidebar': show, 'is-right': isRight}" style="style" :id="id">
+        <button class='close-sidebar-button' :class="{'showCloseSidebarButton': showCloseSidebarButton}" @click="onCloseButtonClick">◂</button>
         <div class='content'>
             <slot name="content"></slot>
         </div>
@@ -9,9 +9,9 @@
 
 <style>
     .sidebar.show-sidebar{
-        left: 0;
-        display: block;
+        transform: translateX(0);
     }
+
     .close-sidebar-button{
         z-index: 3;
         position: absolute;
@@ -32,16 +32,17 @@
         background-color: #f3f4f5;
         padding: 0;
         position: fixed;
-        display: none;
         top: 60px;
-        left: -100%;
+        left: 0;
+        transform: translateX(-100%);
         z-index: 1;    
-        transition: left 1s;
+        transition: transform 0.5s;
     }
 
-    .isRight {
+    .is-right {
         left: auto;
         right: 0;
+        transform: translateX(100%);
     }
 
     .content{
@@ -66,6 +67,10 @@ export default {
         type: Boolean,
         default: true
     },
+    isRight: {
+        type: Boolean,
+        default: false
+    },
     showCloseSidebarButton: {
         type: Boolean,
         default: false
@@ -75,6 +80,10 @@ export default {
         default: ()=>{}
     },
     style: {
+        type: String,
+        default: ''
+    },
+    id: {
         type: String,
         default: ''
     }

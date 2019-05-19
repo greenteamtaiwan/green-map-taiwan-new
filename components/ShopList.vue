@@ -1,11 +1,7 @@
 <template>
-    <Sidebar :click="onCloseButtonClick" showCloseSidebarButton="true">
+    <Sidebar :show="show" :onCloseButtonClick="onCloseButtonClick" :showCloseSidebarButton="true">
         <ul class="shopList" slot="content">
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
-            <ShopItem/>
+            <ShopItem v-for="(shop, index) in shops" :shop="shop" />
         </ul>
     </Sidebar>
 </template>
@@ -36,9 +32,17 @@ export default {
         Sidebar
     },
     props:{
+        show: {
+            type: Boolean,
+            default: true
+        },
         onCloseButtonClick: {
             type: Function,
             default: ()=>{}
+        },
+        shops: {
+            type: Array,
+            default: []
         }
     }
 }

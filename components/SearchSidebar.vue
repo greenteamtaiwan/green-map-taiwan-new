@@ -1,10 +1,10 @@
 <template>
-    <Sidebar :show="show">
-        <div slot="content">
+    <Sidebar :show="show" :isRight="true" style="width: 300px;" :id="'search-sidebar'">
+        <div slot="content" >
             
             <ul>
                 <hr/>   
-                <li v-for="(item, index) in typeOptions">
+                <li v-for="(item, index) in typeOptions" @click="setType(item.value)" :class="{'selected-type': checkIfIsSelected(item)}">
                     <img :src="item.icon"/>
                     {{ item.text }}
                 </li>
@@ -18,6 +18,12 @@
     img{
         width: 50px;
         margin: 5px 10px;
+    }
+    li{
+        cursor: pointer;
+    }
+    .selected-type, li:hover{
+        color: #44AD47;
     }
 </style>
 
@@ -39,6 +45,18 @@ export default {
           type: Boolean,
           default: false
       }
+    },
+    computed: {
+        
+    },
+    methods: {
+        setType (type) {
+            this.$store.commit("setType", type);
+            this.$store.dispatch("getShops");
+        },
+        checkIfIsSelected (item) {
+            return +this.$store.state.type === +item.value;
+        }
     }
 }
 </script>

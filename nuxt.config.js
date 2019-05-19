@@ -41,8 +41,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify',
-    { src: '~plugins/leaflet.js', ssr: false }
+    // '@/plugins/vuetify',
+    { src: '~plugins/leaflet.js', ssr: false },
+    { src: '~plugins/vueLineClamp', ssr: false }
   ],
 
   /*
@@ -64,8 +65,8 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    transpile: ['vuetify/lib'],
-    plugins: [new VuetifyLoaderPlugin()],
+    // transpile: ['vue-line-clamp'],
+    // plugins: [new VuetifyLoaderPlugin()],
     loaders: {
       stylus: {
         import: ["~assets/style/variables.styl"]
@@ -80,6 +81,7 @@ module.exports = {
     }
   },
   router: {
-    base: base
-  }
+    base: '/'
+  },
+  configureWebpack: config => { config.output.globalObject = "this"; }
 }
