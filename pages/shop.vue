@@ -17,19 +17,20 @@
 
         <div class="shop-content-container">
             <div class="shop-content">
-                <div class="recommend-container"><p class="recommend" v-if="shop.isreCommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
+                <div class="recommend-container"><p class="recommend" v-if="demoShop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                 <h1>{{demoShop.name}}</h1>
                 <p class='type'>{{ this.$store.state.sourceData.types[demoShop.shop_type].text}}</p>
                 <p class="description">{{demoShop.description}}</p>
-                
+
             </div>
             <div class="shop-content">
                 <div style="width: calc(100% - 220px); marginRight: 20px;">
-                  <p v-if="demoShop.phone"><img src="~/assets/img/icon_time.svg"/>{{demoShop.phone}}</p>
+                  <p v-if="demoShop.phone"><img src="~/assets/img/icon_time.svg"/>{{demoShop.business_time}}</p>
                   <p v-if="demoShop.address"><img src="~/assets/img/icon_location.svg"/>{{demoShop.address}}</p>
                   <p v-if="demoShop.phone"><img src="~/assets/img/icon_phone.svg"/><a :href="`tel:${demoShop.phone}`">{{demoShop.phone}}</a></p>
                   <p v-if="demoShop.url"><img src="~/assets/img/icon_website.svg"/><a :href="demoShop.url" target="_blank" rel="nofollow">{{demoShop.url}}</a></p>
-                  <p><img src="~/assets/img/icon_memo.svg"/>備註：子類別：{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/位於{{ this.$store.state.sourceData.cities[demoShop.city].text }} /類別：{{ this.$store.state.sourceData.types[demoShop.shop_type].text }} </p>
+                  <p><img src="~/assets/img/icon_navigation.svg"/>我要導航</p>
+                  <p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>
                 </div>
                 <div style="width: 200px; position: relative;">
                 <no-ssr>
@@ -57,7 +58,7 @@
                     </gmap-map>
                   </no-ssr>
               </div>
-            </div> 
+            </div>
         </div>
     </div>
   </div>
@@ -153,7 +154,7 @@
   }
 
     .shop-content:nth-child(2) p{
-        display: flex; 
+        display: flex;
         margin-bottom: 20px;
         align-items: flex-start;
     }
@@ -199,7 +200,7 @@ export default {
       demoShop: {
         is_recommended: true,
         recommend_level: 1,
-        city: 0, // 對照city.js索引
+        city: 1, // 對照city.js索引
         address:"台北市大安區新生南路二段1號\r\n大安森林公園露天音樂台",
         business_time:"週一9:00-20:00",
         alt_bussiness_time: "每個雙月(日期會提前於粉專公告)",
