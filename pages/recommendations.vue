@@ -5,7 +5,7 @@
         <div class="tags-container">
             <p>城市熱搜</p>
             <ul class="tags">
-                  <li v-for="(item, index) in tags">
+                  <li v-for="(item, index) in tags" :key="index">
                         <img :src="item.icon"/>
                         <p>{{ item.name }}</p>
                   </li>
@@ -18,14 +18,14 @@
                 <p>
                     {{demoShop.remark}}
                 </p>
-                
+
                   <p class="read-more">
                     <span  @click="setShop(firstShop)">閱讀更多</span>
                     <svg class="arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0" y="0" width="16" height="16" viewBox="0 0 451.847 451.847" style="enable-background:new 0 0 451.847 451.847;" xml:space="preserve" preserveAspectRatio="xMinYMin meet"><g><g>
                       <path class="active-path" d="M225.923,354.706c-8.098,0-16.195-3.092-22.369-9.263L9.27,151.157c-12.359-12.359-12.359-32.397,0-44.751   c12.354-12.354,32.388-12.354,44.748,0l171.905,171.915l171.906-171.909c12.359-12.354,32.391-12.354,44.744,0   c12.365,12.354,12.365,32.392,0,44.751L248.292,345.449C242.115,351.621,234.018,354.706,225.923,354.706z" data-original="#000000" data-old_color="#000000" />
                     </g></g> </svg>
-                  </p>  
-                
+                  </p>
+
             </div>
             <div class="img"  @click="setShop(firstShop)">
               <div class="img">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="shops">
-            <div class="shop" v-for="(shop, index) in this.$store.state.shops.slice(1, 4)" >
+            <div class="shop" v-for="(shop, index) in this.$store.state.shops.slice(1, 4)" :key="index">
                 <div class="img"><img src="~/assets/img/picture 1.jpg" @click="setShop(shop)"/></div>
                 <div class="shop-content">
                     <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
@@ -192,6 +192,7 @@ import recycling_shop from '~/assets/img/icon_tag_recycling_shop.svg';
 import reduce_plastic from '~/assets/img/icon_tag_reduce_plastic.svg';
 import shop_naked from '~/assets/img/icon_tag_shop_naked.svg';
 import zero_waste from '~/assets/img/icon_tag_zero_waste.svg';
+import thrift_shop_tag from '~/assets/img/icon_tag_thrift_shop.svg';
 
 const config = {
   apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
@@ -237,8 +238,12 @@ export default {
           icon: environment_friendly
         },
         {
-          name: '無包裝商店',
+          name: '無包裝',
           icon: shop_naked
+        },
+        {
+          name: '二手商店',
+          icon: thrift_shop_tag
         },
         // {
         //   name: '環保商品',
