@@ -38,7 +38,7 @@ export const state = () => ({
           value: 5,
           icon: vegetarian_shop,
           text: '食物銀行',
-          checked: false
+          checked: true
         }
       ],
       subtypes: [
