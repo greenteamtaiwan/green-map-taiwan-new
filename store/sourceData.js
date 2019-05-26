@@ -13,7 +13,7 @@ export const state = () => ({
         {
           value: 1,
           icon: vegetarian_shop,
-          text: '素食',
+          text: '綠餐廳/蔬食',
           checked: true
         },
         {
@@ -43,7 +43,7 @@ export const state = () => ({
       ],
       subtypes: [
         [
-          "素食"
+          "綠餐廳/蔬食"
         ],
         [
           "二手商店",

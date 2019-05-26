@@ -27,7 +27,7 @@ const index = algolia.initIndex('greenmaptaiwan');
 
 
 // Get all greenmaptaiwan from Firebase
-database.ref('/nodes').once('value', greenmaptaiwan => {
+database.ref('/').once('value', greenmaptaiwan => {
   // Build an array of all records to push to Algolia
   const records = [];
   greenmaptaiwan.forEach(contact => {

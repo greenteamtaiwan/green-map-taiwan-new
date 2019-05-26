@@ -146,7 +146,6 @@ export default {
     },
     closeSearchSidebar (e){
       if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#search-container").contains(e.target)){
-          console.log("close");
           this.showSearchSidebar = false;
       }
     }

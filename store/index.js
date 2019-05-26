@@ -16,7 +16,7 @@ if (!firebase.apps.length) {
 
 const algoliasearch = require('algoliasearch');
 
-const database = firebase.database();
+// const database = firebase.database();
 
 // configure algolia
 const algolia = algoliasearch(
@@ -24,15 +24,17 @@ const algolia = algoliasearch(
   'a9dc298f742ab70ad577ccc6f2195ea0'
 );
 const index = algolia.initIndex('greenmaptaiwan');
-
+index.setSettings({
+  hitsPerPage: 1000
+});
 
 function getFilterString(){
   const result = Array.from(arguments).reduce((a,v,i)=>{
-    if(a && typeof +v.value === 'number' && isFinite(+v.value) && +v.value > 0) return `${a} AND ${v.name} = ${v.value}`; 
-    else if(typeof +v.value === 'number' && isFinite(+v.value) && +v.value > 0) return `${v.name} = ${v.value}`;
+    if(a && v.check(v.value)) return `${a} AND ${v.name}:${v.value}`; 
+    else if(v.check(v.value)) return `${v.name}:${v.value}`;
     else return a;
   }, '');
-
+  
   return result;
 }
 
@@ -42,7 +44,8 @@ export const state = () => ({
     shop: {},
     query: "",
     type: null,
-    city: 0
+    city: 0,
+    tag: ""
   })
   
 export const actions = {
@@ -51,21 +54,64 @@ export const actions = {
   },
   async getShops (context){
     const data = await index.search({ 
-      filters: getFilterString({name: 'type', value: context.state.type}, {name: 'city', value: context.state.city}),
+      filters: getFilterString({
+        name: 'type', value: "" + context.state.type, check: function(value){
+          return typeof +value === 'number' && isFinite(+value) && +value > 0;
+        }
+      }, {
+        name: 'city', value: "" + context.state.city, check: function(value){
+          return typeof +value === 'number' && isFinite(+value) && +value > 0;
+        }
+      }, {
+        name: '_tags', value: context.state.tag, check: function(value){
+          return value;
+        }
+      }),
       query: context.state.query,
       restrictSearchableAttributes: [
         "name",
-        "remark"
+        "description",
+        "_tags"
       ]
     });
 
+    let today = new Date();
+    data.hits.forEach(data=>{
+      try{
+        let info = data.business_time.split("/n");
+        let time = info[today.getDay()].splice(3);
+        let startTime, endTime;
+        if(time === "休息"){
+          data.open_status = {
+            type: 1,
+            text: "休息中"
+          };
+        }else{
+          startTime = new Date(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${time.split["-"][0]}`).getTime();
+          endTime = new Date(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${time.split["-"][1]}`).getTime();
+
+          if(today.getTime() >= startTime && today.getTime() <= endTime){
+            data.open_status = {
+              type: 1,
+              text: "營業中"
+            };
+          } 
+          else data.open_status = {
+            type: 1,
+            text: "休息中"
+          };
+        }
+      }catch(err){
+        data.open_status = {};
+      }
+    });
+
     context.commit("setShops", data.hits);
-    context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
+    // context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
   },
   getUserLocation (context){
     try{
       navigator.geolocation.getCurrentPosition(function (position) {
-        console.log("position:::", position);
         context.commit("setCenter", { lat: position.coords.latitude, lng: position.coords.longitude });
       });
     }catch(err){
@@ -108,5 +154,8 @@ export const actions = {
     },
     setCenter (state, center) {
         state.center = center;
+    },
+    setTag (state, tag) {
+        state.tag = tag;
     }
   }

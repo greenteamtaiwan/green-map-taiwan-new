@@ -13,20 +13,20 @@
               style="width: 100%; height: calc(100vh - 60px);"
             >
               <gmap-marker
-                :key="index"
                 v-for="(shop, index) in shops"
-                v-show="visiableItemArray.includes(shop.type)"
+                :key="index"
+
                 :position="{lat: shop.latitude, lng: shop.longitude}"
                 :clickable="true"
                 :draggable="false"
                 :icon="{url: getIcon, scaledSize: {width: 45, height: 45} }"
                 @click="markerClick(shop, index)"
-              />
+              ></gmap-marker>
               <gmap-info-window
                 :options="{pixelOffset: {width: 0,height: -35}}"
                 
                 :opened="this.$store.state.shop !== null && Object.getOwnPropertyNames(this.$store.state.shop).length > 1"
-                :position="{lat: this.$store.state.shop.latitude || 0, lng: this.$store.state.shop.longitude || 0}"
+                :position="{lat: +this.$store.state.shop.latitude || 0, lng: +this.$store.state.shop.longitude || 0}"
                 @closeclick=""
                 style="width: 100px;"
               >
@@ -36,8 +36,8 @@
                     <h1>{{this.$store.state.shop.name}}</h1>
                     <br/>
                     <p style="margin-top: 10px;font-size: 14px;">
-                      類別
-                      <span style="float:right;color:#4de680;font-weight:bold;">休息中</span>
+                      {{this.$store.state.sourceData.types[this.$store.state.shop.type]?this.$store.state.sourceData.types[this.$store.state.shop.type].text:""}}
+                      <span style="float:right;color:#4de680;font-weight:bold;">{{this.$store.state.shop.open_status && this.$store.state.shop.open_status.type?this.$store.state.shop.open_status.text:""}}</span>
                     </p>  
                   </div>
                 </div>
@@ -179,7 +179,7 @@ export default {
       for (let index in this.$store.state.sourceData.types) {
         let item = this.$store.state.sourceData.types[index]
         if (item.checked) {
-          map.push(item.type)
+          map.push(item.value)
         }
       }
       return map
@@ -217,7 +217,6 @@ export default {
       event.sourceTarget.setOpacity(0.5)
     },
     toggleShopList: function() {
-      console.log('toggle');
       this.showShopList = !this.showShopList;
     },
     setShop: function() {

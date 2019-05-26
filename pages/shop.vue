@@ -17,20 +17,20 @@
 
         <div class="shop-content-container">
             <div class="shop-content">
-                <div class="recommend-container"><p class="recommend" v-if="demoShop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
-                <h1>{{demoShop.name}}</h1>
-                <p class='type'>{{ this.$store.state.sourceData.types[demoShop.shop_type].text}}</p>
-                <p class="description">{{demoShop.description}}</p>
+                <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
+                <h1>{{shop.name}}</h1>
+                <p class='type'>{{ this.$store.state.sourceData.types[shop.type].text}}</p>
+                <p class="description">{{shop.description}}</p>
 
             </div>
             <div class="shop-content">
                 <div style="width: calc(100% - 220px); marginRight: 20px;">
-                  <p v-if="demoShop.phone"><img src="~/assets/img/icon_time.svg"/>{{demoShop.business_time}}</p>
-                  <p v-if="demoShop.address"><img src="~/assets/img/icon_location.svg"/>{{demoShop.address}}</p>
-                  <p v-if="demoShop.phone"><img src="~/assets/img/icon_phone.svg"/><a :href="`tel:${demoShop.phone}`">{{demoShop.phone}}</a></p>
-                  <p v-if="demoShop.url"><img src="~/assets/img/icon_website.svg"/><a :href="demoShop.url" target="_blank" rel="nofollow">{{demoShop.url}}</a></p>
-                  <p><img src="~/assets/img/icon_navigation.svg"/>我要導航</p>
-                  <p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>
+                  <p v-if="shop.business_time || shop.alt_business_time"><img src="~/assets/img/icon_time.svg"/>{{shop.business_time || shop.alt_business_time}}</p>
+                  <p v-if="shop.address"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</p>
+                  <p v-if="shop.phone"><img src="~/assets/img/icon_phone.svg"/><a :href="`tel:${shop.phone}`">{{shop.phone}}</a></p>
+                  <p v-if="shop.url"><img src="~/assets/img/icon_website.svg"/><a :href="shop.url" target="_blank" rel="nofollow">{{shop.url}}</a></p>
+                  <p><img src="~/assets/img/icon_navigation.svg"/><a :href="`https://www.google.com/maps/dir/?api=1&destination=${shop.name}`" target="_blank">我要導航</a></p>
+                  <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
                 <div style="width: 200px; position: relative;">
                 <no-ssr>
@@ -51,7 +51,7 @@
                     >
                       <gmap-marker
                         :key="index"
-                        :position="{lat: shop.latitude, lng: shop.longitude}"
+                        :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                         :clickable="true"
                         :draggable="false"
                       />
@@ -96,6 +96,11 @@
     .shop-container .imgs .img:nth-child(1){
         margin-bottom: 5px;
     }
+
+    .description{
+      white-space: pre-line;
+    }
+
     h1{
         text-align: center;
         margin: 20px 0;
@@ -162,7 +167,7 @@
   .shop-content:nth-child(2) img{
       width: 20px;
       margin-right: 20px;
-      margin-top: 4px;
+      margin-top: 3px;
   }
 </style>
 
@@ -229,7 +234,9 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("getShops");
+    if(!this.$store.state.shop){
+      $nuxt.$router.push('/shop');
+    }
   },
   methods: {
 

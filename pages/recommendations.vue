@@ -5,7 +5,7 @@
         <div class="tags-container">
             <p>城市熱搜</p>
             <ul class="tags">
-                  <li v-for="(item, index) in tags" :key="index">
+                  <li v-for="(item, index) in tags" :key="index" @click="setTag(item.name)">
                         <img :src="item.icon"/>
                         <p>{{ item.name }}</p>
                   </li>
@@ -14,9 +14,9 @@
         <div class="first-shop shop">
             <div class="shop-content">
                 <p class="story-title"><span>● 綠點故事</span></p>
-                <h2 @click="setShop(firstShop)">{{demoShop.name}}</h2>
+                <h2 @click="setShop(firstShop)">{{firstShop.name}}</h2>
                 <p>
-                    {{demoShop.remark}}
+                    {{firstShop.description}}
                 </p>
 
                   <p class="read-more">
@@ -40,7 +40,7 @@
                 <div class="img"><img src="~/assets/img/picture 1.jpg" @click="setShop(shop)"/></div>
                 <div class="shop-content">
                     <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
-                    <h2 @click="setShop(shop)">{{shop.name}}</h2>
+                    <h2 @click="setShop(shop)" v-line-clamp:20="1">{{shop.name}}</h2>
                 </div>
             </div>
         </div>
@@ -85,6 +85,11 @@
 
     .tags li{
       flex: 1;
+      cursor: pointer;
+    }
+
+    .tags li:hover p{
+      color: #44AD47;
     }
 
     .tags img{
@@ -281,7 +286,7 @@ export default {
   },
   computed: {
     firstShop: function() {
-      return this.$store.state.shops[0];
+      return this.$store.state.shops[0] || {};
     }
   },
   mounted: function() {
@@ -291,6 +296,10 @@ export default {
     setShop: function(shop) {
         this.$store.commit("setShop", shop);
         $nuxt.$router.push('/shop');
+    },
+    setTag: function(tag) {
+        this.$store.commit("setTag", tag);
+        $nuxt.$router.push('/');
     }
   }
 }
