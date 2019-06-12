@@ -7,7 +7,7 @@
                 <b-col lg='7' class='shopItem-aside'>
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                     <h3  v-line-clamp:20="1">{{shop.name}}</h3>
-                    <p class='type'>{{types[shop.type].text}} ‧ <span class="running-status">{{shop.open_status.type?shop.open_status.text:""}}</span></p>
+                    <p class='type'>{{types[shop.type]?types[shop.type].text:""}} ‧ <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span></p>
                     <p class="description" v-line-clamp:20="2">{{shop.description}}</p> 
                 </b-col>
             </b-row>
