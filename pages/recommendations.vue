@@ -186,6 +186,7 @@ import * as firebase from 'firebase'
 import { defaultCoreCipherList } from 'constants'
 import Navbar from '~/components/Navbar.vue'
 import ShopList from '~/components/ShopList.vue'
+import food_bank from '~/assets/img/icon_food_bank.svg';
 import food_share from '~/assets/img/icon_food_share.svg';
 import free_shop from '~/assets/img/icon_free_shop.svg';
 import thrift_shop from '~/assets/img/icon_thrift_shop.svg';

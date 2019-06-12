@@ -1,3 +1,4 @@
+import food_bank from '~/assets/img/icon_food_bank.svg';
 import food_share from '~/assets/img/icon_food_share.svg';
 import free_shop from '~/assets/img/icon_free_shop.svg';
 import thrift_shop from '~/assets/img/icon_thrift_shop.svg';
@@ -36,7 +37,7 @@ export const state = () => ({
         },
         {
           value: 5,
-          icon: vegetarian_shop,
+          icon: food_bank,
           text: '食物銀行',
           checked: true
         }
@@ -84,7 +85,7 @@ export const state = () => ({
         {value: 18, text: "金門市", latitude: 118.2837145, longitude: 24.6923751},
       ]
   })
-  
+
   export const mutations = {
 
   }
