@@ -2,7 +2,7 @@
         <b-container class="shopItem-container" @click="setShop">
             <b-row>
                 <b-col lg='5' class='shopItem-main'>
-                    <img src="~/assets/img/picture 1.jpg">
+                    <img :src="shop.facebook_avatar || shop.photo1">
                 </b-col>
                 <b-col lg='7' class='shopItem-aside'>
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
@@ -35,9 +35,17 @@
         padding: 0;
     }
 
+    .shopItem-main{
+        height: 142px;
+        overflow: hidden;
+    }
     .shopItem-main img{
         width: 100%;
         height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     h3{

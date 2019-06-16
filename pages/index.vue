@@ -16,7 +16,7 @@
                 v-for="(shop, index) in shops"
                 :key="index"
 
-                :position="{lat: shop.latitude, lng: shop.longitude}"
+                :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                 :clickable="true"
                 :draggable="false"
                 :icon="{url: getIcon, scaledSize: {width: 45, height: 45} }"
@@ -31,7 +31,9 @@
                 style="width: 100px;"
               >
                 <div class="info-window-container"  @click="setShop">
-                  <img src="~/assets/img/picture 1.jpg" width="110px" height="80px">
+                  <div style="width:110px; height: 80px; overflow: hidden; position: relative;">
+                    <img :src="this.$store.state.shop.facebook_avatar" style="width:100%; position: absolute; top:50%;transform:translateY(-50%);"/>
+                  </div>
                   <div style="padding: 10px; min-width: 150px;">
                     <h1>{{this.$store.state.shop.name}}</h1>
                     <br/>

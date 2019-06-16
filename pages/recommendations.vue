@@ -29,7 +29,7 @@
             </div>
             <div class="img"  @click="setShop(firstShop)">
               <div class="img">
-                <img :src="demoShop.pic0_main"/>
+                <img :src="firstShop.facebook_avatar"/>
               </div>
             </div>
 
@@ -37,7 +37,7 @@
 
         <div class="shops">
             <div class="shop" v-for="(shop, index) in this.$store.state.shops.slice(1, 4)" :key="index">
-                <div class="img"><img src="~/assets/img/picture 1.jpg" @click="setShop(shop)"/></div>
+                <div class="img"><img :src="shop.facebook_avatar" @click="setShop(shop)"/></div>
                 <div class="shop-content">
                     <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
                     <h2 @click="setShop(shop)" v-line-clamp:20="1">{{shop.name}}</h2>
@@ -120,6 +120,9 @@
       top: 50%;
       left: 0;
       transform: translateY(-50%);
+    }
+    .img img{
+      width: 100%;
     }
 
     .first-shop{

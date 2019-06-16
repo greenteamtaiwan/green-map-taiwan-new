@@ -3,15 +3,15 @@
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class='shop-container'>
         <div class='img-container'>
-            <div class="img"><img :src="demoShop.photo1"/></div>
+            <div class="img"><img :src="shop.photo1||this.placeholders[0]"/></div>
             <div class="imgs">
-                <div class="img"><img :src="demoShop.photo2"/></div>
-                <div class="img"><img :src="demoShop.photo3"/></div>
+                <div class="img"><img :src="shop.photo2||this.placeholders[1]"/></div>
+                <div class="img"><img :src="shop.photo3||this.placeholders[2]"/></div>
             </div>
-            <div class="img"><img :src="demoShop.photo4"/></div>
+            <div class="img"><img :src="shop.photo4||this.placeholders[3]"/></div>
             <div class="imgs">
-                <div class="img"><img :src="demoShop.photo5"/></div>
-                <div class="img"><img :src="demoShop.photo6"/></div>
+                <div class="img"><img :src="shop.photo5||this.placeholders[4]"/></div>
+                <div class="img"><img :src="shop.photo6||this.placeholders[5]"/></div>
             </div>
         </div>
 
@@ -36,7 +36,7 @@
                 <div style="width: 200px; position: relative;">
                 <no-ssr>
                     <gmap-map
-                      :center="{lat: shop.latitude, lng: shop.longitude}"
+                      :center="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                       :zoom="13"
                       map-type-id="roadmap"
                       style="width: 200px; height: 200px; position: absolute; right: 0; bottom: 0;"
@@ -55,6 +55,7 @@
                         :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                         :clickable="true"
                         :draggable="false"
+                        :icon="{url: getIcon, scaledSize: {width: 45, height: 45} }"
                       />
                     </gmap-map>
                   </no-ssr>
@@ -131,6 +132,9 @@
         position: relative;
         min-height: 240px;
     }
+    .shop-content p{
+      word-break: break-word;
+    }
     .shop-content:nth-child(1){
         margin-right: 20px;
     }
@@ -184,6 +188,14 @@ import food_share from '~/assets/img/icon_food_share.svg';
 import free_shop from '~/assets/img/icon_free_shop.svg';
 import thrift_shop from '~/assets/img/icon_thrift_shop.svg';
 import vegetarian_shop from '~/assets/img/icon_tag_vegetarian_shop.svg';
+import markerIcon from '~/assets/img/icon_location.svg';
+
+import GT1 from '~/assets/img/GT1.png';
+import GT2 from '~/assets/img/GT2.png';
+import GT3 from '~/assets/img/GT3.png';
+import GT4 from '~/assets/img/GT4.png';
+import GT5 from '~/assets/img/GT5.png';
+import GT6 from '~/assets/img/GT6.png';
 
 const config = {
   apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
@@ -227,21 +239,47 @@ export default {
         photo5: 'https://i.imgur.com/fpDMHnW.jpg',
         photo6: 'https://i.imgur.com/QyiD7pp.jpg',
         _tags: "二手市集, 免費市集"
-      }
+      },
+      placeholders: [
+        GT1,
+        GT2,
+        GT3,
+        GT4,
+        GT5,
+        GT6
+      ]
     }
   },
   computed: {
     shop: function() {
       return this.$store.state.shop;
+    },
+    getIcon: function() {
+      return markerIcon;
     }
   },
   mounted: function() {
-    if(!this.$store.state.shop){
+    if(this.$store.state.shop !== null && Object.getOwnPropertyNames(this.$store.state.shop).length > 1){
+      this.getRandomPlaceholders();
+    }else{
       $nuxt.$router.push('/shop');
     }
   },
   methods: {
+    getRandomPlaceholders: function(){
+      this.placeholders = this.shuffle(this.placeholders);
+    },
+    shuffle: function(input) {
+      for (var i = input.length-1; i >=0; i--) {
 
+          var randomIndex = Math.floor(Math.random()*(i+1));
+          var itemAtIndex = input[randomIndex];
+
+          input[randomIndex] = input[i];
+          input[i] = itemAtIndex;
+      }
+      return input;
+    }
   }
 }
 </script>

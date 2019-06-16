@@ -106,8 +106,9 @@ export const actions = {
     //   }
     // });
 
-    const shops = await database.ref('/').once('value');
-    context.commit("setShops", shops.val());
+    let shops = await database.ref('/').once('value');
+    shops = shops.val().filter(data=>(data.recommend_area));
+    context.commit("setShops", shops);
     // context.commit("setShops", data.hits);
     // context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
   },
@@ -125,8 +126,7 @@ export const actions = {
     
     if(+city > 0){
       const cityData = context.state.sourceData.cities[city];
-      console.log({ lat: cityData.latitude, lng: cityData.longitude });
-      // context.commit("setCenter", { lat: cityData.latitude, lng: cityData.longitude });
+      context.commit("setCenter", { lat: cityData.latitude, lng: cityData.longitude });
     }
   }
 }
