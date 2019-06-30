@@ -3,15 +3,15 @@
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class='shop-container'>
         <div class='img-container'>
-            <div class="img"><img :src="shop.photo1||this.placeholders[0]"/></div>
+            <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||this.placeholders[0]" :alt="shop.name"/></div>
             <div class="imgs">
-                <div class="img"><img :src="shop.photo2||this.placeholders[1]"/></div>
-                <div class="img"><img :src="shop.photo3||this.placeholders[2]"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||this.placeholders[1]" :alt="shop.name"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||this.placeholders[2]" :alt="shop.name"/></div>
             </div>
-            <div class="img"><img :src="shop.photo4||this.placeholders[3]"/></div>
+            <div class="img"><ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||this.placeholders[3]" :alt="shop.name"/></div>
             <div class="imgs">
-                <div class="img"><img :src="shop.photo5||this.placeholders[4]"/></div>
-                <div class="img"><img :src="shop.photo6||this.placeholders[5]"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||this.placeholders[4]" :alt="shop.name"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||this.placeholders[5]" :alt="shop.name"/></div>
             </div>
         </div>
 
@@ -28,9 +28,14 @@
                   <p v-if="shop.business_hours || shop.alt_business_hours" style="white-space: pre-line"><img src="~/assets/img/icon_time.svg"/>{{shop.business_hours || shop.alt_business_hours}}</p>
                   <p v-if="shop.address"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</p>
                   <p v-if="shop.phone"><img src="~/assets/img/icon_phone.svg"/><a :href="`tel:${shop.phone}`">{{shop.phone}}</a></p>
-                  <p v-if="shop.url"><img src="~/assets/img/icon_website.svg"/><a :href="shop.url" target="_blank" rel="nofollow">{{shop.url}}</a></p>
+                  <p v-if="shop.url && shop.url.length > 0">
+                    <img src="~/assets/img/icon_website.svg"/>
+                    <span>
+                      <a v-for="(url, index) in shop.url" :href="url" target="_blank" rel="nofollow">{{url}}</a>
+                    </span>
+                  </p>
                   <p><img src="~/assets/img/icon_navigation.svg"/><a :href="`https://www.google.com/maps/dir/?api=1&destination=${shop.address}`" target="_blank">我要導航</a></p>
-                  <p v-if="shop._tags">tags: {{shop._tags}}</p>
+                  <p v-if="shop._tags">tags: {{shop.tags}}</p>
                   <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
                 <div style="width: 200px; position: relative;">
@@ -55,7 +60,7 @@
                         :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                         :clickable="true"
                         :draggable="false"
-                        :icon="{url: getIcon, scaledSize: {width: 45, height: 45} }"
+                        :icon="{url: getIcon(shop.type), scaledSize: {width: 55, height: 65} }"
                       />
                     </gmap-map>
                   </no-ssr>
@@ -112,12 +117,6 @@
         margin-right: 5px;
         height: 315px;
     }
-    .shop-container .img img{
-        width: 100%;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
 
     .shop-content-container{
         padding: 20px;
@@ -134,6 +133,9 @@
     }
     .shop-content p{
       word-break: break-word;
+    }
+    .shop-content p span a{
+      display: block;
     }
     .shop-content:nth-child(1){
         margin-right: 20px;
@@ -189,6 +191,7 @@ import free_shop from '~/assets/img/icon_free_shop.svg';
 import thrift_shop from '~/assets/img/icon_thrift_shop.svg';
 import vegetarian_shop from '~/assets/img/icon_tag_vegetarian_shop.svg';
 import markerIcon from '~/assets/img/icon_location.svg';
+import ImageHandler from '~/components/ImageHandler.vue';
 
 import GT1 from '~/assets/img/GT1.png';
 import GT2 from '~/assets/img/GT2.png';
@@ -212,7 +215,8 @@ if (!firebase.apps.length) {
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    ImageHandler
   },
   data() {
     return {
@@ -253,9 +257,6 @@ export default {
   computed: {
     shop: function() {
       return this.$store.state.shop;
-    },
-    getIcon: function() {
-      return markerIcon;
     }
   },
   mounted: function() {
@@ -279,6 +280,10 @@ export default {
           input[i] = itemAtIndex;
       }
       return input;
+    },
+    getIcon: function(type) {
+      return this.$store.state.sourceData.types[type].icon;
+      // return markerIcon;
     }
   }
 }

@@ -19,13 +19,19 @@ const algoliasearch = require('algoliasearch');
 const database = firebase.database();
 
 // configure algolia
-// const algolia = algoliasearch(
-//   'HNGIWGJG9Q',
-//   'a9dc298f742ab70ad577ccc6f2195ea0'
-// );
-// const index = algolia.initIndex('greenmaptaiwan');
-// index.setSettings({
-//   hitsPerPage: 1000
+const algolia = algoliasearch(
+  // 'HNGIWGJG9Q',
+  // 'a9dc298f742ab70ad577ccc6f2195ea0'
+  'WLQYM2VEOS',
+  '5b7c1bdd81c884fecd44ce897c93dbbf'
+);
+const index = algolia.initIndex('greenmaptaiwan');
+
+// replicaIndex.setSettings({
+//   hitsPerPage: 1000,
+//   ranking: [
+//     "recommend_area"
+//   ]
 // });
 
 function getFilterString(){
@@ -53,64 +59,77 @@ export const actions = {
     // await dispatch("getShops");
   },
   async getShops (context){
-    // const data = await index.search({ 
-    //   filters: getFilterString({
-    //     name: 'type', value: "" + context.state.type, check: function(value){
-    //       return typeof +value === 'number' && isFinite(+value) && +value > 0;
-    //     }
-    //   }, {
-    //     name: 'city', value: "" + context.state.city, check: function(value){
-    //       return typeof +value === 'number' && isFinite(+value) && +value > 0;
-    //     }
-    //   }, {
-    //     name: '_tags', value: context.state.tag, check: function(value){
-    //       return value;
-    //     }
-    //   }),
-    //   query: context.state.query,
-    //   restrictSearchableAttributes: [
-    //     "name",
-    //     "description",
-    //     "_tags"
-    //   ]
-    // });
+    // let shops = await database.ref('/').once('value');
+    // shops = shops.val().filter(data=>(data.recommendation_area||data.recommendation_level));
+    // context.commit("setShops", shops);
 
-    // let today = new Date();
-    // data.hits.forEach(data=>{
-    //   try{
-    //     let info = data.business_time.split("/n");
-    //     let time = info[today.getDay()].splice(3);
-    //     let startTime, endTime;
-    //     if(time === "休息"){
-    //       data.open_status = {
-    //         type: 1,
-    //         text: "休息中"
-    //       };
-    //     }else{
-    //       startTime = new Date(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${time.split["-"][0]}`).getTime();
-    //       endTime = new Date(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${time.split["-"][1]}`).getTime();
+    const data = await index.search({ 
+      filters: getFilterString({
+        name: 'type', value: "" + context.state.type, check: function(value){
+          return typeof +value === 'number' && isFinite(+value) && +value > 0;
+        }
+      }, {
+        name: 'city', value: "" + context.state.city, check: function(value){
+          return typeof +value === 'number' && isFinite(+value) && +value > 0;
+        }
+      }, {
+        name: '_tags', value: context.state.tag, check: function(value){
+          return value;
+        }
+      }),
+      query: context.state.query,
+      restrictSearchableAttributes: [
+        "name",
+        "description",
+        "tags"
+      ]
+    });
 
-    //       if(today.getTime() >= startTime && today.getTime() <= endTime){
-    //         data.open_status = {
-    //           type: 1,
-    //           text: "營業中"
-    //         };
-    //       } 
-    //       else data.open_status = {
-    //         type: 1,
-    //         text: "休息中"
-    //       };
-    //     }
-    //   }catch(err){
-    //     data.open_status = {};
-    //   }
-    // });
+    let today = new Date();
+    for (let i=0;i<data.hits.length;i++) {
+      let info = data.hits[i].business_hours.match(/(星期[一|二|三|四|五|六|日]\s*(休息中|休息|\d+:*\d+\s*\-\s*\d+:*\d+))/gm);
+      if(!info) continue;
 
-    let shops = await database.ref('/').once('value');
-    shops = shops.val().filter(data=>(data.recommend_area));
-    context.commit("setShops", shops);
-    // context.commit("setShops", data.hits);
-    // context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
+      let time = info[today.getDay()?today.getDay()-1:6].slice(3);
+      let startTime, endTime;
+      const firstDate = new Date(), secondDate = new Date();
+      if(time === "休息" || !info){
+        data.hits[i].open_status = {
+          type: 1,
+          text: "休息中"
+        };
+      }else{
+        firstDate.setFullYear(today.getFullYear());
+        firstDate.setFullYear(today.getMonth()+1);
+        firstDate.setFullYear(today.getDate());
+        secondDate.setFullYear(today.getFullYear());
+        secondDate.setFullYear(today.getMonth()+1);
+        secondDate.setFullYear(today.getDate());
+
+        firstDate.setHours(time.split("-")[0].trim().slice(0,1));
+        firstDate.setMinutes(time.split("-")[0].trim().slice(-2));
+        secondDate.setHours(time.split("-")[0].trim().slice(0,1));
+        secondDate.setMinutes(time.split("-")[0].trim().slice(-2));
+
+        startTime = firstDate.getTime();
+        endTime = secondDate.getTime();
+
+        if(today.getTime() >= startTime && today.getTime() <= endTime){
+          data.hits[i].open_status = {
+            type: 1,
+            text: "營業中"
+          };
+        } 
+        else data.hits[i].open_status = {
+          type: 1,
+          text: "休息中"
+        };
+      }
+    }
+
+    context.commit("setShops", data.hits);
+    context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
+    context.commit("setTag", '');
   },
   getUserLocation (context){
     try{
@@ -128,6 +147,33 @@ export const actions = {
       const cityData = context.state.sourceData.cities[city];
       context.commit("setCenter", { lat: cityData.latitude, lng: cityData.longitude });
     }
+  },
+  async getRecommendationShops (context, city){
+    if(city){
+      context.commit("setCity", city);
+      if(+city > 0){
+        const cityData = context.state.sourceData.cities[city];
+        context.commit("setCenter", { lat: cityData.latitude, lng: cityData.longitude });
+      }
+    }else{
+      city = context.state.city;
+    }
+    const query = city?context.state.sourceData.cities[city].text.slice(0, 2):'';
+    const data = await index.search({ 
+      query,
+      restrictSearchableAttributes: [
+        "recommendation_area",
+        "recommendation_level"
+      ],
+      hitsPerPage: 8
+    });
+    console.log(data.hits);
+    data.hits.sort((a,b)=>{
+      const first = a.recommendation_level.indexOf(query)>=0?a.recommendation_level:a.recommendation_area;
+      const second = b.recommendation_level.indexOf(query)>=0?b.recommendation_level:b.recommendation_area;
+      return +first.slice(-1) - +second.slice(-1);
+    });
+    context.commit("setShops", data.hits);
   }
 }
 // export const strict = false;

@@ -1,0 +1,82 @@
+<template>
+    <div :style="containerStyle">
+        <img v-if="finalSrc" :src="finalSrc" :style="style"/>
+    </div>
+</template>
+
+<style scoped>
+    div{
+        position: relative;
+    }
+    img{
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<script>
+import GT1 from '~/assets/img/GT1.png';
+import GT2 from '~/assets/img/GT2.png';
+import GT3 from '~/assets/img/GT3.png';
+import GT4 from '~/assets/img/GT4.png';
+import GT5 from '~/assets/img/GT5.png';
+import GT6 from '~/assets/img/GT6.png';
+
+export default {
+    data() {
+        return {
+            placeholders: [
+                GT1,
+                GT2,
+                GT3,
+                GT4,
+                GT5,
+                GT6
+            ],
+            finalSrc: null,
+            style: {}
+        };
+    },
+    props:{
+      src: {
+          type: String,
+          default: ''
+      },
+      containerStyle: {
+          type: Object,
+          default: () => ({width: '100%',height: '100%',overflow: 'hidden'})
+      }
+    },
+    mounted() {
+        this.checkImage();
+    },
+    watch: {
+        src (newVal, oldVal){
+            if(newVal !== oldVal) this.checkImage();
+        }
+    },
+    methods: {
+        checkImage () {
+            const img = new Image();
+            const that = this;
+
+            img.onload = function(){
+                that.finalSrc = that.src;
+                if(this.width > this.height){
+                    that.style = {width: '100%'};
+                }else{
+                    that.style = {width: '100%'};
+                }
+            }
+            img.onerror = function(){
+                that.finalSrc = that.placeholders[Math.floor(Math.random()*that.placeholders.length)];
+                that.style = {height: '100%'};
+            }
+            img.src = this.src;
+
+        }
+    }
+}
+</script>

@@ -19,7 +19,7 @@
                 :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                 :clickable="true"
                 :draggable="false"
-                :icon="{url: getIcon, scaledSize: {width: 45, height: 45} }"
+                :icon="{url: getIcon(shop.type), scaledSize: {width: 55, height: 65} }"
                 @click="markerClick(shop, index)"
               ></gmap-marker>
               <gmap-info-window
@@ -31,10 +31,12 @@
                 style="width: 100px;"
               >
                 <div class="info-window-container"  @click="setShop">
-                  <div style="width:110px; height: 80px; overflow: hidden; position: relative;">
-                    <img :src="this.$store.state.shop.facebook_avatar" style="width:100%; position: absolute; top:50%;transform:translateY(-50%);"/>
-                  </div>
-                  <div style="padding: 10px; min-width: 150px;">
+                  <ImageHandler 
+                    :src="this.$store.state.shop.facebook_avatar"
+                    v-if="this.$store.state.shop.facebook_avatar"
+                    :containerStyle="{width:'110px', height: '80px', overflow: 'hidden', position: 'relative'}"
+                  />
+                  <div style="padding: 10px; min-width: 160px;">
                     <h1>{{this.$store.state.shop.name}}</h1>
                     <br/>
                     <p style="margin-top: 10px;font-size: 14px;">
@@ -163,11 +165,13 @@ import Navbar from '~/components/Navbar.vue'
 import ShopList from '~/components/ShopList.vue'
 import markerIcon from '~/assets/img/icon_location.svg';
 import { mapMutations } from 'vuex'
+import ImageHandler from '~/components/ImageHandler.vue';
 
 export default {
   components: {
     Navbar,
-    ShopList
+    ShopList,
+    ImageHandler
   },
   data() {
     return {
@@ -188,9 +192,6 @@ export default {
     },
     shops: function() {
       return this.$store.state.shops;
-    },
-    getIcon: function() {
-      return markerIcon;
     },
     center: function() {
       return this.$store.state.center;
@@ -224,6 +225,10 @@ export default {
     setShop: function() {
         this.$store.commit("setShop", this.$store.state.shop);
         $nuxt.$router.push('/shop');
+    },
+    getIcon: function(type) {
+      return this.$store.state.sourceData.types[type].icon;
+      // return markerIcon;
     }
   }
 }

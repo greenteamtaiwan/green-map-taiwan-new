@@ -2,12 +2,15 @@
         <b-container class="shopItem-container" @click="setShop">
             <b-row>
                 <b-col lg='5' class='shopItem-main'>
-                    <img :src="shop.facebook_avatar || shop.photo1">
+                    <ImageHandler :src="shop.facebook_avatar || shop.photo1"/>
                 </b-col>
                 <b-col lg='7' class='shopItem-aside'>
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                     <h3  v-line-clamp:20="1">{{shop.name}}</h3>
-                    <p class='type'>{{types[shop.type]?types[shop.type].text:""}} ‧ <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span></p>
+                    <p class='type'>
+                        {{types[shop.type]?types[shop.type].text:""}}
+                        <span v-if="shop.open_status && shop.open_status.type"> ‧ </span>
+                        <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span></p>
                     <p class="description" v-line-clamp:20="2">{{shop.description}}</p> 
                 </b-col>
             </b-row>
@@ -88,7 +91,12 @@
 </style>
 
 <script>
+import ImageHandler from '~/components/ImageHandler.vue';
+
 export default {
+    components: {
+        ImageHandler
+    },
     computed: {
         types: function (){
             return this.$store.state.sourceData.types;

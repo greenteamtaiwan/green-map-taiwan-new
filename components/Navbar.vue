@@ -23,7 +23,7 @@
             <b-form-input placeholder= " 搜尋「裸賣」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" :value="query"></b-form-input>
         </b-input-group>
     </b-form>
-    <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions"/>
+    <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :search="search"/>
   </nav>
 </template>
 
@@ -105,11 +105,13 @@ import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      showSearchSidebar: false
+      showSearchSidebar: false,
+      searchHistory: []
     }
   },
   mounted(){
     window.addEventListener('click', this.closeSearchSidebar);
+    this.searchHistory = localStorage.getItem("searchHistory")?JSON.parse(localStorage.getItem("searchHistory")):[];
   },
   components: {
     SearchSidebar
@@ -130,16 +132,35 @@ export default {
   },
   methods: {
     search (e){
-      const query = e.target.elements["query"].value;
-      
+      const query = e instanceof Event?e.target.elements["query"].value:e;
+      let index;
+      if(!query){}
+      else if(index = this.searchHistory.indexOf(query) >= 0){
+        this.searchHistory.unshift(this.searchHistory.splice(index, 1)[0]);
+        localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory));
+      }else if(this.searchHistory[this.searchHistory.length-1] !== query){
+        this.searchHistory.unshift(query);
+        localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory));
+      }
+
       this.$store.commit("setQuery", query);
       this.$store.dispatch("getShops");
-      $nuxt.$router.push('/');
+      if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
     },
     setCity (city){
       this.$store.dispatch("setCityAndCenter", city);
-      this.$store.dispatch("getShops");
-      $nuxt.$router.push('/');
+      switch($nuxt.$route.name){
+        case 'recommendations':
+          this.$store.dispatch("getRecommendationShops", city);
+          break;
+        case 'shop':
+          $nuxt.$router.push('/');
+          break;
+        case 'index':
+          console.log("getShops");
+          this.$store.dispatch("getShops");
+        default:
+      }
     },
     setShowSearchSidebar (showSearchSidebar){
       this.showSearchSidebar = showSearchSidebar;

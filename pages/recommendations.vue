@@ -28,16 +28,14 @@
 
             </div>
             <div class="img"  @click="setShop(firstShop)">
-              <div class="img">
-                <img :src="firstShop.facebook_avatar"/>
-              </div>
+              <ImageHandler :src="firstShop.recommendation_photo || firstShop.facebook_avatar"/>
             </div>
 
         </div>
 
         <div class="shops">
             <div class="shop" v-for="(shop, index) in this.$store.state.shops.slice(1, 4)" :key="index">
-                <div class="img"><img :src="shop.facebook_avatar" @click="setShop(shop)"/></div>
+                <div class="img" @click="setShop(shop)"><ImageHandler :src="shop.recommendation_photo || shop.facebook_avatar"/></div>
                 <div class="shop-content">
                     <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
                     <h2 @click="setShop(shop)" v-line-clamp:20="1">{{shop.name}}</h2>
@@ -63,10 +61,6 @@
         background-color: #f3f4f5;
         padding: 10px 30px 30px;
         text-align: center;
-    }
-
-    .recommendations-container img{
-        max-width: 100%;
     }
 
     .tags-container{
@@ -114,15 +108,6 @@
     }
     .first-shop .img{
       height: 450px;
-    }
-    .shop .img img{
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-    }
-    .img img{
-      width: 100%;
     }
 
     .first-shop{
@@ -183,12 +168,11 @@
 </style>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 import * as firebase from 'firebase'
 import { defaultCoreCipherList } from 'constants'
 import Navbar from '~/components/Navbar.vue'
 import ShopList from '~/components/ShopList.vue'
+import ImageHandler from '~/components/ImageHandler.vue';
 import food_bank from '~/assets/img/icon_food_bank.svg';
 import food_share from '~/assets/img/icon_food_share.svg';
 import free_shop from '~/assets/img/icon_free_shop.svg';
@@ -218,10 +202,9 @@ if (!firebase.apps.length) {
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo,
     Navbar,
-    ShopList
+    ShopList,
+    ImageHandler
   },
   data() {
     return {
@@ -294,7 +277,8 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("getShops");
+    console.log("recommendation mounted");
+    this.$store.dispatch("getRecommendationShops");
   },
   methods: {
     setShop: function(shop) {
