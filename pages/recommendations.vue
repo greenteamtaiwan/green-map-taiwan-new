@@ -28,14 +28,14 @@
 
             </div>
             <div class="img"  @click="setShop(firstShop)">
-              <ImageHandler :src="firstShop.recommendation_photo || firstShop.facebook_avatar"/>
+              <ImageHandler :src="firstShop.recommendation_photo || firstShop.facebook_avatar" :alt="firstShop.name"/>
             </div>
 
         </div>
 
         <div class="shops">
             <div class="shop" v-for="(shop, index) in this.$store.state.shops.slice(1, 4)" :key="index">
-                <div class="img" @click="setShop(shop)"><ImageHandler :src="shop.recommendation_photo || shop.facebook_avatar"/></div>
+                <div class="img" @click="setShop(shop)"><ImageHandler :src="shop.recommendation_photo || shop.facebook_avatar" :alt="shop.name"/></div>
                 <div class="shop-content">
                     <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
                     <h2 @click="setShop(shop)" v-line-clamp:20="1">{{shop.name}}</h2>

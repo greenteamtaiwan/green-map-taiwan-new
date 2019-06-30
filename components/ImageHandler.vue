@@ -1,18 +1,22 @@
 <template>
-    <div :style="containerStyle">
-        <img v-if="finalSrc" :src="finalSrc" :style="style"/>
+    <div :style="finalSrc?{...containerStyle, backgroundImage: `url('${finalSrc}')`}:containerStyle">
+        <img v-if="finalSrc" :src="finalSrc" :style="style" :alt="alt"/>
     </div>
 </template>
 
 <style scoped>
     div{
         position: relative;
+        background-size: cover;
+        background-position: 50% 50%;
     }
     img{
-        position: relative;
+        /*position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);*/
+        width: 0;
+        height: 0;
     }
 </style>
 
@@ -41,6 +45,10 @@ export default {
     },
     props:{
       src: {
+          type: String,
+          default: ''
+      },
+      alt: {
           type: String,
           default: ''
       },

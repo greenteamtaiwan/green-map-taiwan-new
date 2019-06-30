@@ -35,6 +35,7 @@
                     :src="this.$store.state.shop.facebook_avatar"
                     v-if="this.$store.state.shop.facebook_avatar"
                     :containerStyle="{width:'110px', height: '80px', overflow: 'hidden', position: 'relative'}"
+                    :alt="this.$store.state.shop.name"
                   />
                   <div style="padding: 10px; min-width: 160px;">
                     <h1>{{this.$store.state.shop.name}}</h1>
