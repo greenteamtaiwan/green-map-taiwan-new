@@ -16,7 +16,7 @@
                 <p class="story-title"><span>● 綠點故事</span></p>
                 <h2 @click="setShop(firstShop)">{{firstShop.name}}</h2>
                 <p>
-                    {{firstShop.description}}
+                    {{firstShop.recommendation_description}}
                 </p>
 
                   <p class="read-more">

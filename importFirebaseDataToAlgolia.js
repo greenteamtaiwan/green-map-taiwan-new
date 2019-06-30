@@ -34,7 +34,7 @@ database.ref('/').once('value', greenmaptaiwan => {
   const records = [];
   greenmaptaiwan.forEach(contact => {
     // 只顯示推薦商家
-    if(contact.val().recommendation_area||contact.val().recommendation_level){
+    // if(contact.val().recommendation_area||contact.val().recommendation_level){
       // get the key and data from the snapshot
       const childKey = contact.key;
       const childData = contact.val();
@@ -42,7 +42,7 @@ database.ref('/').once('value', greenmaptaiwan => {
       childData.objectID = childKey;
       // Add object for indexing
       records.push(childData);
-    }
+    // }
   });
 
   // Add or update new objects

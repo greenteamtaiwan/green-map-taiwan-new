@@ -89,6 +89,7 @@ export const actions = {
     for (let i=0;i<data.hits.length;i++) {
       let info = data.hits[i].business_hours.match(/(星期[一|二|三|四|五|六|日]\s*(休息中|休息|\d+:*\d+\s*\-\s*\d+:*\d+))/gm);
       if(!info) continue;
+      if(!info[today.getDay()?today.getDay()-1:6]) continue;
 
       let time = info[today.getDay()?today.getDay()-1:6].slice(3);
       let startTime, endTime;
