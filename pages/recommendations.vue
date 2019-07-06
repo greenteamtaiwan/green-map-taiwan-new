@@ -87,7 +87,7 @@
     }
 
     .tags img{
-        max-width: 60px;
+        width: 60px;
         align-self: center;
     }
 
@@ -186,10 +186,20 @@
 
     .first-shop.shop{
       flex-direction: column-reverse;
+      margin-bottom: 30px;
     }
 
     .shops{
       flex-direction: column;
+      text-align: left;
+    }
+
+    .shops:not(.first-shop) .shop-content{
+      padding: 20px;
+    }
+    .shops:not(.first-shop) .shop-content h2{
+      font-size: 20px;
+      font-weight: bold;
     }
 
     .shop{

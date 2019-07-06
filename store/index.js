@@ -158,6 +158,7 @@ export const actions = {
       }
     }else{
       city = context.state.city;
+      if(!city) city = 1;
     }
     const query = city?context.state.sourceData.cities[city].text.slice(0, 2):'';
     const data = await index.search({ 
