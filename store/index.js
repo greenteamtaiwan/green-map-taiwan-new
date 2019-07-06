@@ -59,7 +59,7 @@ export const actions = {
   async nuxtServerInit ({ commit, dispatch, getters }) {
     // await dispatch("getShops");
   },
-  async getShops (context){
+  async getShops (context, dontSetShop){
     // let shops = await database.ref('/').once('value');
     // shops = shops.val().filter(data=>(data.recommendation_area||data.recommendation_level));
     // context.commit("setShops", shops);
@@ -130,7 +130,7 @@ export const actions = {
     }
 
     context.commit("setShops", data.hits);
-    context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
+    if(!dontSetShop) context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
     context.commit("setTag", '');
   },
   getUserLocation (context){

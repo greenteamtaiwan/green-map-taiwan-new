@@ -1,11 +1,6 @@
 <template>
-  <div>
-    <Navbar/>
-    <b-container class='map-container'>
-      <b-row>  
-        <b-col lg='12' class='map'>
-          <nuxt-link to="/index-map"><button class="expand-map-button mobile">展開地圖</button></nuxt-link>
-          <no-ssr>
+  <div class="index-map-container">
+    <no-ssr>
             <gmap-map
               :center="center"
               :zoom="zoomLevel"
@@ -39,7 +34,6 @@
                   />
                   <div style="padding: 10px; min-width: 160px;">
                     <h1>{{this.$store.state.shop.name}}</h1>
-                    <br/>
                     <p style="margin-top: 10px;font-size: 14px;">
                       {{this.$store.state.sourceData.types[this.$store.state.shop.type]?this.$store.state.sourceData.types[this.$store.state.shop.type].text:""}}
                       <span style="float:right;color:#4de680;font-weight:bold;">{{this.$store.state.shop.open_status && this.$store.state.shop.open_status.type?this.$store.state.shop.open_status.text:""}}</span>
@@ -50,26 +44,22 @@
               </gmap-info-window>
             </gmap-map>
           </no-ssr>
-        </b-col>
-      </b-row>
-      <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList"/>
-      <MobileShopList :shops="shops"/>
-    </b-container>
+          <div class="shop-map-shop-container" v-if="this.$store.state.shop.name"><ShopItem :shop="this.$store.state.shop" /></div>
   </div>
 </template>
 
 <style>
-  .expand-map-button{
-    border: none;
-    background-color: rgba(255,255,255,0.9);
-    color: gray;
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    padding: 5px 30px;
-  }
+    .shop-map-shop-container{
+        position: absolute;
+        bottom: 0;
+        padding: 0 10px;
+        width: 100%;
+    }
+
+    .index-map-container .index-map{
+        height: 100vh;
+        width: 100vw;
+    }
   html, body{
     overflow-y: hidden
   }
@@ -197,8 +187,8 @@
 <script>
 import { defaultCoreCipherList } from 'constants';
 import Navbar from '~/components/Navbar.vue';
-import ShopList from '~/components/ShopList.vue';
-import MobileShopList from '~/components/MobileShopList.vue';
+import ShopItem from '~/components/ShopItem.vue';
+import IndexMapShopList from '~/components/IndexMapShopList.vue';
 import markerIcon from '~/assets/img/icon_location.svg';
 import { mapMutations } from 'vuex'
 import ImageHandler from '~/components/ImageHandler.vue';
@@ -206,9 +196,9 @@ import ImageHandler from '~/components/ImageHandler.vue';
 export default {
   components: {
     Navbar,
-    ShopList,
+    ShopItem,
     ImageHandler,
-    MobileShopList
+    IndexMapShopList
   },
   data() {
     return {
@@ -235,7 +225,7 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("getShops");
+    this.$store.dispatch("getShops",true);
     this.$store.dispatch("getUserLocation");
   },
   methods: {

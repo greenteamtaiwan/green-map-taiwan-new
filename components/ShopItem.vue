@@ -1,8 +1,8 @@
 <template>
-        <b-container class="shopItem-container" @click="setShop">
+        <b-container class="shopItem-container" @click="setShop" style="containerStyle">
             <b-row>
                 <b-col lg='5' class='shopItem-main'>
-                    <img :src="shop.facebook_avatar || shop.photo1" :alt="shop.name"/>
+                    <ImageHandler :src="shop.facebook_avatar || shop.photo1" :alt="shop.name"/>
                 </b-col>
                 <b-col lg='7' class='shopItem-aside'>
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
@@ -44,7 +44,6 @@
     }
     .shopItem-main img{
         width: 100%;
-        height: 100%;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -120,6 +119,10 @@ export default {
     },
     props:{
         shop: {
+            type: Object,
+            default: {}
+        },
+        containerStyle: {
             type: Object,
             default: {}
         }
