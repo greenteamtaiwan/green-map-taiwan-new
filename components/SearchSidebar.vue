@@ -1,7 +1,17 @@
 <template>
-    <Sidebar :show="show" :isRight="true" style="width: 300px; padding: 1rem 0;" :id="'search-sidebar'">
+    <Sidebar :show="show" :isRight="true" :id="'search-sidebar'">
         <div slot="content" >
-            <ul>
+            <b-form @submit.stop.prevent @submit="search" id="search-container" class="mobile">
+                <b-input-group class="search">
+                    <b-form-input placeholder= " 搜尋「裸賣」 " name="query" aria-label="Search" :value="query"></b-form-input>
+                    <b-input-group-append>
+                        <b-button class="search-button">
+                            <img src="~/assets/img/icon_search.svg" height="19" width="19">
+                        </b-button>
+                    </b-input-group-append>
+                </b-input-group>
+            </b-form>
+            <ul class="history-container">
                 <li v-for="(history, index) in searchHistory" @click="search(history)">
                     <img src="~/assets/img/icon_search.svg" height="19" width="19">
                     {{history}}
@@ -20,9 +30,12 @@
 </template>
 
 <style scoped>
-    ul:nth-child(1){
+    .history-container{
         max-height: 120px;
         overflow-y: auto;
+    }
+    .history-container li{
+        margin: 10px 0;
     }
     img{
         width: 50px;
@@ -33,6 +46,25 @@
     }
     .selected-type, li:hover{
         color: #44AD47;
+    }
+    #search-sidebar{
+        width: 300px; 
+        padding: 1rem 0;
+    }
+    @media screen and (max-width:991px){
+        .sidebar{
+            border-top: solid 1px gray;
+        }
+        #search-sidebar{
+            padding: 0;
+            z-index: 2;
+        }
+        .search-button{
+            padding: 0;
+        }
+        .history-container{
+            max-height: 120px;
+        }
     }
 </style>
 

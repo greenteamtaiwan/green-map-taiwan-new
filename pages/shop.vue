@@ -8,8 +8,8 @@
                 <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||this.placeholders[1]" :alt="shop.name"/></div>
                 <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||this.placeholders[2]" :alt="shop.name"/></div>
             </div>
-            <div class="img"><ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||this.placeholders[3]" :alt="shop.name"/></div>
-            <div class="imgs">
+            <div class="img desktop"><ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||this.placeholders[3]" :alt="shop.name"/></div>
+            <div class="imgs desktop">
                 <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||this.placeholders[4]" :alt="shop.name"/></div>
                 <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||this.placeholders[5]" :alt="shop.name"/></div>
             </div>
@@ -24,7 +24,7 @@
 
             </div>
             <div class="shop-content">
-                <div style="width: calc(100% - 220px); marginRight: 20px;">
+                <div class="shop-info">
                   <p v-if="shop.business_hours || shop.alt_business_hours" style="white-space: pre-line"><img src="~/assets/img/icon_time.svg"/>{{shop.business_hours || shop.alt_business_hours}}</p>
                   <p v-if="shop.address"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</p>
                   <p v-if="shop.phone"><img src="~/assets/img/icon_phone.svg"/><a :href="`tel:${shop.phone}`">{{shop.phone}}</a></p>
@@ -38,13 +38,13 @@
                   <p v-if="shop._tags">tags: {{shop.tags}}</p>
                   <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
-                <div style="width: 200px; position: relative;">
+                <div class="shop-map-container">
                 <no-ssr>
                     <gmap-map
                       :center="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                       :zoom="13"
                       map-type-id="roadmap"
-                      style="width: 200px; height: 200px; position: absolute; right: 0; bottom: 0;"
+                      class="shop-map"
                        :options="{
                         zoomControl: false,
                         mapTypeControl: false,
@@ -175,6 +175,63 @@
       width: 20px;
       margin-right: 20px;
       margin-top: 3px;
+  }
+
+  .shop-info{
+    width: calc(100% - 220px); 
+    margin-right: 20px;
+  }
+
+  .shop-map-container{
+    width: 200px; 
+    position: relative;
+  }
+  .shop-map{
+    width: 200px; 
+    height: 200px; 
+    position: absolute; 
+    right: 0; 
+    bottom: 0;
+  }
+
+  @media screen and (max-width:991px){
+    .shop-container{
+      margin-top: 116px;
+    }
+    .shop-content-container{
+      flex-direction: column;
+      padding: 20px 0 0;
+    }
+
+    .shop-content:nth-child(1){
+      margin-right: 0;
+      border-bottom: solid 1px lightgray;
+    }
+
+    .shop-container .imgs.desktop{
+        display: none;
+    }
+
+    .shop-content:nth-child(2){
+      flex-direction: column;
+      padding: 20px 0 0;
+    }
+
+    .shop-info{
+      width: 100%;
+      margin-right: 0;
+      padding: 0 20px;
+    }
+
+    .shop-map-container{
+      width: 100%;
+    }
+
+    .shop-map{
+      position: relative;
+      height: 300px; 
+      width: 100%;
+    }
   }
 </style>
 

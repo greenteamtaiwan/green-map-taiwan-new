@@ -56,6 +56,9 @@
             height: unset;
             padding: 10px;
         }
+        .close-sidebar-button{
+            display: none!important;
+        }
     }
 </style>
 

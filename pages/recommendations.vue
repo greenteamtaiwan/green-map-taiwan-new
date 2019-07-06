@@ -15,7 +15,7 @@
             <div class="shop-content">
                 <p class="story-title"><span>● 綠點故事</span></p>
                 <h2 @click="setShop(firstShop)">{{firstShop.name}}</h2>
-                <p class="description">
+                <p class="description desktop">
                   <v-clamp autoresize :max-lines="7">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
                 </p>
 
@@ -71,7 +71,7 @@
 
     .tags{
         max-width: 100%;
-        width: 500px;
+        width: 600px;
         display: flex;
         justify-content: center;
         margin: auto;
@@ -93,7 +93,9 @@
 
 
     .shop{
-        width: calc(calc( 100% - 40px) / 3)
+        width: calc(calc( 100% - 40px) / 3);
+        display: flex;
+        flex-direction: column;
     }
 
     .shop h2:hover, .shop .read-more:hover{
@@ -174,6 +176,49 @@
         font-weight: bold;
         color: #EE5593;
     }
+
+  @media screen and (max-width:991px){
+    .recommendations-container{
+        margin-top: 0;
+        padding: 0;
+        margin-top: 116px;
+    }
+
+    .first-shop.shop{
+      flex-direction: column-reverse;
+    }
+
+    .shops{
+      flex-direction: column;
+    }
+
+    .shop{
+      flex-direction: row;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .first-shop .img{
+      height: 350px;
+    }
+
+    .first-shop .shop-content{
+      padding-top: 30px;
+    }
+
+    .story-title h2{
+      margin: 20px auto 30px;
+    }
+
+    .shop:not(.first-shop) .img{
+      width: 40%;
+      height: 150px;
+    }
+
+    .shop:not(.first-shop) .shop-content{
+      width: 60%;
+    }
+  }
 </style>
 
 <script>

@@ -2,7 +2,6 @@
   <div>
     <Navbar/>
     <b-container class='map-container'>
-      <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList"/>
       <b-row>  
         <b-col lg='12' class='map'>
           <no-ssr>
@@ -10,7 +9,7 @@
               :center="center"
               :zoom="zoomLevel"
               map-type-id="roadmap"
-              style="width: 100%; height: calc(100vh - 60px);"
+              class="index-map"
             >
               <gmap-marker
                 v-for="(shop, index) in shops"
@@ -52,7 +51,8 @@
           </no-ssr>
         </b-col>
       </b-row>
-      
+      <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList"/>
+      <MobileShopList :shops="shops"/>
     </b-container>
   </div>
 </template>
@@ -61,6 +61,11 @@
 
   html, body{
     overflow-y: hidden
+  }
+  
+  .index-map{
+    width: 100%; 
+    height: calc(100vh - 60px);
   }
 
   .map-container h1{
@@ -99,24 +104,8 @@
     list-style-type: none;
   }
   
-  .mobile{
-    display: none;
-  }
 
-  @media screen and (max-width:991px){
-      html, body{
-        overflow-y: initial;
-      }
-      .menu{
-          display: none;
-      }
-      .mobile{
-        display: block;
-      }
-      .desktop{
-        display: none;
-      }
-  }
+
 
   .map-container{
     padding: 0;
@@ -152,10 +141,34 @@
     margin-bottom: 5px;
     cursor: pointer;
   }
+  .info-window-container h1{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .info-window-container:hover h1{
     color: #44AD47;
   }
+  @media screen and (max-width:991px){
+      .index-map{
+        height: calc(60vh - 116px);
+      }
+      html, body{
+        overflow-y: initial;
+      }
+      .menu{
+          display: none;
+      }
 
+      .map-container .sidebar{
+        display: none;
+      }
+
+      .map-container{
+        margin-top: 116px;
+      }
+  }
   .gmap-info-window-arrow{
     transform: rotate(-90deg)
   }
@@ -174,6 +187,7 @@
 import { defaultCoreCipherList } from 'constants'
 import Navbar from '~/components/Navbar.vue'
 import ShopList from '~/components/ShopList.vue'
+import MobileShopList from '~/components/MobileShopList.vue'
 import markerIcon from '~/assets/img/icon_location.svg';
 import { mapMutations } from 'vuex'
 import ImageHandler from '~/components/ImageHandler.vue';
@@ -182,7 +196,8 @@ export default {
   components: {
     Navbar,
     ShopList,
-    ImageHandler
+    ImageHandler,
+    MobileShopList
   },
   data() {
     return {

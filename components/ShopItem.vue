@@ -88,6 +88,22 @@
     .running-status{
         color: #44AD47;
     }
+
+    @media screen and (max-width:991px){
+      .row{
+        display: flex;
+        flex-direction: row;
+      }
+      .shopItem-container{
+          max-width: unset;
+      }
+      .row .shopItem-main{
+          width: 30%;
+      }
+      .row .shopItem-aside{
+          width: 70%;
+      }
+    }
 </style>
 
 <script>

@@ -24,25 +24,25 @@
             <b-form-input placeholder= " 搜尋「裸賣」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" :value="query"></b-form-input>
         </b-input-group>
     </b-form>
-    <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :search="search"/>
+    
   </nav>
 
   <nav class="navbar navbar-expand-lg navbar-light fixed-top mobile" id="gt-nav">
     <nuxt-link to="/">
       <div class='map-logo'>
         <img src='../assets/img/icon_map.svg' width="40px"/>
+        <img src='../assets/img/GT logo.png' height="70%"/>
       </div>
-      <img src='../assets/img/GT logo.png' height="70%"/>
     </nuxt-link>
+    <button id="mobile-button" @click="setShowSearchSidebar(true)">三</button>
     <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
         <div class='navbar-middle'>
           <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
           <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
         </div>
     </b-form>
-
-    <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :search="search"/>
   </nav>
+  <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :search="search"/>
 </div>
 </template>
 
@@ -59,6 +59,7 @@
     border-bottom: solid 1px lightgray;
     line-height: 40px;
     background-color: #ffffff;
+    position: relative;
   }
   nav img:nth-child(2){
     width: 40px;
@@ -121,6 +122,12 @@
   }
 
   @media screen and (max-width:991px){
+    nav{
+      height: unset;
+    }
+    .navbar.mobile{
+      z-index: 1;
+    }
     .map-logo{
       display: inline-block;
       border-right: solid 1px gray;
@@ -128,6 +135,53 @@
     #gt-nav{
       padding: 0;
     }
+    .sidebar-inline-form{
+      display: block;
+      background-color: white;
+      border-top: solid 1px gray;
+    }
+    .sidebar-inline-form .navbar-middle{
+      padding: 7px 20px;
+      height: unset;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .map-logo{
+      border: none;
+      height: 60px;
+      padding: 10px;
+    }
+    #mobile-button{
+      border: none;
+      border-left: solid 1px gray;
+      background-color: white;
+      margin-left: auto;
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .map-logo img{
+      display: inline-block;
+      height: 100%;
+      margin: 0;
+    }
+    .map-logo img:nth-child(2){
+      height: 70%;
+      width: unset;
+      margin-left: 5px;
+    }
+    
+    .input-group.search{
+      position: relative;
+      border-bottom: none;
+      background-color: white;
+      padding: 10px 20px;
+    }
+    
   }
 </style>
 
@@ -199,7 +253,10 @@ export default {
       this.showSearchSidebar = showSearchSidebar;
     },
     closeSearchSidebar (e){
-      if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#search-container").contains(e.target)){
+      console.log("e.target:::", e.target);
+      console.log('document.querySelector("#search-sidebar")', document.querySelector("#search-sidebar").contains(e.target));
+      console.log('document.querySelector("#search-container").contains(e.target):::', document.querySelector("#search-container").contains(e.target));
+      if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#search-container").contains(e.target) && !document.querySelector("#mobile-button").contains(e.target)){
           this.showSearchSidebar = false;
       }
     }
