@@ -31,7 +31,7 @@
                   <p v-if="shop.url && shop.url.length > 0">
                     <img src="~/assets/img/icon_website.svg"/>
                     <span>
-                      <a v-for="(url, index) in shop.url" :href="url" target="_blank" rel="nofollow">{{url}}</a>
+                      <a v-for="(url, index) in shop.url" :href="url" target="_blank" rel="nofollow">{{url.indexOf("facebook")>=0?"Facebook":"官方網站"}}</a>
                     </span>
                   </p>
                   <p><img src="~/assets/img/icon_navigation.svg"/><a :href="`https://www.google.com/maps/dir/?api=1&destination=${shop.address}`" target="_blank">我要導航</a></p>

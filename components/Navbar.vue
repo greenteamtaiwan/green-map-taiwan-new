@@ -1,5 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
+  <div>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top desktop" id="gt-nav">
     <nuxt-link to="/">
       <div class='map-logo'>
         <img src='../assets/img/icon_map.svg' width="40px"/>
@@ -25,6 +26,24 @@
     </b-form>
     <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :search="search"/>
   </nav>
+
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top mobile" id="gt-nav">
+    <nuxt-link to="/">
+      <div class='map-logo'>
+        <img src='../assets/img/icon_map.svg' width="40px"/>
+      </div>
+      <img src='../assets/img/GT logo.png' height="70%"/>
+    </nuxt-link>
+    <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
+        <div class='navbar-middle'>
+          <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
+          <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
+        </div>
+    </b-form>
+
+    <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :search="search"/>
+  </nav>
+</div>
 </template>
 
 <style>
@@ -40,6 +59,10 @@
     border-bottom: solid 1px lightgray;
     line-height: 40px;
     background-color: #ffffff;
+  }
+  nav img:nth-child(2){
+    width: 40px;
+    height: 11px;
   }
 
   nav > div, nav > form > div{
@@ -95,6 +118,16 @@
   }
   button.btn.btn-secondary.search-button:active{
     background-color: rgba(0,0,0,0); 
+  }
+
+  @media screen and (max-width:991px){
+    .map-logo{
+      display: inline-block;
+      border-right: solid 1px gray;
+    }
+    #gt-nav{
+      padding: 0;
+    }
   }
 </style>
 

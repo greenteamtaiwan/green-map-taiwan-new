@@ -98,6 +98,10 @@
   li{
     list-style-type: none;
   }
+  
+  .mobile{
+    display: none;
+  }
 
   @media screen and (max-width:991px){
       html, body{
@@ -105,6 +109,12 @@
       }
       .menu{
           display: none;
+      }
+      .mobile{
+        display: block;
+      }
+      .desktop{
+        display: none;
       }
   }
 

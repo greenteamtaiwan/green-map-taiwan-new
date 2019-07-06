@@ -15,8 +15,8 @@
             <div class="shop-content">
                 <p class="story-title"><span>● 綠點故事</span></p>
                 <h2 @click="setShop(firstShop)">{{firstShop.name}}</h2>
-                <p>
-                    {{firstShop.recommendation_description}}
+                <p class="description">
+                  <v-clamp autoresize :max-lines="7">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
                 </p>
 
                   <p class="read-more">
@@ -125,13 +125,22 @@
         padding-top: 50px;
     }
     .first-shop h2{
-        margin: 30px;
+        width: 90%;
+        margin: 30px auto;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .shop-content{
         background-color: #ffffff;
         padding: 30px;
         position: relative;
+    }
+
+    .first-shop .description{
+      white-space: pre-line;
+      text-align: left;
     }
 
     .read-more{
@@ -178,6 +187,7 @@ import food_share from '~/assets/img/icon_food_share.svg';
 import free_shop from '~/assets/img/icon_free_shop.svg';
 import thrift_shop from '~/assets/img/icon_thrift_shop.svg';
 import vegetarian_shop from '~/assets/img/icon_tag_vegetarian_shop.svg';
+import VClamp from 'vue-clamp';
 
 import environment_friendly from '~/assets/img/icon_tag_environment-friendly.svg';
 import non_plastic from '~/assets/img/icon_tag_non-plastic.svg';
@@ -204,7 +214,8 @@ export default {
   components: {
     Navbar,
     ShopList,
-    ImageHandler
+    ImageHandler,
+    VClamp
   },
   data() {
     return {
