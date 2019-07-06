@@ -88,7 +88,7 @@
 
     .tags img{
         width: 60px;
-        max-width: calc(calc(100% - 60px) / 7);
+        max-width: calc(calc(100vw - 60px) / 7);
         align-self: center;
     }
 
