@@ -61,6 +61,9 @@
     background-color: #ffffff;
     position: relative;
   }
+  nav.navbar{
+    z-index: 1;
+  }
   nav img:nth-child(2){
     width: 40px;
     height: 11px;
@@ -124,9 +127,6 @@
   @media screen and (max-width:991px){
     nav{
       height: unset;
-    }
-    .navbar.mobile{
-      z-index: 1;
     }
     .map-logo{
       display: inline-block;

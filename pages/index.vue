@@ -58,7 +58,12 @@
 </template>
 
 <style>
-
+  img[lazy=loading] {
+    width: 100%;
+  }
+  img[lazy=error] {
+    width: 100%;
+  }
   html, body{
     overflow-y: hidden
   }
@@ -184,10 +189,10 @@
 </style>
 
 <script>
-import { defaultCoreCipherList } from 'constants'
-import Navbar from '~/components/Navbar.vue'
-import ShopList from '~/components/ShopList.vue'
-import MobileShopList from '~/components/MobileShopList.vue'
+import { defaultCoreCipherList } from 'constants';
+import Navbar from '~/components/Navbar.vue';
+import ShopList from '~/components/ShopList.vue';
+import MobileShopList from '~/components/MobileShopList.vue';
 import markerIcon from '~/assets/img/icon_location.svg';
 import { mapMutations } from 'vuex'
 import ImageHandler from '~/components/ImageHandler.vue';

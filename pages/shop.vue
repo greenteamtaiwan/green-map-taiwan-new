@@ -3,15 +3,15 @@
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class='shop-container'>
         <div class='img-container'>
-            <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||this.placeholders[0]" :alt="shop.name"/></div>
+            <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||this.placeholders[0]" :alt="shop.name" :onClick="setLargeImg"/></div>
             <div class="imgs">
-                <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||this.placeholders[1]" :alt="shop.name"/></div>
-                <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||this.placeholders[2]" :alt="shop.name"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||this.placeholders[1]" :alt="shop.name" :onClick="setLargeImg"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||this.placeholders[2]" :alt="shop.name" :onClick="setLargeImg"/></div>
             </div>
-            <div class="img desktop"><ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||this.placeholders[3]" :alt="shop.name"/></div>
+            <div class="img desktop"><ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||this.placeholders[3]" :alt="shop.name" :onClick="setLargeImg"/></div>
             <div class="imgs desktop">
-                <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||this.placeholders[4]" :alt="shop.name"/></div>
-                <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||this.placeholders[5]" :alt="shop.name"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||this.placeholders[4]" :alt="shop.name" :onClick="setLargeImg"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||this.placeholders[5]" :alt="shop.name" :onClick="setLargeImg"/></div>
             </div>
         </div>
 
@@ -68,6 +68,7 @@
             </div>
         </div>
     </div>
+    <LargeImgViewer v-if="this.$store.state.largeImg" :src="this.$store.state.largeImg"/>
   </div>
 </template>
 
@@ -249,6 +250,7 @@ import thrift_shop from '~/assets/img/icon_thrift_shop.svg';
 import vegetarian_shop from '~/assets/img/icon_tag_vegetarian_shop.svg';
 import markerIcon from '~/assets/img/icon_location.svg';
 import ImageHandler from '~/components/ImageHandler.vue';
+import LargeImgViewer from '~/components/LargeImgViewer.vue';
 
 import GT1 from '~/assets/img/GT1.png';
 import GT2 from '~/assets/img/GT2.png';
@@ -273,7 +275,8 @@ if (!firebase.apps.length) {
 export default {
   components: {
     Navbar,
-    ImageHandler
+    ImageHandler,
+    LargeImgViewer
   },
   data() {
     return {
@@ -341,6 +344,9 @@ export default {
     getIcon: function(type) {
       return this.$store.state.sourceData.types[type].icon;
       // return markerIcon;
+    },
+    setLargeImg: function(largeImg){
+      this.$store.commit("setLargeImg", largeImg);
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
-    <div :style="finalSrc?{...containerStyle, backgroundImage: `url('${finalSrc}')`}:containerStyle">
-        <img v-if="finalSrc" :src="finalSrc" :style="style" :alt="alt"/>
+    <div :style="computedContainerStyle" @click="clickImg">
+        <img v-if="finalSrc" v-lazy="finalSrc" :style="style" :alt="alt"/>
     </div>
 </template>
 
@@ -55,7 +55,20 @@ export default {
       containerStyle: {
           type: Object,
           default: () => ({width: '100%',height: '100%',overflow: 'hidden'})
+      },
+      onClick: {
+          type: Function,
+          default: ()=>{}
       }
+    },
+    computed: {
+        computedContainerStyle: function() {
+            let containerStyle = {...this.containerStyle};
+            if(this.finalSrc) containerStyle.backgroundImage = `url('${this.finalSrc}')`;
+            if(this.onClick) containerStyle.cursor = 'pointer';
+
+            return containerStyle;
+        }
     },
     mounted() {
         this.checkImage();
@@ -84,6 +97,9 @@ export default {
             }
             img.src = this.src;
 
+        },
+        clickImg () {
+            this.onClick(this.finalSrc);
         }
     }
 }

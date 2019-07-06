@@ -51,7 +51,8 @@ export const state = () => ({
     query: "",
     type: null,
     city: 0,
-    tag: ""
+    tag: "",
+    largeImg: ""
   })
   
 export const actions = {
@@ -207,5 +208,8 @@ export const actions = {
     },
     setTag (state, tag) {
         state.tag = tag;
+    },
+    setLargeImg (state, largeImg) {
+        state.largeImg = largeImg;
     }
   }

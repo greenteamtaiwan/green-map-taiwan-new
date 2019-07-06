@@ -2,7 +2,7 @@
         <b-container class="shopItem-container" @click="setShop">
             <b-row>
                 <b-col lg='5' class='shopItem-main'>
-                    <ImageHandler :src="shop.facebook_avatar || shop.photo1" :alt="shop.name"/>
+                    <img :src="shop.facebook_avatar || shop.photo1" :alt="shop.name"/>
                 </b-col>
                 <b-col lg='7' class='shopItem-aside'>
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>

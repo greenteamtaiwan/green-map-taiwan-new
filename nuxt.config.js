@@ -42,6 +42,7 @@ module.exports = {
   */
   plugins: [
     // '@/plugins/vuetify',
+    { src: '~/plugins/vue-lazyload', ssr: true },
     { src: '~plugins/leaflet.js', ssr: false },
     { src: '~plugins/vueLineClamp', ssr: false }
   ],
