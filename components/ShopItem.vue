@@ -4,6 +4,7 @@
                     <ImageHandler :src="shop.facebook_avatar || shop.photo1" :alt="shop.name"/>
                 </div>
                 <div class='shopItem-aside'>
+                    <div>
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                     <h3  v-line-clamp:20="1"><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></h3>
                     <p class='type'>
@@ -13,7 +14,7 @@
                     <p class="shopItem-description">
                         <v-clamp autoresize :max-lines="2">{{shop.description}}</v-clamp>
                     </p> 
-                    
+                    </div>
                 </div>
         </div>    
 </template>
@@ -85,16 +86,16 @@
 
     .shopItem-main{
         width: 35%;
+        display: flex;
     }
     .shopItem-aside{
         width: 65%;
+        display: flex;
         background-color: white;
     }
 
     @media screen and (max-width:991px){
-        .shopItem-aside{
-            height: 100%;
-        }   
+
     }
 </style>
 
