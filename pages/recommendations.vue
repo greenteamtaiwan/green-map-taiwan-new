@@ -65,21 +65,20 @@
 
     .tags-container{
         background-color: #ffffff;
-        padding: 30px;
+        padding: 20px;
         margin-bottom: 30px;
     }
 
     .tags{
         max-width: 100%;
-        width: 600px;
+        width: 750px;
         display: flex;
-        justify-content: center;
-        margin: auto;
+        justify-content: space-between;
+        margin: 15px auto 0;
     }
 
     .tags li{
-      flex: 1;
-      
+      width: 80px;
       cursor: pointer;
     }
 
@@ -234,7 +233,10 @@
       padding: 30px 0;
     }
     .tags{
-      width: 100%;
+      width: 85%;
+    }
+    .tags li{
+      flex: 1;
     }
   }
 </style>
@@ -283,10 +285,10 @@ export default {
   data() {
     return {
       tags: [
-        {
-          name: '不塑',
-          icon: non_plastic
-        },
+        // {
+        //   name: '不塑',
+        //   icon: non_plastic
+        // },
         {
           name: '減塑',
           icon: reduce_plastic
@@ -303,10 +305,10 @@ export default {
           name: '環境友善',
           icon: environment_friendly
         },
-        {
-          name: '無包裝',
-          icon: shop_naked
-        },
+        // {
+        //   name: '無包裝',
+        //   icon: shop_naked
+        // },
         {
           name: '二手商店',
           icon: thrift_shop_tag

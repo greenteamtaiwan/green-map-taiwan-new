@@ -135,6 +135,8 @@ export const actions = {
       if(!dontSetShop) context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
       context.commit("setTag", '');
       window.$nuxt.$loading.finish();
+
+      context.commit("initPageNum");
     });
     
     
@@ -158,7 +160,8 @@ export const actions = {
     }
   },
   async getRecommendationShops (context, city){
-
+    context.commit("initPageNum");
+    
     window.$nuxt.$nextTick(async ()=>{
       window.$nuxt.$loading.start();
       if(city){
@@ -228,7 +231,7 @@ export const actions = {
     addPageNum (state){
       state.pageNum = state.pageNum + 1;
     },
-    initPageNum (pageNum){
-      state.pageNum = 0;
+    initPageNum (state){
+      state.pageNum = 1;
     }
   }

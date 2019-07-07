@@ -47,8 +47,7 @@
 
     .content{
         height: calc( 100vh - 60px);
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
     }
 
     @media screen and (max-width:991px){
