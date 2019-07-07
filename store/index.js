@@ -52,7 +52,8 @@ export const state = () => ({
     type: null,
     city: 0,
     tag: "",
-    largeImg: ""
+    largeImg: "",
+    pageNum: 1
   })
   
 export const actions = {
@@ -223,5 +224,11 @@ export const actions = {
     },
     setLargeImg (state, largeImg) {
         state.largeImg = largeImg;
+    },
+    addPageNum (state){
+      state.pageNum = state.pageNum + 1;
+    },
+    initPageNum (pageNum){
+      state.pageNum = 0;
     }
   }

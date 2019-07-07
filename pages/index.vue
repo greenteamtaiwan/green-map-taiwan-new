@@ -52,8 +52,8 @@
           </no-ssr>
         </b-col>
       </b-row>
-      <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList"/>
-      <MobileShopList :shops="shops"/>
+      <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList" />
+      <MobileShopList :shops="shops" />
     </b-container>
   </div>
 </template>
