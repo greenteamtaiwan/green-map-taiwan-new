@@ -47,7 +47,6 @@ module.exports = {
     // '@/plugins/vuetify',
     // { src: '~/plugins/vue-lazyload', ssr: true },
     { src: '~plugins/leaflet.js', ssr: false },
-    { src: '~plugins/vue-lazy-render.js', ssr: false },
     { src: '~plugins/vue-scroll.js', ssr: false }
   ],
 

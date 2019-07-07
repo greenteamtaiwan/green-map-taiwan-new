@@ -16,7 +16,7 @@
         top: 60vh;
         max-height: 100vh;
         min-height: 50vh;
-        overflow-y: scroll;
+        overflow-y: auto;
         background-color: #f3f4f5;
         width: 100%;
     }
@@ -33,7 +33,7 @@
     }
 
     .mobile-shop-list .no-result-placeholder img{
-        height: 25vh;
+        height: 20vh;
         width: unset;
         margin: 20px auto;
         display: block;

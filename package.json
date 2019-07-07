@@ -26,7 +26,6 @@
     "nuxt": "^2.4.0",
     "vue": "^2.6.4",
     "vue-clamp": "^0.2.1",
-    "vue-lazy-render": "^1.0.20",
     "vue-scroll": "^2.1.12",
     "vue2-google-maps": "^0.10.6",
     "vue2-leaflet": "^1.2.3",
