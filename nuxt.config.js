@@ -84,7 +84,8 @@ module.exports = {
     }
   },
   router: {
-    base: base
+    base: base,
+    prefetchLinks: false
   },
   configureWebpack: config => { config.output.globalObject = "this"; }
 }

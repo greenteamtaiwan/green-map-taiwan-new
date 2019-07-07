@@ -11,6 +11,15 @@
               :zoom="zoomLevel"
               map-type-id="roadmap"
               class="index-map"
+              :options="{
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: true,
+                streetViewControl: true,
+                rotateControl: true,
+                fullscreenControl: true,
+                disableDefaultUi: false
+              }"
             >
               <gmap-marker
                 v-for="(shop, index) in shops"
@@ -213,7 +222,7 @@ export default {
   data() {
     return {
       showShopList: true,
-      zoomLevel: 9
+      zoomLevel: 14
     }
   },
   computed: {
