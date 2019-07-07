@@ -1,21 +1,21 @@
 <template>
-        <b-container class="shopItem-container" @click="setShop" style="containerStyle">
-            <b-row>
-                <b-col lg='5' class='shopItem-main'>
+        <div class="shopItem-container" @click="setShop" style="containerStyle">
+                <div class='shopItem-main'>
                     <ImageHandler :src="shop.facebook_avatar || shop.photo1" :alt="shop.name"/>
-                </b-col>
-                <b-col lg='7' class='shopItem-aside'>
+                </div>
+                <div class='shopItem-aside'>
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
-                    <h3  v-line-clamp:20="1">{{shop.name}}</h3>
+                    <h3  v-line-clamp:20="1"><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></h3>
                     <p class='type'>
                         {{types[shop.type]?types[shop.type].text:""}}
                         <span v-if="shop.open_status && shop.open_status.type"> ‧ </span>
                         <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span></p>
-                    <p class="description" v-line-clamp:20="2">{{shop.description}}</p> 
-                </b-col>
-            </b-row>
-        </b-container>
-    
+                    <p class="shopItem-description">
+                        <v-clamp autoresize :max-lines="2">{{shop.description}}</v-clamp>
+                    </p> 
+                    
+                </div>
+        </div>    
 </template>
 
 <style scoped>
@@ -27,15 +27,6 @@
 
     .shopItem-container:hover h3{
         color: #44AD47;
-    }
-    
-    .row{
-        background-color: #ffffff;
-        margin: 0;
-    }
-    
-    .row > div{
-        padding: 0;
     }
 
     .shopItem-main{
@@ -56,7 +47,7 @@
         display: inline-block;
     }
 
-    .row > .shopItem-aside{
+    .shopItem-aside{
         padding: 10px;
     }
 
@@ -81,36 +72,40 @@
     }
 
     .description {
-        min-height: 2rem;
+        min-height: 28px;
     }
 
     .running-status{
         color: #44AD47;
     }
-
-    @media screen and (max-width:991px){
-      .row{
+    .shopItem-container{
         display: flex;
         flex-direction: row;
-      }
-      .shopItem-container{
-          max-width: unset;
-      }
-      .row .shopItem-main{
-          width: 30%;
-      }
-      .row .shopItem-aside{
-          width: 70%;
-      }
+    }
+
+    .shopItem-main{
+        width: 35%;
+    }
+    .shopItem-aside{
+        width: 65%;
+        background-color: white;
+    }
+
+    @media screen and (max-width:991px){
+        .shopItem-aside{
+            height: 100%;
+        }   
     }
 </style>
 
 <script>
 import ImageHandler from '~/components/ImageHandler.vue';
+import VClamp from 'vue-clamp';
 
 export default {
     components: {
-        ImageHandler
+        ImageHandler,
+        VClamp
     },
     computed: {
         types: function (){

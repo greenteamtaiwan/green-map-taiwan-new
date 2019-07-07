@@ -41,7 +41,7 @@
                   <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
                 <div class="shop-map-container">
-                <nuxt-link to="/shop-map"><button class="expand-map-button mobile">展開地圖</button></nuxt-link>
+                <nuxt-link to="/shop-map"><button class="expand-map-button-map mobile">展開地圖</button></nuxt-link>
                 <no-ssr>
                     <gmap-map
                       :center="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
@@ -76,7 +76,7 @@
 </template>
 
 <style scoped>
-  .expand-map-button{
+  .expand-map-button-map{
     border: none;
     background-color: rgba(255,255,255,0.9);
     color: gray;

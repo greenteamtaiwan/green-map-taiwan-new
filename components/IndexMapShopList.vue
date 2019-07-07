@@ -8,7 +8,7 @@
 
 <style>
     .index-map-shop-list-container{
-        position: absolute;
+        position: fixed;
         overflow-x: auto;
         width: 100vw;
         bottom: 0;
@@ -23,18 +23,9 @@
         margin: 0;
     }
     .index-map-shop-list .shopItem-container{
+        min-width: 450px;
         margin: 5px;
-    }
-    .index-map-shop-list .shopItem-container .row{
-        width: 450px;
-    }
-
-    .index-map-shop-list .shopItem-main{
-        width: 35%!important;
-    }
-    .index-map-shop-list .shopItem-aside{
-        width: 65%!important;
-    }
+    } 
     
     .no-result-placeholder{
         text-align: center;

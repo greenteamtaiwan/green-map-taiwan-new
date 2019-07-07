@@ -5,7 +5,7 @@
               :center="center"
               :zoom="zoomLevel"
               map-type-id="roadmap"
-              class="index-map"
+              class="index-map-map"
             >
               <gmap-marker
                 v-for="(shop, index) in shops"
@@ -49,7 +49,7 @@
 </template>
 
 <style>
-    .index-map-container .index-map{
+    .index-map-container .index-map-map{
         height: 100vh;
         width: 100vw;
         overflow: hidden;
@@ -57,12 +57,10 @@
   html, body{
     overflow-y: hidden
   }
-  
-  .index-map{
-    width: 100%; 
-    height: calc(100vh - 60px);
-  }
 
+    .index-map-container .recommend{
+        justify-content: flex-start;
+    }
   .map-container h1{
     font-size: 16px;
     font-weight: bold;
@@ -219,7 +217,8 @@ export default {
     }
   },
   mounted: function() {
-    this.$store.dispatch("getUserLocation");
+    // this.$store.dispatch("getShops");
+    // this.$store.dispatch("getUserLocation");
   },
   methods: {
     mapClick: function(event) {

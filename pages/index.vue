@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="index-container">
     <Navbar/>
     <b-container class='map-container'>
       <b-row>  
         <b-col lg='12' class='map'>
-          <nuxt-link to="/index-map"><button class="expand-map-button mobile">展開地圖</button></nuxt-link>
+          <nuxt-link to="/index-map"><button class="expand-map-button-index mobile">展開地圖</button></nuxt-link>
           <no-ssr>
             <gmap-map
               :center="center"
@@ -59,7 +59,7 @@
 </template>
 
 <style>
-  .expand-map-button{
+  .expand-map-button-index{
     border: none;
     background-color: rgba(255,255,255,0.9);
     color: gray;

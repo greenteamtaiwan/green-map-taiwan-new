@@ -50,7 +50,7 @@
 
 <style>
     .shop-map-shop-container{
-        position: absolute;
+        position: fixed;
         bottom: 0;
         padding: 0 10px;
         width: 100%;
@@ -59,6 +59,9 @@
     .index-map-container .index-map{
         height: 100vh;
         width: 100vw;
+    }
+    .shop-map-shop-container .recommend{
+        justify-content: flex-start;
     }
   html, body{
     overflow-y: hidden

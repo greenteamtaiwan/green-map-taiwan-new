@@ -79,6 +79,7 @@
 
     .tags li{
       flex: 1;
+      
       cursor: pointer;
     }
 
@@ -87,8 +88,7 @@
     }
 
     .tags img{
-        width: 60px;
-        max-width: calc(calc(100vw - 60px) / 7);
+        max-width: 100%;
         align-self: center;
     }
 
@@ -228,6 +228,13 @@
 
     .shop:not(.first-shop) .shop-content{
       width: 60%;
+    }
+
+    .tags-container{
+      padding: 30px 0;
+    }
+    .tags{
+      width: 100%;
     }
   }
 </style>

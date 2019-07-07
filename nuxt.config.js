@@ -43,8 +43,7 @@ module.exports = {
   plugins: [
     // '@/plugins/vuetify',
     { src: '~/plugins/vue-lazyload', ssr: true },
-    { src: '~plugins/leaflet.js', ssr: false },
-    { src: '~plugins/vueLineClamp', ssr: false }
+    { src: '~plugins/leaflet.js', ssr: false }
   ],
 
   /*
@@ -66,7 +65,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    // transpile: ['vue-line-clamp'],
     // plugins: [new VuetifyLoaderPlugin()],
     loaders: {
       stylus: {
