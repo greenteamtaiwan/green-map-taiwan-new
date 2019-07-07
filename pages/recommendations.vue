@@ -16,7 +16,7 @@
                 <p class="story-title"><span>● 綠點故事</span></p>
                 <h2 @click="setShop(firstShop)">{{firstShop.name}}</h2>
                 <p class="description desktop">
-                  <v-clamp autoresize :max-lines="7">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
+                  <v-clamp autoresize :max-lines="8">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
                 </p>
 
                   <p class="read-more">

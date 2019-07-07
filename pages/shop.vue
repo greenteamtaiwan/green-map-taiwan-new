@@ -20,14 +20,16 @@
                 <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                 <h1>{{shop.name}}</h1>
                 <p class='type'>{{ this.$store.state.sourceData.types[shop.type]?this.$store.state.sourceData.types[shop.type].text:""}}</p>
-                <p class="description">{{shop.description}}</p>
+                <p class="description">{{shop.recommendation_description || shop.description}}</p>
 
             </div>
             <div class="shop-content">
                 <div class="shop-info">
                   <p v-if="shop.business_hours || shop.alt_business_hours" style="white-space: pre-line"><img src="~/assets/img/icon_time.svg"/>{{shop.business_hours || shop.alt_business_hours}}</p>
                   <p v-if="shop.address"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</p>
-                  <p v-if="shop.phone"><img src="~/assets/img/icon_phone.svg"/><a :href="`tel:${shop.phone}`">{{shop.phone}}</a></p>
+                  <p v-if="shop.phone"><img src="~/assets/img/icon_phone.svg"/>
+                    <a v-for="(phone, index) in shop.phone" :href="`tel:${phone.replace(/\D/g, '')}`">{{phone}}</a>
+                  </p>
                   <p v-if="shop.url && shop.url.length > 0">
                     <img src="~/assets/img/icon_website.svg"/>
                     <span>
