@@ -17,6 +17,7 @@
 
     img{
         max-width: 80%;
+        max-height: 100%;
         position: absolute;
         top: 50%;
         left: 50%;
