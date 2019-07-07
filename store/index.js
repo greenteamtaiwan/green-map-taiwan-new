@@ -45,7 +45,7 @@ function getFilterString(){
 }
 
 export const state = () => ({
-    center: { lat: 23.41322, lng: 121.219482 },
+    center: { lng: 121.5147601, lat: 25.047819 },
     shops: [],
     shop: {},
     query: "",
@@ -144,10 +144,12 @@ export const actions = {
   getUserLocation (context){
     try{
       navigator.geolocation.getCurrentPosition(function (position) {
+        console.log(position);
         context.commit("setCenter", { lat: position.coords.latitude, lng: position.coords.longitude });
       });
     }catch(err){
-      context.commit("setCenter", { lat: context.state.sourceData.cities[1].latitude, lng: context.state.sourceData.cities[1].longitude });
+      console.log("getUserLocation err:::", err);
+      // context.commit("setCenter", { lat: context.state.sourceData.cities[1].latitude, lng: context.state.sourceData.cities[1].longitude });
     }
   },
   setCityAndCenter (context, city){

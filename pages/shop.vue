@@ -27,7 +27,7 @@
                 <div class="shop-info">
                   <p v-if="shop.business_hours || shop.alt_business_hours" style="white-space: pre-line"><img src="~/assets/img/icon_time.svg"/>{{shop.business_hours || shop.alt_business_hours}}</p>
                   <p v-if="shop.address"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</p>
-                  <p v-if="shop.phone"><img src="~/assets/img/icon_phone.svg"/>
+                  <p v-if="shop.phone && shop.phone.length > 0"><img src="~/assets/img/icon_phone.svg"/>
                     <a v-for="(phone, index) in shop.phone" :href="`tel:${phone.replace(/\D/g, '')}`">{{phone}}</a>
                   </p>
                   <p v-if="shop.url && shop.url.length > 0">
@@ -41,7 +41,7 @@
                   <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
                 <div class="shop-map-container">
-                <nuxt-link to="/shop-map"><button class="expand-map-button-map mobile">展開地圖</button></nuxt-link>
+                <nuxt-link to="/shop-map"><button class="expand-map-button-map mobile" @click="initPageNum">展開地圖</button></nuxt-link>
                 <no-ssr>
                     <gmap-map
                       :center="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
@@ -63,7 +63,7 @@
                         :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                         :clickable="true"
                         :draggable="false"
-                        :icon="{url: getIcon(shop.type), scaledSize: {width: 55, height: 65} }"
+                        :icon="{url: getIcon(shop.type), scaledSize: {width: 67, height: 79} }"
                       />
                     </gmap-map>
                   </no-ssr>
@@ -362,6 +362,9 @@ export default {
     },
     setLargeImg: function(largeImg){
       this.$store.commit("setLargeImg", largeImg);
+    },
+    initPageNum: function() {
+      this.$store.commit("initPageNum");
     }
   }
 }
