@@ -28,7 +28,10 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: {
+    color: '#44AD47',
+    height: '5px'
+  },
 
   /*
   ** Global CSS
@@ -42,8 +45,9 @@ module.exports = {
   */
   plugins: [
     // '@/plugins/vuetify',
-    { src: '~/plugins/vue-lazyload', ssr: true },
-    { src: '~plugins/leaflet.js', ssr: false }
+    // { src: '~/plugins/vue-lazyload', ssr: true },
+    { src: '~plugins/leaflet.js', ssr: false },
+    { src: '~plugins/vue-lazy-render.js', ssr: false }
   ],
 
   /*

@@ -1,7 +1,10 @@
 <template>
     <div class="index-map-shop-list-container">
         <ul class="index-map-shop-list" slot="content" v-if="shops.length>0">
-            <ShopItem v-for="(shop, index) in shops" :shop="shop" :containerStyle="`width: 200px;`"/>
+            <lazy-render :data="shops" :time="700" :limit="20" track-by-data>
+                <ShopItem v-for="(shop, index) in shops" :shop="shop"/>
+                <div slot="tip" style="display:inline-block;margin:20px;">Loading...</div>
+            </lazy-render>
         </ul>
     </div>
 </template>
@@ -17,10 +20,12 @@
     }
 
     .index-map-shop-list{
+        margin: 0;
+    }
+    .index-map-shop-list .lazy-load{
         width: 100%;
         display: flex;
         flex-direction: row;
-        margin: 0;
     }
     .index-map-shop-list .shopItem-container{
         min-width: 450px;

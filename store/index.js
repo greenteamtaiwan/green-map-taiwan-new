@@ -63,75 +63,80 @@ export const actions = {
     // let shops = await database.ref('/').once('value');
     // shops = shops.val().filter(data=>(data.recommendation_area||data.recommendation_level));
     // context.commit("setShops", shops);
-
-    const data = await index.search({ 
-      filters: getFilterString({
-        name: 'type', value: "" + context.state.type, check: function(value){
-          return typeof +value === 'number' && isFinite(+value) && +value > 0;
-        }
-      }, {
-        name: 'city', value: "" + context.state.city, check: function(value){
-          return typeof +value === 'number' && isFinite(+value) && +value > 0;
-        }
-      }, {
-        name: '_tags', value: context.state.tag, check: function(value){
-          return value;
-        }
-      }),
-      query: context.state.query,
-      restrictSearchableAttributes: [
-        "name",
-        "description",
-        "tags"
-      ]
-    });
-
-    let today = new Date();
-    for (let i=0;i<data.hits.length;i++) {
-      let info = data.hits[i].business_hours.match(/(星期[一|二|三|四|五|六|日]\s*(休息中|休息|\d+:*\d+\s*\-\s*\d+:*\d+))/gm);
-      if(!info) continue;
-      if(!info[today.getDay()?today.getDay()-1:6]) continue;
-
-      let time = info[today.getDay()?today.getDay()-1:6].slice(3);
-      let startTime, endTime;
-      const firstDate = new Date(), secondDate = new Date();
-      if(time === "休息" || !info){
-        data.hits[i].open_status = {
-          type: 1,
-          text: "休息中"
-        };
-      }else{
-        firstDate.setFullYear(today.getFullYear());
-        firstDate.setFullYear(today.getMonth()+1);
-        firstDate.setFullYear(today.getDate());
-        secondDate.setFullYear(today.getFullYear());
-        secondDate.setFullYear(today.getMonth()+1);
-        secondDate.setFullYear(today.getDate());
-
-        firstDate.setHours(time.split("-")[0].trim().slice(0,1));
-        firstDate.setMinutes(time.split("-")[0].trim().slice(-2));
-        secondDate.setHours(time.split("-")[0].trim().slice(0,1));
-        secondDate.setMinutes(time.split("-")[0].trim().slice(-2));
-
-        startTime = firstDate.getTime();
-        endTime = secondDate.getTime();
-
-        if(today.getTime() >= startTime && today.getTime() <= endTime){
+    window.$nuxt.$nextTick(async ()=>{
+      window.$nuxt.$loading.start();
+      const data = await index.search({ 
+        filters: getFilterString({
+          name: 'type', value: "" + context.state.type, check: function(value){
+            return typeof +value === 'number' && isFinite(+value) && +value > 0;
+          }
+        }, {
+          name: 'city', value: "" + context.state.city, check: function(value){
+            return typeof +value === 'number' && isFinite(+value) && +value > 0;
+          }
+        }, {
+          name: '_tags', value: context.state.tag, check: function(value){
+            return value;
+          }
+        }),
+        query: context.state.query,
+        restrictSearchableAttributes: [
+          "name",
+          "description",
+          "tags"
+        ]
+      });
+  
+      let today = new Date();
+      for (let i=0;i<data.hits.length;i++) {
+        let info = data.hits[i].business_hours.match(/(星期[一|二|三|四|五|六|日]\s*(休息中|休息|\d+:*\d+\s*\-\s*\d+:*\d+))/gm);
+        if(!info) continue;
+        if(!info[today.getDay()?today.getDay()-1:6]) continue;
+  
+        let time = info[today.getDay()?today.getDay()-1:6].slice(3);
+        let startTime, endTime;
+        const firstDate = new Date(), secondDate = new Date();
+        if(time === "休息" || !info){
           data.hits[i].open_status = {
             type: 1,
-            text: "營業中"
+            text: "休息中"
           };
-        } 
-        else data.hits[i].open_status = {
-          type: 1,
-          text: "休息中"
-        };
+        }else{
+          firstDate.setFullYear(today.getFullYear());
+          firstDate.setFullYear(today.getMonth()+1);
+          firstDate.setFullYear(today.getDate());
+          secondDate.setFullYear(today.getFullYear());
+          secondDate.setFullYear(today.getMonth()+1);
+          secondDate.setFullYear(today.getDate());
+  
+          firstDate.setHours(time.split("-")[0].trim().slice(0,1));
+          firstDate.setMinutes(time.split("-")[0].trim().slice(-2));
+          secondDate.setHours(time.split("-")[0].trim().slice(0,1));
+          secondDate.setMinutes(time.split("-")[0].trim().slice(-2));
+  
+          startTime = firstDate.getTime();
+          endTime = secondDate.getTime();
+  
+          if(today.getTime() >= startTime && today.getTime() <= endTime){
+            data.hits[i].open_status = {
+              type: 1,
+              text: "營業中"
+            };
+          } 
+          else data.hits[i].open_status = {
+            type: 1,
+            text: "休息中"
+          };
+        }
       }
-    }
-
-    context.commit("setShops", data.hits);
-    if(!dontSetShop) context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
-    context.commit("setTag", '');
+  
+      context.commit("setShops", data.hits);
+      if(!dontSetShop) context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
+      context.commit("setTag", '');
+      window.$nuxt.$loading.finish();
+    });
+    
+    
   },
   getUserLocation (context){
     try{
@@ -144,39 +149,46 @@ export const actions = {
   },
   setCityAndCenter (context, city){
     context.commit("setCity", city);
-    
+
+      setTimeout(() => this.$nuxt.$loading.finish(), 500)
     if(+city > 0){
       const cityData = context.state.sourceData.cities[city];
       context.commit("setCenter", { lat: cityData.latitude, lng: cityData.longitude });
     }
   },
   async getRecommendationShops (context, city){
-    if(city){
-      context.commit("setCity", city);
-      if(+city > 0){
-        const cityData = context.state.sourceData.cities[city];
-        context.commit("setCenter", { lat: cityData.latitude, lng: cityData.longitude });
+
+    window.$nuxt.$nextTick(async ()=>{
+      window.$nuxt.$loading.start();
+      if(city){
+        context.commit("setCity", city);
+        if(+city > 0){
+          const cityData = context.state.sourceData.cities[city];
+          context.commit("setCenter", { lat: cityData.latitude, lng: cityData.longitude });
+        }
+      }else{
+        city = context.state.city;
+        if(!city) city = 1;
       }
-    }else{
-      city = context.state.city;
-      if(!city) city = 1;
-    }
-    const query = city?context.state.sourceData.cities[city].text.slice(0, 2):'';
-    const data = await index.search({ 
-      query,
-      restrictSearchableAttributes: [
-        "recommendation_area",
-        "recommendation_level"
-      ],
-      hitsPerPage: 8
+      const query = city?context.state.sourceData.cities[city].text.slice(0, 2):'';
+      const data = await index.search({ 
+        query,
+        restrictSearchableAttributes: [
+          "recommendation_area",
+          "recommendation_level"
+        ],
+        hitsPerPage: 8
+      });
+      console.log(data.hits);
+      data.hits.sort((a,b)=>{
+        const first = a.recommendation_level.indexOf(query)>=0?a.recommendation_level:a.recommendation_area;
+        const second = b.recommendation_level.indexOf(query)>=0?b.recommendation_level:b.recommendation_area;
+        return +first.slice(-1) - +second.slice(-1);
+      });
+      context.commit("setShops", data.hits);
+  
+      window.$nuxt.$loading.finish();
     });
-    console.log(data.hits);
-    data.hits.sort((a,b)=>{
-      const first = a.recommendation_level.indexOf(query)>=0?a.recommendation_level:a.recommendation_area;
-      const second = b.recommendation_level.indexOf(query)>=0?b.recommendation_level:b.recommendation_area;
-      return +first.slice(-1) - +second.slice(-1);
-    });
-    context.commit("setShops", data.hits);
   }
 }
 // export const strict = false;

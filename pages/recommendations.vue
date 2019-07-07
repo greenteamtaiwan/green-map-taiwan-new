@@ -357,7 +357,7 @@ export default {
   methods: {
     setShop: function(shop) {
         this.$store.commit("setShop", shop);
-        $nuxt.$router.push('/shop');
+        $nuxt.$router.push(`/shop?objectID=${shop.objectID}`);
     },
     setTag: function(tag) {
         this.$store.commit("setTag", tag);

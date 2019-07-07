@@ -93,17 +93,20 @@ export default {
       search: {
           type: Function,
           default: ()=>{}
+      },
+      setType: {
+          type: Function,
+          default: ()=>{}
+      },
+      query: {
+          type: String,
+          default: ""
       }
     },
     computed: {
         
     },
     methods: {
-        setType (type) {
-            this.$store.commit("setType", type);
-            this.$store.dispatch("getShops");
-            if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
-        },
         checkIfIsSelected (item) {
             return +this.$store.state.type === +item.value;
         }

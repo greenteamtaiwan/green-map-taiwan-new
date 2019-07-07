@@ -1,7 +1,10 @@
 <template>
     <Sidebar :show="show" :onCloseButtonClick="onCloseButtonClick" :showCloseSidebarButton="true">
         <ul class="shopList" slot="content" v-if="shops.length>0">
-            <ShopItem v-for="(shop, index) in shops" :shop="shop" />
+            <lazy-render :data="shops" :time="700" :limit="20" track-by-data>
+                <ShopItem v-for="(shop, index) in shops" :shop="shop"/>
+                <div slot="tip" style="display:inline-block;margin:20px;">Loading...</div>
+            </lazy-render>
         </ul>
         <div class="no-result-placeholder" slot="content" v-if="shops.length===0">
             <img :src='mascots[Math.floor(Math.random()*mascots.length)]'/>

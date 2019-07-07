@@ -338,7 +338,7 @@ export default {
     if(this.$store.state.shop !== null && Object.getOwnPropertyNames(this.$store.state.shop).length > 1){
       this.getRandomPlaceholders();
     }else{
-      $nuxt.$router.push('/shop');
+      $nuxt.$router.push(`/shop?objectID=${this.$store.state.shop.objectID}`);
     }
   },
   methods: {

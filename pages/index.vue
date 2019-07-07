@@ -261,7 +261,6 @@ export default {
     },
     setShop: function() {
         this.$store.commit("setShop", this.$store.state.shop);
-        $nuxt.$router.push('/shop');
     },
     getIcon: function(type) {
       return this.$store.state.sourceData.types[type].icon;

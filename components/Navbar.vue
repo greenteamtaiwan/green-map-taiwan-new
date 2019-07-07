@@ -42,7 +42,7 @@
         </div>
     </b-form>
   </nav>
-  <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :search="search"/>
+  <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :query="query" :search="search" :setType="setType"/>
 </div>
 </template>
 
@@ -62,7 +62,7 @@
     position: relative;
   }
   nav.navbar{
-    z-index: 1;
+    z-index: 2;
   }
   nav img:nth-child(2){
     width: 40px;
@@ -233,6 +233,7 @@ export default {
       this.$store.commit("setQuery", query);
       this.$store.dispatch("getShops");
       if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
+      this.showSearchSidebar = false;
     },
     setCity (city){
       this.$store.dispatch("setCityAndCenter", city);
@@ -249,13 +250,16 @@ export default {
         default:
       }
     },
+    setType (type){
+      this.$store.commit("setType", type);
+      this.$store.dispatch("getShops");
+      if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
+      this.showSearchSidebar = false;
+    },
     setShowSearchSidebar (showSearchSidebar){
       this.showSearchSidebar = showSearchSidebar;
     },
     closeSearchSidebar (e){
-      console.log("e.target:::", e.target);
-      console.log('document.querySelector("#search-sidebar")', document.querySelector("#search-sidebar").contains(e.target));
-      console.log('document.querySelector("#search-container").contains(e.target):::', document.querySelector("#search-container").contains(e.target));
       if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#search-container").contains(e.target) && !document.querySelector("#mobile-button").contains(e.target)){
           this.showSearchSidebar = false;
       }

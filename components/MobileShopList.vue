@@ -1,7 +1,11 @@
 <template>
     <div class="mobile mobile-shop-list">
         <ul class="shopList" slot="content" v-if="shops.length>0">
+        <lazy-render :data="shops" :time="700" :limit="20" track-by-data>
             <ShopItem v-for="(shop, index) in shops" :shop="shop" />
+            <div slot="tip" style="display:inline-block;margin:20px;">Loading...</div>
+        </lazy-render>
+            
         </ul>
         <div class="no-result-placeholder" slot="content" v-if="shops.length===0">
             <img :src='mascots[Math.floor(Math.random()*mascots.length)]'/>
@@ -32,9 +36,10 @@
         text-align: center;
     }
 
-    .no-result-placeholder img{
-        width: 30%;
-        margin: 30px auto;
+    .mobile-shop-list .no-result-placeholder img{
+        height: 25vh;
+        width: unset;
+        margin: 20px auto;
         display: block;
     }
 

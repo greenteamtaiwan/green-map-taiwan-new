@@ -1,6 +1,7 @@
 <template>
     <div :style="computedContainerStyle" @click="clickImg">
-        <img v-if="finalSrc" v-lazy="finalSrc" :style="style" :alt="alt"/>
+        <img v-if="finalSrc" :src="finalSrc" :style="style" :alt="alt"/>
+        <span v-else style="display:inline-block;margin:20px;">Loading...</span>
     </div>
 </template>
 
