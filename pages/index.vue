@@ -47,7 +47,7 @@
           display: none;
       }
 
-      .index-container .sidebar{
+      .index-container .sidebar:not(#search-sidebar){
         display: none;
       }
   }
