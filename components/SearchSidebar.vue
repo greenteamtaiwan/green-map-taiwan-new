@@ -5,7 +5,7 @@
                 <b-input-group class="search">
                     <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" :value="query"></b-form-input>
                     <b-input-group-append>
-                        <b-button class="search-button">
+                        <b-button class="search-button" type="submit">
                             <img src="~/assets/img/icon_search.svg" height="19" width="19">
                         </b-button>
                     </b-input-group-append>
@@ -104,7 +104,9 @@ export default {
       }
     },
     computed: {
-        
+        searchDisabled: function(){
+            return this.query==='';
+        }
     },
     methods: {
         checkIfIsSelected (item) {
