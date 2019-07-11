@@ -19,7 +19,7 @@
             <div class="shop-content">
                 <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                 <h1>{{shop.name}}</h1>
-                <p class='type'>{{ this.$store.state.sourceData.types[shop.type]?this.$store.state.sourceData.types[shop.type].text:""}}</p>
+                <p class='type'>{{ this.$store.state.sourceData.types[shop.type]?this.$store.state.sourceData.types[shop.type[0]].text:""}}</p>
                 <p class="description">{{shop.recommendation_description || shop.description}}</p>
 
             </div>
@@ -63,7 +63,7 @@
                         :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                         :clickable="true"
                         :draggable="false"
-                        :icon="{url: getIcon(shop.type), scaledSize: {width: 67, height: 79} }"
+                        :icon="{url: getIcon(shop.type?shop.type[0]:0), scaledSize: {width: 67, height: 79} }"
                       />
                     </gmap-map>
                   </no-ssr>

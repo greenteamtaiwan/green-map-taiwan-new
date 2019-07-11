@@ -220,10 +220,10 @@ export default {
   methods: {
     search (e){
       const query = e instanceof Event?e.target.elements["query"].value:e;
-      if(!query) return;
 
       let index;
-      if(index = this.searchHistory.indexOf(query) >= 0){
+      if(!query){}
+      else if(index = this.searchHistory.indexOf(query) >= 0){
         this.searchHistory.unshift(this.searchHistory.splice(index, 1)[0]);
         localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory));
       }else if(this.searchHistory[0] !== query){

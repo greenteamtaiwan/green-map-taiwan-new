@@ -29,7 +29,7 @@
                 :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                 :clickable="true"
                 :draggable="false"
-                :icon="{url: getIcon(shop.type), scaledSize: selectedShop&&shop.objectID===selectedShop.objectID?{width: 67, height: 79}:{width: 55, height: 65} }"
+                :icon="{url: getIcon(shop.type?shop.type[0]:0), scaledSize: selectedShop&&shop.objectID===selectedShop.objectID?{width: 67, height: 79}:{width: 55, height: 65} }"
                 @click="markerClick(shop, index)"
               ></gmap-marker>
               <gmap-info-window
@@ -53,7 +53,7 @@
                     <h1 @click="setShop">{{selectedShop.name}}</h1>
                     <br/>
                     <p style="margin-top: 5px;font-size: 14px;">
-                      {{this.$store.state.sourceData.types[selectedShop.type]?this.$store.state.sourceData.types[selectedShop.type].text:""}}
+                      {{this.$store.state.sourceData.types[selectedShop.type]?this.$store.state.sourceData.types[selectedShop.type[0]].text:""}}
                       <span style="float:right;color:#4de680;font-weight:bold;">{{selectedShop.open_status && selectedShop.open_status.type?selectedShop.open_status.text:""}}</span>
                     </p>  
                   </div>
@@ -267,6 +267,7 @@ export default {
       $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
     },
     getIcon: function(type) {
+      if(this.$store.state.type) this.$store.state.sourceData.types[this.$store.state.type].icon;
       return this.$store.state.sourceData.types[type].icon;
       // return markerIcon;
     },

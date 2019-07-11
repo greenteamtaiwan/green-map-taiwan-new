@@ -8,7 +8,7 @@
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                     <h3><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></h3>
                     <p class='type'>
-                        {{types[shop.type]?types[shop.type].text:""}}
+                        {{types[shop.type]?types[shop.type[0]].text:""}}
                         <span v-if="shop.open_status && shop.open_status.type"> ‧ </span>
                         <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span></p>
                     <p class="shopItem-description">
