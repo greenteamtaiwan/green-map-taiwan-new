@@ -75,11 +75,13 @@ export const actions = {
           name: 'city', value: "" + context.state.city, check: function(value){
             return typeof +value === 'number' && isFinite(+value) && +value > 0;
           }
-        }, {
-          name: '_tags', value: context.state.tag, check: function(value){
-            return value;
-          }
-        }),
+        }, 
+        //   {
+        //   name: '_tags', value: context.state.tag, check: function(value){
+        //     return value;
+        //   }
+        // }
+        ),
         query: context.state.query,
         restrictSearchableAttributes: [
           "name",

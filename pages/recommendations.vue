@@ -362,7 +362,7 @@ export default {
         $nuxt.$router.push(`/shop?objectID=${shop.objectID}`);
     },
     setTag: function(tag) {
-        this.$store.commit("setTag", tag);
+        this.$store.commit("setQuery", tag);
         $nuxt.$router.push('/');
     }
   }
