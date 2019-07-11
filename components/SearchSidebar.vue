@@ -50,6 +50,7 @@
     #search-sidebar{
         width: 300px; 
         padding: 1rem 0;
+        z-index: 2;
     }
     @media screen and (max-width:991px){
         .sidebar{

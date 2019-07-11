@@ -4,6 +4,7 @@
             <ShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop" />
         </ul>
         <div class="no-result-placeholder" slot="content" v-if="shops.length===0">
+            <img src='../assets/img/no-result-placeholder-hint.png'/>
             <img :src='mascots[Math.floor(Math.random()*mascots.length)]'/>
             <p>目前沒有符合的搜尋結果</p>
         </div>
@@ -33,9 +34,14 @@
     }
 
     .mobile-shop-list .no-result-placeholder img{
+        width: 55%;
+        margin: 30px auto 0;
+    }
+
+    .mobile-shop-list .no-result-placeholder img:nth-child(2){
         height: 20vh;
         width: unset;
-        margin: 20px auto;
+        margin: 0 auto 20px;
         display: block;
     }
 
