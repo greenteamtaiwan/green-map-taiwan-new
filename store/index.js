@@ -104,16 +104,16 @@ export const actions = {
           };
         }else{
           firstDate.setFullYear(today.getFullYear());
-          firstDate.setFullYear(today.getMonth()+1);
-          firstDate.setFullYear(today.getDate());
+          firstDate.setMonth(today.getMonth());
+          firstDate.setDate(today.getDate());
           secondDate.setFullYear(today.getFullYear());
-          secondDate.setFullYear(today.getMonth()+1);
-          secondDate.setFullYear(today.getDate());
-  
-          firstDate.setHours(time.split("-")[0].trim().slice(0,1));
-          firstDate.setMinutes(time.split("-")[0].trim().slice(-2));
-          secondDate.setHours(time.split("-")[0].trim().slice(0,1));
-          secondDate.setMinutes(time.split("-")[0].trim().slice(-2));
+          secondDate.setMonth(today.getMonth());
+          secondDate.setDate(today.getDate());
+          
+          firstDate.setHours(time.split("-")[0].trim().split(":")[0]);
+          firstDate.setMinutes(time.split("-")[0].trim().split(":")[1]);
+          secondDate.setHours(time.split("-")[1].trim().split(":")[0]);
+          secondDate.setMinutes(time.split("-")[1].trim().split(":")[1]);
   
           startTime = firstDate.getTime();
           endTime = secondDate.getTime();
