@@ -53,7 +53,7 @@
                     <h1 @click="setShop">{{selectedShop.name}}</h1>
                     <br/>
                     <p style="margin-top: 5px;font-size: 14px;">
-                      {{this.$store.state.sourceData.types[selectedShop.type]?this.$store.state.sourceData.types[selectedShop.type[0]].text:""}}
+                      {{selectedShop.type&&this.$store.state.sourceData.types[selectedShop.type[0]]?this.$store.state.sourceData.types[selectedShop.type[0]].text:""}}
                       <span style="float:right;color:#4de680;font-weight:bold;">{{selectedShop.open_status && selectedShop.open_status.type?selectedShop.open_status.text:""}}</span>
                     </p>  
                   </div>
