@@ -31,7 +31,6 @@
     }
 
     .shopItem-main{
-        height: 142px;
         overflow: hidden;
     }
     .shopItem-main img{
