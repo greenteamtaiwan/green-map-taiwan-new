@@ -34,7 +34,7 @@
         <img src='../assets/img/GT logo.png' height="70%"/>
       </div>
     </nuxt-link>
-    <button id="mobile-button" @click="setShowSearchSidebar(true)">三</button>
+    <button id="mobile-button" @click="setShowSearchSidebar(true)">☰</button>
     <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
         <div class='navbar-middle'>
           <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
