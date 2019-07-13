@@ -18,7 +18,7 @@
         <div class="shop-content-container">
             <div class="shop-content">
                 <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
-                <h1>{{shop.name}}</h1>
+                <h1 class="shop-name">{{shop.name}}</h1>
                 <p class='type'>
                   <span v-if="shop.type&&types[shop.type[0]]" v-for="(type, index) in shop.type">{{`${types[type].text}${index===shop.type.length-1?"":", "}`}}</span>
                 </p>
@@ -44,14 +44,14 @@
                   <p v-if="shop._tags">tags: {{shop.tags}}</p>
                   <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
-                <div class="shop-map-container">
+                <div class="shop-small-map-container">
                 <nuxt-link to="/shop-map"><button class="expand-map-button-map mobile" @click="initPageNum">展開地圖</button></nuxt-link>
                 <no-ssr>
                     <gmap-map
                       :center="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
                       :zoom="13"
                       map-type-id="roadmap"
-                      class="shop-map"
+                      class="shop-small-map"
                       :options="{
                         zoomControl: false,
                         mapTypeControl: false,
@@ -79,7 +79,7 @@
   </div>
 </template>
 
-<style scoped>
+<style>
   .expand-map-button-map{
     border: none;
     background-color: rgba(255,255,255,0.9);
@@ -128,7 +128,7 @@
       white-space: pre-line;
     }
 
-    h1{
+    .shop-name{
         text-align: center;
         margin: 20px 0;
     }
@@ -202,11 +202,11 @@
     margin-right: 20px;
   }
 
-  .shop-map-container{
+  .shop-small-map-container{
     width: 200px; 
     position: relative;
   }
-  .shop-map{
+  .shop-small-map{
     width: 200px; 
     height: 200px; 
     position: absolute; 
@@ -243,7 +243,7 @@
       padding: 0 20px;
     }
 
-    .shop-map-container{
+    .shop-small-map-container{
       width: 100%;
     }
 
