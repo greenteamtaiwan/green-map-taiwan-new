@@ -53,7 +53,7 @@
                     <h1 @click="setShop">{{selectedShop.name}}</h1>
                     <br/>
                     <p style="margin-top: 5px;font-size: 14px;">
-                      {{selectedShop.type&&this.$store.state.sourceData.types[selectedShop.type[0]]?this.$store.state.sourceData.types[selectedShop.type[0]].text:""}}
+                      <span v-if="selectedShop.type&&types[selectedShop.type[0]]" v-for="(type, index) in selectedShop.type">{{`${types[type].text}${index===selectedShop.type.length-1?"":", "}`}}</span>
                       <span style="float:right;color:#4de680;font-weight:bold;">{{selectedShop.open_status && selectedShop.open_status.type?selectedShop.open_status.text:""}}</span>
                     </p>  
                   </div>
@@ -243,6 +243,9 @@ export default {
     selectedShop: function() {
       return this.$store.state.shop;
     },
+    types: function (){
+        return this.$store.state.sourceData.types;
+    }
   },
   methods: {
     mapClick: function(event) {

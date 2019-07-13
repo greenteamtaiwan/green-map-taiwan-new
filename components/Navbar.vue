@@ -17,7 +17,7 @@
     <b-form inline @submit.stop.prevent @submit="search" id="search-container">
         <b-input-group class="search">
             <b-input-group-prepend>
-                <b-button class="search-button">
+                <b-button class="search-button" type="submit">
                     <img src="~/assets/img/icon_search.svg" height="19" width="19">
                 </b-button>
             </b-input-group-prepend>
@@ -34,7 +34,7 @@
         <img src='../assets/img/GT logo.png' height="70%"/>
       </div>
     </nuxt-link>
-    <button id="mobile-button" @click="setShowSearchSidebar(true)">☰</button>
+    <button id="mobile-button" @click="setShowSearchSidebar(!showSearchSidebar)">{{showSearchSidebar?"✖":"☰"}}</button>
     <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
         <div class='navbar-middle'>
           <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
@@ -122,6 +122,9 @@
   }
   button.btn.btn-secondary.search-button:active{
     background-color: rgba(0,0,0,0); 
+  }
+  .btn-secondary:focus, .btn-secondary.focus{
+    box-shadow: 0 0 0 0.2rem rgba(68, 173, 71, 0.5);
   }
 
   @media screen and (max-width:991px){

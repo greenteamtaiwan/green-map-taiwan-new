@@ -3,7 +3,7 @@
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class='shop-container'>
         <div class='img-container'>
-            <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||this.placeholders[0]" :alt="shop.name" :onClick="setLargeImg"/></div>
+            <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||NoShopImageHint" :alt="shop.name" :onClick="setLargeImg"/></div>
             <div class="imgs">
                 <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||this.placeholders[1]" :alt="shop.name" :onClick="setLargeImg"/></div>
                 <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||this.placeholders[2]" :alt="shop.name" :onClick="setLargeImg"/></div>
@@ -19,7 +19,9 @@
             <div class="shop-content">
                 <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                 <h1>{{shop.name}}</h1>
-                <p class='type'>{{shop.type&&this.$store.state.sourceData.types[shop.type[0]]?this.$store.state.sourceData.types[shop.type[0]].text:""}}</p>
+                <p class='type'>
+                  <span v-if="shop.type&&types[shop.type[0]]" v-for="(type, index) in shop.type">{{`${types[type].text}${index===shop.type.length-1?"":", "}`}}</span>
+                </p>
                 <p class="description">{{shop.recommendation_description || shop.description}}</p>
 
             </div>
@@ -28,7 +30,9 @@
                   <p v-if="shop.business_hours || shop.alt_business_hours" style="white-space: pre-line"><img src="~/assets/img/icon_time.svg"/>{{shop.business_hours || shop.alt_business_hours}}</p>
                   <p v-if="shop.address"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</p>
                   <p v-if="shop.phone && shop.phone.length > 0"><img src="~/assets/img/icon_phone.svg"/>
-                    <a v-for="(phone, index) in shop.phone" :href="`tel:${phone.replace(/\D/g, '')}`">{{phone}}</a>
+                    <span>
+                      <a v-for="(phone, index) in shop.phone" :href="`tel:${phone.replace(/\D/g, '')}`">{{phone}}</a>
+                    </span>
                   </p>
                   <p v-if="shop.url && shop.url.length > 0">
                     <img src="~/assets/img/icon_website.svg"/>
@@ -48,7 +52,7 @@
                       :zoom="13"
                       map-type-id="roadmap"
                       class="shop-map"
-                       :options="{
+                      :options="{
                         zoomControl: false,
                         mapTypeControl: false,
                         scaleControl: false,
@@ -274,6 +278,8 @@ import GT4 from '~/assets/img/GT4.png';
 import GT5 from '~/assets/img/GT5.png';
 import GT6 from '~/assets/img/GT6.png';
 
+import NoShopImageHint from '~/assets/img/no-shop-image-hint.png';
+
 const config = {
   apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
   authDomain: 'greenmaptaiwan.firebaseapp.com',
@@ -326,12 +332,16 @@ export default {
         GT4,
         GT5,
         GT6
-      ]
+      ],
+      NoShopImageHint: NoShopImageHint
     }
   },
   computed: {
     shop: function() {
       return this.$store.state.shop;
+    },
+    types: function (){
+        return this.$store.state.sourceData.types;
     }
   },
   mounted: function() {

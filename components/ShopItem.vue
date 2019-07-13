@@ -1,15 +1,14 @@
 <template>
         <div class="shopItem-container" @click="setShop" style="containerStyle">
                 <div class='shopItem-main'>
-                    <ImageHandler :src="shop.facebook_avatar || shop.photo1" :alt="shop.name"/>
+                    <ImageHandler :src="shop.photo0 || shop.facebook_avatar" :alt="shop.name"/>
                 </div>
                 <div class='shopItem-aside'>
                     <div style="width: 100%">
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                     <h3><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></h3>
                     <p class='type'>
-                        {{shop.type&&types[shop.type[0]]?types[shop.type[0]].text:""}}
-                        <span v-if="shop.open_status && shop.open_status.type"> ‧ </span>
+                        <span v-if="shop.type&&types[shop.type[0]]" v-for="(type, index) in shop.type">{{`${types[type].text}${index===shop.type.length-1?"":", "}`}}</span>
                         <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span></p>
                     <p class="shopItem-description">
                         <v-clamp autoresize :max-lines="2">{{shop.description}}</v-clamp>
