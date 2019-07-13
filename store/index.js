@@ -25,7 +25,8 @@ const algolia = algoliasearch(
   'WLQYM2VEOS',
   '5b7c1bdd81c884fecd44ce897c93dbbf'
 );
-const index = algolia.initIndex('greenmaptaiwan');
+let index;
+let recommendationsIndex;
 
 // replicaIndex.setSettings({
 //   hitsPerPage: 1000,
@@ -66,6 +67,8 @@ export const actions = {
     // context.commit("setShops", shops);
     window.$nuxt.$nextTick(async ()=>{
       window.$nuxt.$loading.start();
+
+      if(!index) index = algolia.initIndex('greenmaptaiwan');
       const data = await index.search({ 
         filters: getFilterString({
           name: 'type', value: "" + context.state.type, check: function(value){
@@ -178,21 +181,17 @@ export const actions = {
         city = context.state.city;
         if(!city) city = 1;
       }
-      const query = city?context.state.sourceData.cities[city].text.slice(0, 2):'';
-      const data = await index.search({ 
+      const query = city?context.state.sourceData.cities[city].text.slice(0, 2):'全部';
+      recommendationsIndex = algolia.initIndex('recommendations');
+
+      const data = await recommendationsIndex.search({ 
         query,
         restrictSearchableAttributes: [
-          "recommendation_area",
-          "recommendation_level"
+          city?"recommendation_area":"recommendation_all"
         ],
-        hitsPerPage: 8
+        hitsPerPage: 4
       });
-      console.log(data.hits);
-      data.hits.sort((a,b)=>{
-        const first = a.recommendation_level.indexOf(query)>=0?a.recommendation_level:a.recommendation_area;
-        const second = b.recommendation_level.indexOf(query)>=0?b.recommendation_level:b.recommendation_area;
-        return +first.slice(-1) - +second.slice(-1);
-      });
+
       context.commit("setShops", data.hits);
   
       window.$nuxt.$loading.finish();

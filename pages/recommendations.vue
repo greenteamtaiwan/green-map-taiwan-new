@@ -38,7 +38,7 @@
                 <div class="img" @click="setShop(shop)"><ImageHandler :src="shop.recommendation_photo || shop.facebook_avatar" :alt="shop.name"/></div>
                 <div class="shop-content">
                     <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
-                    <h2 @click="setShop(shop)" v-line-clamp:20="1">{{shop.name}}</h2>
+                    <h2 @click="setShop(shop)" >{{shop.name}}</h2>
                 </div>
             </div>
         </div>
@@ -52,8 +52,11 @@
     overflow-y: auto!important;
   }
 
-  h2{
+  .recommendations-container h2{
     margin-top: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
     .recommendations-container{
         margin-top: 60px;
