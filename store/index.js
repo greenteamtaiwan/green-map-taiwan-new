@@ -27,6 +27,7 @@ const algolia = algoliasearch(
 );
 let index;
 let recommendationsIndex;
+let recommendationsAllIndex;
 
 // replicaIndex.setSettings({
 //   hitsPerPage: 1000,
@@ -179,12 +180,13 @@ export const actions = {
         }
       }else{
         city = context.state.city;
-        if(!city) city = 1;
       }
       const query = city?context.state.sourceData.cities[city].text.slice(0, 2):'全部';
-      recommendationsIndex = algolia.initIndex('recommendations');
+      if(city && !recommendationsIndex)recommendationsIndex = algolia.initIndex('recommendations');
+      else if(!recommendationsAllIndex) recommendationsAllIndex = algolia.initIndex('recommendations-all');
 
-      const data = await recommendationsIndex.search({ 
+      let index = city?recommendationsIndex:recommendationsAllIndex;
+      const data = await index.search({ 
         query,
         restrictSearchableAttributes: [
           city?"recommendation_area":"recommendation_all"

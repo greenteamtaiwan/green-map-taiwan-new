@@ -78,6 +78,7 @@
         display: flex;
         justify-content: space-between;
         margin: 15px auto 0;
+        list-style: none;
     }
 
     .tags li{
