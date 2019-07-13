@@ -197,7 +197,7 @@
       margin-top: 3px;
   }
 
-  .shop-container .shop-info{
+  .shop-info{
     width: calc(100% - 220px); 
     margin-right: 20px;
   }
@@ -237,7 +237,7 @@
       padding: 20px 0 0;
     }
 
-    .shop-container .shop-info{
+    .shop-info{
       width: 100%;
       margin-right: 0;
       padding: 0 20px;
@@ -247,7 +247,7 @@
       width: 100%;
     }
 
-    .shop-map{
+    .shop-small-map{
       position: relative;
       height: 300px; 
       width: 100%;
