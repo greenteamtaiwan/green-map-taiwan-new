@@ -1,5 +1,5 @@
 <template>
-  <div class="index-map-container">
+  <div class="shop-map-container">
     <Map />
     <div class="shop-map-shop-container" v-if="selectedShop.name"><ShopItem :shop="selectedShop" /></div>
   </div>
@@ -41,8 +41,11 @@
   }
 
   @media screen and (max-width:991px){
-      .index-map{
-        height: calc(60vh - 116px);
+      .shop-map-container .index-map{
+        height: 100vh;
+      }
+      .shop-map-container .map-container{
+        margin-top: 0;
       }
       html, body{
         overflow-y: initial;
