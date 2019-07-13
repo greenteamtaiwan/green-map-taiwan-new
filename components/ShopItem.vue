@@ -49,6 +49,10 @@
     .shopItem-aside{
         padding: 10px;
     }
+    
+    .shopItem-description{
+        min-height: 45px;
+    }
 
     .type{
         border-bottom: solid 1px lightgray;
