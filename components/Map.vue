@@ -43,8 +43,8 @@
                 <div class="info-window-container">
                   <span @click="clearSelectedShop" class="clear-info-window-button">X</span>
                   <ImageHandler 
-                    :src="selectedShop.facebook_avatar"
-                    v-if="selectedShop.facebook_avatar"
+                    :src="selectedShop.photo0 || selectedShop.facebook_avatar"
+                    v-if="selectedShop.photo0 || selectedShop.facebook_avatar"
                     :containerStyle="{width:'120px', height: '80px', overflow: 'hidden', position: 'relative'}"
                     :alt="selectedShop.name"
                     :onClick="setShop"
