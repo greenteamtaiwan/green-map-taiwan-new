@@ -40,7 +40,7 @@
                       <a v-for="(url, index) in shop.url" :href="url" target="_blank" rel="nofollow">{{url.indexOf("facebook")>=0?"Facebook":"官方網站"}}</a>
                     </span>
                   </p>
-                  <p><img src="~/assets/img/icon_navigation.svg"/><a :href="`https://www.google.com/maps/dir/?api=1&destination=${shop.address}`" target="_blank">我要導航</a></p>
+                  <p><img src="~/assets/img/icon_navigation.svg"/><a :href="`https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}`" target="_blank">我要導航</a></p>
                   <p v-if="shop._tags">tags: {{shop.tags}}</p>
                   <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
