@@ -21,7 +21,7 @@
                     <img src="~/assets/img/icon_search.svg" height="19" width="19">
                 </b-button>
             </b-input-group-prepend>
-            <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" :value="query"></b-form-input>
+            <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" :value="query" autocomplete="off"></b-form-input>
         </b-input-group>
     </b-form>
     

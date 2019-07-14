@@ -3,7 +3,7 @@
         <div slot="content" >
             <b-form @submit.stop.prevent @submit="search" id="search-container" class="mobile">
                 <b-input-group class="search">
-                    <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" :value="query"></b-form-input>
+                    <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" :value="query" autocomplete="off"></b-form-input>
                     <b-input-group-append>
                         <b-button class="search-button" type="submit">
                             <img src="~/assets/img/icon_search.svg" height="19" width="19">
