@@ -270,7 +270,7 @@ export default {
       $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
     },
     getIcon: function(type) {
-      if(this.$store.state.type) this.$store.state.sourceData.types[this.$store.state.type].icon;
+      if(this.$store.state.type) return this.$store.state.sourceData.types[this.$store.state.type].icon;
       return this.$store.state.sourceData.types[type].icon || "";
       // return markerIcon;
     },
