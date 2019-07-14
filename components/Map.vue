@@ -271,7 +271,7 @@ export default {
     },
     getIcon: function(type) {
       if(this.$store.state.type) this.$store.state.sourceData.types[this.$store.state.type].icon;
-      return this.$store.state.sourceData.types[type].icon;
+      return this.$store.state.sourceData.types[type].icon || "";
       // return markerIcon;
     },
     initPageNum: function() {

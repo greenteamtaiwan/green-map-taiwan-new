@@ -91,8 +91,8 @@ export default {
             if (elem.scrollTop >= (elem.scrollHeight - elem.offsetHeight - 500) && this.$store.state.pageNum < Math.ceil(this.shops.length / 20) ) {
                 this.$store.commit("addPageNum");
             }
-            if(window.scrollY <= (window.innerHeight * 0.45)){
-                window.scrollTo({ top: elem.scrollTop>window.innerHeight * 0.45?window.innerHeight * 0.45:elem.scrollTop, behavior: 'smooth' });
+            if(elem.scrollTop > prevScrollTop && window.scrollY <= (window.innerHeight * 0.45)){
+                window.scrollTo({ top: window.innerHeight * 0.45, behavior: 'smooth' });
             }else if(elem.scrollTop >= (elem.scrollHeight - elem.offsetHeight)){
                 window.scrollTo({ top: elem.scrollTop, behavior: 'smooth' });
             }

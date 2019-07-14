@@ -198,6 +198,19 @@ export const actions = {
   
       window.$nuxt.$loading.finish();
     });
+  },
+  async getShop(context, objectID){
+    window.$nuxt.$nextTick(async ()=>{
+      window.$nuxt.$loading.start();
+
+      if(!index) index = algolia.initIndex('greenmaptaiwan');
+      index.getObject(objectID, (err, shop) => {
+        context.commit("setShop", shop);
+  
+        window.$nuxt.$loading.finish();
+      });
+
+    });
   }
 }
 // export const strict = false;

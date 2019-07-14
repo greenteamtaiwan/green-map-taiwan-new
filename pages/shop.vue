@@ -348,7 +348,12 @@ export default {
     if(this.$store.state.shop !== null && Object.getOwnPropertyNames(this.$store.state.shop).length > 1){
       this.getRandomPlaceholders();
     }else{
-      $nuxt.$router.push(`/shop?objectID=${this.$store.state.shop.objectID}`);
+      let objectID = this.getQueryString("objectID");
+      if(!objectID){
+        $nuxt.$router.push(`/`);
+      }else{
+        this.$store.dispatch("getShop", objectID);
+      }
     }
   },
   methods: {
@@ -367,7 +372,7 @@ export default {
       return input;
     },
     getIcon: function(type) {
-      return this.$store.state.sourceData.types[type].icon;
+      return this.$store.state.sourceData.types[type].icon || "";
       // return markerIcon;
     },
     setLargeImg: function(largeImg){
@@ -375,6 +380,17 @@ export default {
     },
     initPageNum: function() {
       this.$store.commit("initPageNum");
+    },
+    getQueryString: function (name) 
+    {
+      var AllVars = window.location.search.substring(1);
+      var Vars = AllVars.split("&");
+      for (let i = 0; i < Vars.length; i++)
+      {
+        var Var = Vars[i].split("=");
+        if (Var[0] == name) return Var[1];
+      }
+      return "";
     }
   }
 }
