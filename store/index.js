@@ -103,7 +103,9 @@ export const actions = {
         let time = info[today.getDay()?today.getDay()-1:6].slice(3);
         let startTime, endTime;
         const firstDate = new Date(), secondDate = new Date();
-        if(time === "休息" || !info){
+
+        if(!time) data.hits[i].open_status = {}; 
+        else if(time.trim() === "休息" || !info){
           data.hits[i].open_status = {
             type: 1,
             text: "休息中"

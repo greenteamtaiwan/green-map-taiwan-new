@@ -60,6 +60,10 @@ export default {
       onClick: {
           type: Function,
           default: ()=>{}
+      },
+      altPlaceholders: {
+          type: Array,
+          default: []
       }
     },
     computed: {
@@ -93,7 +97,9 @@ export default {
                 }
             }
             img.onerror = function(){
-                that.finalSrc = that.placeholders[Math.floor(Math.random()*that.placeholders.length)];
+                let placeholders = that.altPlaceholders && that.altPlaceholders.length > 0?that.altPlaceholders:that.placeholders;
+                console.log(that.altPlaceholders);
+                that.finalSrc = placeholders[Math.floor(Math.random()*placeholders.length)];
                 that.style = {height: '100%'};
             }
             img.src = this.src;

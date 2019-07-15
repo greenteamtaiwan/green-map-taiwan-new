@@ -1,7 +1,7 @@
 <template>
         <div class="shopItem-container" @click="setShop" style="containerStyle">
                 <div class='shopItem-main'>
-                    <ImageHandler :src="shop.photo0 || shop.facebook_avatar" :alt="shop.name"/>
+                    <ImageHandler :src="shop.photo0 || shop.facebook_avatar" :alt="shop.name" :altPlaceholders="altPlaceholders"/>
                 </div>
                 <div class='shopItem-aside'>
                     <div style="width: 100%">
@@ -104,6 +104,11 @@
 <script>
 import ImageHandler from '~/components/ImageHandler.vue';
 import VClamp from 'vue-clamp';
+import GT1 from '~/assets/img/ShopItem_GT1.png';
+import GT2 from '~/assets/img/ShopItem_GT2.png';
+import GT3 from '~/assets/img/ShopItem_GT3.png';
+import GT4 from '~/assets/img/ShopItem_GT4.png';
+import GT5 from '~/assets/img/ShopItem_GT5.png';
 
 export default {
     components: {
@@ -113,6 +118,15 @@ export default {
     computed: {
         types: function (){
             return this.$store.state.sourceData.types;
+        },
+        altPlaceholders: function(){
+            return [
+                GT1,
+                GT2,
+                GT3,
+                GT4,
+                GT5
+            ];
         }
     },
     props:{
