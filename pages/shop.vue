@@ -5,13 +5,13 @@
         <div class='img-container'>
             <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||NoShopImageHint" :alt="shop.name" :onClick="setLargeImg"/></div>
             <div class="imgs">
-                <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||this.placeholders[0]" :alt="shop.name" :onClick="setLargeImg"/></div>
-                <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||this.placeholders[1]" :alt="shop.name" :onClick="setLargeImg"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||placeholders[0]" :alt="shop.name" :onClick="setLargeImg"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||placeholders[1]" :alt="shop.name" :onClick="setLargeImg"/></div>
             </div>
-            <div class="img desktop"><ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||this.placeholders[2]" :alt="shop.name" :onClick="setLargeImg"/></div>
+            <div class="img desktop"><ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||placeholders[2]" :alt="shop.name" :onClick="setLargeImg"/></div>
             <div class="imgs desktop">
-                <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||this.placeholders[3]" :alt="shop.name" :onClick="setLargeImg"/></div>
-                <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||this.placeholders[4]" :alt="shop.name" :onClick="setLargeImg"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||placeholders[3]" :alt="shop.name" :onClick="setLargeImg"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||placeholders[4]" :alt="shop.name" :onClick="setLargeImg"/></div>
             </div>
         </div>
 
@@ -351,7 +351,7 @@ export default {
   },
   mounted: function() {
     if(this.$store.state.shop !== null && Object.getOwnPropertyNames(this.$store.state.shop).length > 1){
-      this.getRandomPlaceholders();
+      // this.getRandomPlaceholders();
     }else{
       let objectID = this.getQueryString("objectID");
       if(!objectID){
