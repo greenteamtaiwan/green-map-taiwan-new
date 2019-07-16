@@ -1,5 +1,6 @@
 <template>
   <div class="shop-map-container">
+    <div class="desktop"><Navbar/></div>
     <Map />
     <div class="shop-map-shop-container" v-if="selectedShop.name"><ShopItem :shop="selectedShop" /></div>
   </div>
@@ -57,12 +58,14 @@
 import IndexMapShopList from '~/components/IndexMapShopList.vue';
 import Map from '~/components/Map.vue';
 import ShopItem from '~/components/ShopItem.vue';
+import Navbar from '~/components/Navbar.vue';
 
 export default {
   components: {
     IndexMapShopList,
     Map,
-    ShopItem
+    ShopItem,
+    Navbar
   },
   computed: {
     shops: function() {
