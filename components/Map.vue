@@ -10,15 +10,7 @@
               :zoom="zoomLevel"
               map-type-id="roadmap"
               class="index-map"
-              :options="{
-                zoomControl: true,
-                mapTypeControl: false,
-                scaleControl: true,
-                streetViewControl: true,
-                rotateControl: true,
-                fullscreenControl: true,
-                disableDefaultUi: false
-              }"
+              :options="mapSettings"
               @center_changed="updateCenter"
               @dragend="dragEnd"
             >
@@ -245,6 +237,20 @@ export default {
     },
     types: function (){
         return this.$store.state.sourceData.types;
+    }
+  },
+  props:{
+    mapSettings: {
+        type: Object,
+        default: {
+                zoomControl: true,
+                mapTypeControl: false,
+                scaleControl: true,
+                streetViewControl: true,
+                rotateControl: true,
+                fullscreenControl: true,
+                disableDefaultUi: false
+              }
     }
   },
   methods: {
