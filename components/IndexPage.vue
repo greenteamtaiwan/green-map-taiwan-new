@@ -158,11 +158,10 @@ export default {
   mounted: function() {
     this.$store.dispatch("getShops");
 
-    this.scrollListener =  window.addEventListener("scroll", this.onScroll);
+    window.addEventListener("scroll", this.onScroll);
   },
   beforeDestroy: function(){
-    console.log("destroy");
-    window.removeEventListener("scroll", this.scrollListener);
+    window.removeEventListener("scroll", this.onScroll);
   },
   methods: {
     setShop: function() {
@@ -173,7 +172,6 @@ export default {
       this.$store.commit("initPageNum");
     },
     onScroll: throttle(function ({target: elem}) {
-      console.log('test');
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 && this.$store.state.pageNum < Math.ceil(this.shops.length / 20) ) {
             this.$store.commit("addPageNum");
         }

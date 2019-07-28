@@ -40,6 +40,9 @@ database.ref('/').once('value', greenmaptaiwan => {
       const childData = contact.val();
       // We set the Algolia objectID as the Firebase .key
       childData.objectID = childKey;
+      childData.description = unescape(childData.description);
+      childData.recommendation_description = unescape(childData.recommendation_description);
+
       // Add object for indexing
       records.push(childData);
     // }
