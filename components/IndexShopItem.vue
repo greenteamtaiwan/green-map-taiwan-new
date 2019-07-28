@@ -18,7 +18,7 @@
                     </p>
                     <div class="recommendation-data">
                         <p class="stars">
-                            <span v-for="num in 5">★ </span>
+                            <span v-for="num in shop.stars">★ </span>
                         </p>
                         <ul>
                             <li>食物<span>5.0</span></li>

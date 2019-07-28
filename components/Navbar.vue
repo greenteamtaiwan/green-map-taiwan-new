@@ -244,7 +244,7 @@ export default {
       this.$store.commit("setQuery", query);
       this.$store.dispatch("getShops");
 
-      if(this.$mq === "lg"){
+      if(this.$mq === "lg" && e.target){
         e.target.elements["query"].value = "";
       }
 

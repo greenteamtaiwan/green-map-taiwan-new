@@ -44,9 +44,11 @@
                       <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20">
                         <span> 綠點推薦</span>
                       </p>
-                      <p class="stars">
-                        <span v-for="num in 5">★ </span>
-                      </p>
+                      <mq-layout mq="lg">
+                        <p class="stars">
+                          <span v-for="num in shop.stars">★ </span>
+                        </p>
+                      </mq-layout>
                     </div>
                     
                     <h3 @click="setShop(shop)" >{{shop.name}}</h3>
@@ -279,6 +281,10 @@
     }
     .tags li{
       flex: 1;
+    }
+
+    .shop-content .recommendation-data{
+      justify-content: flex-start;
     }
   }
 </style>
