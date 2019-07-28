@@ -1,104 +1,26 @@
 <template>
-  <div class="index-container">
-    <Navbar/>
-    <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList" />
-    <MobileShopList :shops="shops" />
-    <Map><nuxt-link to="/index-map"><button class="expand-map-button-index mobile" @click="initPageNum">展開地圖</button></nuxt-link></Map>
+  <div>
+    <mq-layout mq="lg">
+      <IndexPage/>
+    </mq-layout>
+    <mq-layout mq="md">
+      <MapPage/>
+    </mq-layout>
   </div>
 </template>
 
 <style>
-  .expand-map-button-index{
-    border: none;
-    background-color: rgba(255,255,255,0.9);
-    color: gray;
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-    padding: 5px 30px;
-  }
-  html, body{
-    overflow-y: hidden
-  }
-  
-  .index-map{
-    width: 100%; 
-    height: calc(100vh - 60px);
-  }
 
-  p{
-    margin: 0;
-  }
-
-  li{
-    list-style-type: none;
-  }
-
-  @media screen and (max-width:991px){
-      .index-map{
-        height: calc(60vh - 116px);
-      }
-      html, body{
-        overflow-y: initial;
-      }
-      .menu{
-          display: none;
-      }
-
-      .index-container .sidebar:not(#search-sidebar){
-        display: none;
-      }
-  }
 </style>
 
 <script>
-import { defaultCoreCipherList } from 'constants';
-import Navbar from '~/components/Navbar.vue';
-import ShopList from '~/components/ShopList.vue';
-import MobileShopList from '~/components/MobileShopList.vue';
-import markerIcon from '~/assets/img/icon_location.svg';
-import { mapMutations } from 'vuex'
-import ImageHandler from '~/components/ImageHandler.vue';
-import Map from '~/components/Map.vue';
+import MapPage from '~/components/MapPage.vue';
+import IndexPage from '~/components/IndexPage.vue';
 
 export default {
   components: {
-    Navbar,
-    ShopList,
-    ImageHandler,
-    MobileShopList,
-    Map
-  },
-  data() {
-    return {
-      showShopList: true
-    }
-  },
-  computed: {
-    shops: function() {
-      return this.$store.state.shops;
-    },
-    selectedShop: function() {
-      return this.$store.state.shop;
-    },
-  },
-  mounted: function() {
-    this.$store.dispatch("getShops");
-    this.$store.dispatch("getUserLocation");
-  },
-  methods: {
-    toggleShopList: function() {
-      this.showShopList = !this.showShopList;
-    },
-    setShop: function() {
-      // this.$store.commit("setShop", this.selectedShop);
-      $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
-    },
-    initPageNum: function() {
-      this.$store.commit("initPageNum");
-    }
+    IndexPage,
+    MapPage
   }
 }
 </script>

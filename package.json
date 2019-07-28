@@ -24,6 +24,7 @@
     "firebase-functions": "^2.2.1",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.4.0",
+    "nuxt-mq": "^2.0.0",
     "vue": "^2.6.4",
     "vue-clamp": "^0.2.1",
     "vue-scroll": "^2.1.12",

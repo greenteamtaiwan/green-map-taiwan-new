@@ -98,7 +98,6 @@ export default {
             }
             img.onerror = function(){
                 let placeholders = that.altPlaceholders && that.altPlaceholders.length > 0?that.altPlaceholders:that.placeholders;
-                console.log(that.altPlaceholders);
                 that.finalSrc = placeholders[Math.floor(Math.random()*placeholders.length)];
                 that.style = {height: '100%'};
             }

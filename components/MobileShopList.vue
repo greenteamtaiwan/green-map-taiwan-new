@@ -62,6 +62,8 @@ import GreenMilkTea from '~/assets/img/GreenMilkTea.png';
 import Mocha from '~/assets/img/Mocha.png';
 import GreenTea from '~/assets/img/GreenTea.png';
 
+import throttle from '~/functions/throttle.js';
+
 let prevScrollTop = 0;
 export default {
     components: {
@@ -87,7 +89,7 @@ export default {
         }
     },
     methods: {
-        onScroll ({target: elem}) {
+        onScroll: throttle(function ({target: elem}) {
             if (elem.scrollTop >= (elem.scrollHeight - elem.offsetHeight - 500) && this.$store.state.pageNum < Math.ceil(this.shops.length / 20) ) {
                 this.$store.commit("addPageNum");
             }
@@ -97,7 +99,7 @@ export default {
                 window.scrollTo({ top: elem.scrollTop, behavior: 'smooth' });
             }
             prevScrollTop = elem.scrollTop;
-        }
+        }, 1000)
     }
 }
 </script>

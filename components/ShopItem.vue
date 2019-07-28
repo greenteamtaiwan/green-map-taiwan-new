@@ -8,8 +8,12 @@
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
                     <h3><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></h3>
                     <p class='type'>
-                        <span v-if="shop.type&&types[shop.type[0]]" v-for="(type, index) in shop.type">{{`${types[type].text}${index===shop.type.length-1?"":", "}`}}</span>
-                        <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span></p>
+                        <span v-if="shop.type&&types[shop.type[0]]" v-for="(type, index) in shop.type">
+                            {{shop.open_status && shop.open_status.type?" ‧ ":""}}
+                            {{`${types[type].text}${index===shop.type.length-1?"":", "}`}}
+                        </span>
+                        <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span>
+                    </p>
                     <p class="shopItem-description">
                         <v-clamp autoresize :max-lines="2">{{shop.description}}</v-clamp>
                     </p> 
@@ -40,7 +44,7 @@
         transform: translate(-50%, -50%);
     }
 
-    h3{
+    .shopItem-container h3{
         font-weight: bold;
         font-size: 16px;
         display: inline-block;
@@ -54,23 +58,23 @@
         min-height: 45px;
     }
 
-    .type{
+    .shopItem-container .type{
         border-bottom: solid 1px lightgray;
         padding-bottom: 5px;
         margin-bottom: 5px;
     }
 
-    .recommend-container{
+    .shopItem-container .recommend-container{
         min-height: 21px;
     }
-    .recommend{
+    .shopItem-container .recommend{
         justify-content: flex-end;
     }
-    .recommend img{
+    .shopItem-container .recommend img{
         width: 14px;
     }
 
-    .recommend, .description, .type{
+    .shopItem-container .recommend, .shopItem-container .description, .shopItem-container .type{
         font-size: 14px;
     }
 

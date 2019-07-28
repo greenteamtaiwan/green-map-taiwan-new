@@ -1,6 +1,8 @@
 <template>
   <div class="shop-map-container">
-    <div class="desktop"><Navbar/></div>
+    <mq-layout mq="lg">
+      <Navbar/>
+    </mq-layout>
     <Map />
     <div class="shop-map-shop-container" v-if="selectedShop.name"><ShopItem :shop="selectedShop" /></div>
   </div>

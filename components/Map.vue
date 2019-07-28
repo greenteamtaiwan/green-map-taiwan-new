@@ -178,9 +178,6 @@
       .index-map{
         height: calc(60vh - 116px);
       }
-      .map-container .sidebar{
-        display: none;
-      }
 
       .map-container{
         margin-top: 116px;

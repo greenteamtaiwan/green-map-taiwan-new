@@ -8,11 +8,13 @@
                 <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||placeholders[0]" :alt="shop.name" :onClick="setLargeImg"/></div>
                 <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||placeholders[1]" :alt="shop.name" :onClick="setLargeImg"/></div>
             </div>
-            <div class="img desktop"><ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||placeholders[2]" :alt="shop.name" :onClick="setLargeImg"/></div>
-            <div class="imgs desktop">
-                <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||placeholders[3]" :alt="shop.name" :onClick="setLargeImg"/></div>
-                <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||placeholders[4]" :alt="shop.name" :onClick="setLargeImg"/></div>
-            </div>
+            <mq-layout mq="lg" class="img">
+              <ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||placeholders[2]" :alt="shop.name" :onClick="setLargeImg"/>
+            </mq-layout>  
+            <mq-layout mq="lg" class="imgs">
+              <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||placeholders[3]" :alt="shop.name" :onClick="setLargeImg"/></div>
+              <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||placeholders[4]" :alt="shop.name" :onClick="setLargeImg"/></div>
+            </mq-layout>  
         </div>
 
         <div class="shop-content-container">
@@ -40,6 +42,12 @@
                       <a v-for="(url, index) in shop.url" :href="url" target="_blank" rel="nofollow noopener noreferrer">{{url.indexOf("facebook")>=0?"Facebook":"官方網站"}}</a>
                     </span>
                   </p>
+                  <mq-layout mq="md">
+                    <p>
+                      <img src="~/assets/img/icon_navigation.svg"/>
+                      <a :href="`https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}`" target="_blank">我要導航</a>
+                    </p>
+                  </mq-layout>
                   <!--<p v-if="shop._tags">tags: {{shop.tags}}</p>-->
                   <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
@@ -116,6 +124,7 @@
     .shop-container .img{
         overflow: hidden;
         position: relative;
+        height: 100%;
     }
     .shop-container .imgs > .img{
         height: 155px;
@@ -163,24 +172,24 @@
     .shop-container .shop-content:nth-child(2){
         display: flex;
     }
-    .type{
+    .shop-container .type{
         border-bottom: solid 1px lightgray;
         margin-bottom: 20px;
         padding-bottom: 20px;
         color: lightgray;
         font-size: 14px;
     }
-    .recommend-container{
+    .shop-container .recommend-container{
       min-height: 24px;
     }
-      p.recommend {
+    .shop-container  p.recommend {
       color:#EE5593;
       font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
   }
-  .recommend img{
+  .shop-container .recommend img{
     width: 16px;
     margin-right: 5px;
   }
@@ -226,10 +235,6 @@
     .shop-container .shop-content:nth-child(1){
       margin-right: 0;
       border-bottom: solid 1px lightgray;
-    }
-
-    .shop-container .imgs.desktop{
-        display: none;
     }
 
     .shop-container .shop-content:nth-child(2){

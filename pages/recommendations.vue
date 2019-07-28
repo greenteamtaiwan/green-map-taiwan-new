@@ -2,6 +2,7 @@
   <div>
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class="recommendations-container">
+      <div class="recommendations-top">
         <div class="tags-container">
             <p>城市熱搜</p>
             <ul class="tags">
@@ -14,10 +15,12 @@
         <div class="first-shop shop">
             <div class="shop-content">
                 <p class="story-title"><span>● 綠點故事</span></p>
-                <h2 @click="setShop(firstShop)">{{firstShop.name}}</h2>
-                <p class="description desktop">
-                  <v-clamp autoresize :max-lines="8">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
-                </p>
+                <h3 @click="setShop(firstShop)">{{firstShop.name}}</h3>
+                <mq-layout mq="lg">
+                  <p class="description">
+                    <v-clamp autoresize :max-lines="8">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
+                  </p>
+                </mq-layout>
 
                   <p class="read-more">
                     <span  @click="setShop(firstShop)">閱讀更多</span>
@@ -37,12 +40,23 @@
             <div class="shop" v-for="(shop, index) in this.$store.state.shops.slice(1, 4)" :key="index">
                 <div class="img" @click="setShop(shop)"><ImageHandler :src="shop.recommendation_photo || shop.facebook_avatar" :alt="shop.name"/></div>
                 <div class="shop-content">
-                    <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20"><span> 綠點推薦</span></p>
-                    <h2 @click="setShop(shop)" >{{shop.name}}</h2>
+                    <div class="recommendation-data">
+                      <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20">
+                        <span> 綠點推薦</span>
+                      </p>
+                      <p class="stars">
+                        <span v-for="num in 5">★ </span>
+                      </p>
+                    </div>
+                    
+                    <h3 @click="setShop(shop)" >{{shop.name}}</h3>
                 </div>
             </div>
         </div>
-
+      </div>
+      <mq-layout mq="lg">
+        <Footer/>
+      </mq-layout>
     </div>
   </div>
 </template>
@@ -52,18 +66,24 @@
     overflow-y: auto!important;
   }
 
-  .recommendations-container h2{
+  .recommendations-container h3{
     margin-top: 20px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 32px;
   }
-    .recommendations-container{
-        margin-top: 60px;
-        min-height: calc(100vh - 60px);
-        background-color: #f3f4f5;
-        padding: 10px 30px 30px;
-        text-align: center;
+
+  .recommendations-container .first-shop .shop-content h3{
+    margin: 20px 0 40px;
+  }
+
+    .recommendations-top{
+      margin-top: 60px;
+      min-height: calc(100vh - 60px);
+      background-color: #f3f4f5;
+      padding: 10px 30px 30px;
+      text-align: center;
     }
 
     .tags-container{
@@ -130,6 +150,24 @@
     .first-shop .shop-content{
         padding-top: 50px;
     }
+
+    .shop-content h3{
+      cursor: pointer;
+    }
+
+    .shop-content h3:hover{
+      color: #44AD47;
+    }
+
+    .shop-content .recommendation-data{
+      display: flex;
+      justify-content: space-between;
+    }
+    .shop-content .recommendation-data .stars{
+      color: #F8C940;
+      font-size: 20px;
+    }
+
     .first-shop h2{
         width: 90%;
         margin: 30px auto;
@@ -246,10 +284,11 @@
 </style>
 
 <script>
-import * as firebase from 'firebase'
-import { defaultCoreCipherList } from 'constants'
-import Navbar from '~/components/Navbar.vue'
-import ShopList from '~/components/ShopList.vue'
+import * as firebase from 'firebase';
+import { defaultCoreCipherList } from 'constants';
+import Navbar from '~/components/Navbar.vue';
+import Footer from '~/components/Footer.vue';
+import ShopList from '~/components/ShopList.vue';
 import ImageHandler from '~/components/ImageHandler.vue';
 import food_bank from '~/assets/img/icon_food_bank.svg';
 import food_share from '~/assets/img/icon_food_share.svg';
@@ -284,7 +323,8 @@ export default {
     Navbar,
     ShopList,
     ImageHandler,
-    VClamp
+    VClamp,
+    Footer
   },
   data() {
     return {

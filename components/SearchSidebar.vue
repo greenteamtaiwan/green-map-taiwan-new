@@ -1,16 +1,18 @@
 <template>
     <Sidebar :show="show" :isRight="true" :id="'search-sidebar'">
         <div slot="content" >
-            <b-form @submit.stop.prevent @submit="search" id="search-container" class="mobile">
-                <b-input-group class="search">
-                    <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" :value="query" autocomplete="off"></b-form-input>
-                    <b-input-group-append>
-                        <b-button class="search-button" type="submit">
-                            <img src="~/assets/img/icon_search.svg" height="19" width="19">
-                        </b-button>
-                    </b-input-group-append>
-                </b-input-group>
-            </b-form>
+            <mq-layout mq="md">
+                <b-form @submit.stop.prevent @submit="search" id="search-container">
+                    <b-input-group class="search">
+                        <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" :value="query" autocomplete="off"></b-form-input>
+                        <b-input-group-append>
+                            <b-button class="search-button" type="submit">
+                                <img src="~/assets/img/icon_search.svg" height="19" width="19">
+                            </b-button>
+                        </b-input-group-append>
+                    </b-input-group>
+                </b-form>
+            </mq-layout>
             <ul class="history-container">
                 <li v-for="(history, index) in searchHistory" @click="search(history)">
                     <img src="~/assets/img/icon_search.svg" height="19" width="19">

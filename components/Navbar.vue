@@ -1,47 +1,51 @@
 <template>
   <div>
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top desktop" id="gt-nav">
-    <nuxt-link to="/">
-      <div class='map-logo'>
-        <img src='../assets/img/icon_map.svg' width="40px"/>
-        <img src='../assets/img/GT logo.png' width="40px"/>
-      </div>
-    </nuxt-link>
-    <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
-        <div class='navbar-middle'>
-          <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
-          <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
+  <mq-layout mq="lg">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
+      <nuxt-link to="/">
+        <div class='map-logo'>
+          <img src='../assets/img/icon_map.svg' width="40px"/>
+          <img src='../assets/img/GT logo.png' width="40px"/>
         </div>
-        
-    </b-form>
-    <b-form inline @submit.stop.prevent @submit="search" id="search-container">
-        <b-input-group class="search">
-            <b-input-group-prepend>
-                <b-button class="search-button" type="submit">
-                    <img src="~/assets/img/icon_search.svg" height="19" width="19">
-                </b-button>
-            </b-input-group-prepend>
-            <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" :value="query" autocomplete="off"></b-form-input>
-        </b-input-group>
-    </b-form>
-    
-  </nav>
+      </nuxt-link>
+      <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
+          <div class='navbar-middle'>
+            <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
+            <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
+          </div>
+          
+      </b-form>
+      <b-form inline @submit.stop.prevent @submit="search" id="search-container">
+          <b-input-group class="search">
+              <b-input-group-prepend>
+                  <b-button class="search-button" type="submit">
+                      <img src="~/assets/img/icon_search.svg" height="19" width="19">
+                  </b-button>
+              </b-input-group-prepend>
+              <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" autocomplete="off"></b-form-input>
+          </b-input-group>
+      </b-form>
+      
+    </nav>
+  </mq-layout>
 
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top mobile" id="gt-nav">
-    <nuxt-link to="/">
-      <div class='map-logo'>
-        <img src='../assets/img/icon_map.svg' width="40px"/>
-        <img src='../assets/img/GT logo.png' height="70%"/>
-      </div>
-    </nuxt-link>
-    <button id="mobile-button" @click="setShowSearchSidebar(!showSearchSidebar)">{{showSearchSidebar?"✖":"☰"}}</button>
-    <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
-        <div class='navbar-middle'>
-          <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
-          <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
+  <mq-layout mq="md">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
+      <nuxt-link to="/">
+        <div class='map-logo'>
+          <img src='../assets/img/icon_map.svg' width="40px"/>
+          <img src='../assets/img/GT logo.png' height="70%"/>
         </div>
-    </b-form>
-  </nav>
+      </nuxt-link>
+      <button id="mobile-button" @click="setShowSearchSidebar(!showSearchSidebar)">{{showSearchSidebar?"✖":"☰"}}</button>
+      <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
+          <div class='navbar-middle'>
+            <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
+            <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
+          </div>
+      </b-form>
+    </nav>
+  </mq-layout>
   <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :query="query" :search="search" :setType="setType"/>
 </div>
 </template>
@@ -140,6 +144,9 @@
     }
     .sidebar-inline-form{
       display: block;
+      position: fixed;
+      top: 60px;
+      width: 100%;
       background-color: white;
       border-top: solid 1px gray;
     }
@@ -236,6 +243,11 @@ export default {
 
       this.$store.commit("setQuery", query);
       this.$store.dispatch("getShops");
+
+      if(this.$mq === "lg"){
+        e.target.elements["query"].value = "";
+      }
+
       if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
       this.showSearchSidebar = false;
     },
@@ -264,8 +276,15 @@ export default {
       this.showSearchSidebar = showSearchSidebar;
     },
     closeSearchSidebar (e){
-      if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#search-container").contains(e.target) && !document.querySelector("#mobile-button").contains(e.target)){
-          this.showSearchSidebar = false;
+      console.log(this.$mq);
+      if(this.$mq === "lg"){
+        if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#search-container").contains(e.target)){
+            this.showSearchSidebar = false;
+        }
+      }else{
+        if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#mobile-button").contains(e.target)){
+            this.showSearchSidebar = false;
+        }
       }
     }
   }
