@@ -1,6 +1,6 @@
 const pkg = require('./package')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
-const base = process.env.NODE_ENV.trim() === 'development'?'':'/green-map-taiwan-new/';
+const base = process.env.NODE_ENV.trim() === 'development'?'':'';
 
 module.exports = {
   mode: 'universal',
