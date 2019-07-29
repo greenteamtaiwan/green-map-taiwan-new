@@ -1,6 +1,6 @@
 <template>
     <Sidebar :show="show" :isRight="true" :id="'search-sidebar'">
-        <div slot="content" >
+        <div slot="content" style="padding: 0 15px;">
             <mq-layout mq="md">
                 <b-form @submit.stop.prevent @submit="search" id="search-container">
                     <b-input-group class="search">
@@ -19,7 +19,7 @@
                     {{history}}
                 </li>
             </ul>
-            <ul>
+            <ul class="types">
                 <hr/>   
                 <li v-for="(item, index) in typeOptions" @click="setType(item.value)" :class="{'selected-type': checkIfIsSelected(item)}">
                     <img :src="item.icon"/>
@@ -41,18 +41,23 @@
     }
     img{
         width: 50px;
-        margin: 5px 10px;
     }
     li{
         cursor: pointer;
     }
     .selected-type, li:hover{
-        color: #44AD47;
+        background-color: #D8D8D8;
     }
     #search-sidebar{
         width: 300px; 
         padding: 1rem 0;
         z-index: 2;
+    }
+
+    .types li{
+        height: 65px;
+        line-height: 55px;
+        margin: 10px;
     }
     @media screen and (max-width:991px){
         .sidebar{
