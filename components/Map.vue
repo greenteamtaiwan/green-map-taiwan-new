@@ -282,6 +282,7 @@ export default {
     },
     getUserLocation: function(){
         this.$store.dispatch('getUserLocation');
+        if(this.$store.state.userLocation) this.$store.dispatch("getNearbyShops");
     },
     clearSelectedShop: function(){
         this.$store.commit('setShop', {});

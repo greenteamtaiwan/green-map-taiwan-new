@@ -28,6 +28,7 @@ const algolia = algoliasearch(
 let index;
 let recommendationsIndex;
 let recommendationsAllIndex;
+let geoIndex;
 
 // replicaIndex.setSettings({
 //   hitsPerPage: 1000,
@@ -55,7 +56,8 @@ export const state = () => ({
     city: 0,
     tag: "",
     largeImg: "",
-    pageNum: 1
+    pageNum: 1,
+    userLocation: null
   })
   
 export const actions = {
@@ -154,6 +156,7 @@ export const actions = {
       navigator.geolocation.getCurrentPosition(function (position) {
         console.log(position);
         context.commit("setCenter", { lat: position.coords.latitude, lng: position.coords.longitude });
+        context.commit("setUserLocation", { lat: position.coords.latitude, lng: position.coords.longitude });
       });
     }catch(err){
       console.log("getUserLocation err:::", err);
@@ -213,6 +216,27 @@ export const actions = {
       });
 
     });
+  },
+  async getNearbyShops (context){
+    if(!context.state.userLocation) return;
+
+    context.commit("initPageNum");
+    context.commit("setCity", 0);
+    
+    window.$nuxt.$nextTick(async ()=>{
+      window.$nuxt.$loading.start();
+
+      if(!geoIndex) geoIndex = algolia.initIndex('geo');
+
+      const data = await geoIndex.search({ 
+        aroundLatLng: `${context.state.userLocation.lat},${context.state.userLocation.lng}`
+      });
+
+      context.commit("setShops", data.hits);
+      context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
+
+      window.$nuxt.$loading.finish();
+    });
   }
 }
 // export const strict = false;
@@ -253,5 +277,8 @@ export const actions = {
     },
     initPageNum (state){
       state.pageNum = 1;
+    },
+    setUserLocation (state, userLocation){
+      state.userLocation = userLocation;
     }
   }

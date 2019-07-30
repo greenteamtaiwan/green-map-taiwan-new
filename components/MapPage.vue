@@ -7,7 +7,13 @@
     <mq-layout mq="md">
       <MobileShopList :shops="shops" />
     </mq-layout>
-    <Map><nuxt-link to="/index-map"><button class="expand-map-button-index mobile" @click="initPageNum">展開地圖</button></nuxt-link></Map>
+    <Map>
+      <mq-layout mq="md">
+        <nuxt-link to="/index-map">
+          <button class="expand-map-button-index mobile" @click="initPageNum">展開地圖</button>
+        </nuxt-link>
+      </mq-layout>
+    </Map>
   </div>
 </template>
 
@@ -87,6 +93,7 @@ export default {
   mounted: function() {
     this.$store.dispatch("getShops");
     this.$store.dispatch("getUserLocation");
+    if(this.$store.state.userLocation) this.$store.dispatch("getNearbyShops");
   },
   methods: {
     toggleShopList: function() {

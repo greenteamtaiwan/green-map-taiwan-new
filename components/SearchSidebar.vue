@@ -56,7 +56,7 @@
 
     .types li{
         height: 65px;
-        line-height: 55px;
+        line-height: 60px;
         margin: 10px;
     }
     @media screen and (max-width:991px){
