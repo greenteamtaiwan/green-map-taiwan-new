@@ -77,11 +77,9 @@
                       />
                     </gmap-map>
                   </no-ssr>
-                  <mq-layout mq="md">
-                    <nuxt-link to="/shop-map">
-                      <button class="expand-map-button-map" @click="initPageNum">展開地圖</button>
-                    </nuxt-link>
-                  </mq-layout>
+                  <nuxt-link to="/shop-map">
+                    <button class="expand-map-button-map" @click="initPageNum">展開地圖</button>
+                  </nuxt-link>
               </div>
             </div>
         </div>
