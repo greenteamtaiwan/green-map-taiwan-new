@@ -13,7 +13,10 @@
         position: fixed;
         bottom: 0;
         padding: 0 10px;
-        width: 100%;
+        width: 550px;
+        margin: auto;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .shop-map-shop-container .recommend{
@@ -44,6 +47,9 @@
   }
 
   @media screen and (max-width:991px){
+      .shop-map-shop-container{
+        width: 100%;
+      }
       .shop-map-container .index-map{
         height: 100vh;
       }
