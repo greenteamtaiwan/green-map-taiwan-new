@@ -1,4 +1,5 @@
 import * as firebase from 'firebase'
+import { user } from 'firebase-functions/lib/providers/auth';
 export const strict = false;
 const config = {
   apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
@@ -152,16 +153,19 @@ export const actions = {
     
   },
   getUserLocation (context){
-    try{
-      navigator.geolocation.getCurrentPosition(function (position) {
-        console.log(position);
-        context.commit("setCenter", { lat: position.coords.latitude, lng: position.coords.longitude });
-        context.commit("setUserLocation", { lat: position.coords.latitude, lng: position.coords.longitude });
-      });
-    }catch(err){
-      console.log("getUserLocation err:::", err);
-      // context.commit("setCenter", { lat: context.state.sourceData.cities[1].latitude, lng: context.state.sourceData.cities[1].longitude });
+    if(!navigator || !navigator.geolocation){
+      alert("您使用的瀏覽器不支援定位功能，若需定位請使用別的瀏覽器");
+      return;
     }
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+      context.commit("setCenter", { lat: position.coords.latitude, lng: position.coords.longitude });
+      context.commit("setUserLocation", { lat: position.coords.latitude, lng: position.coords.longitude });
+    }, function(err){
+      console.log("getUserLocation err:::", err);
+      alert("定位失敗，請確認:\n(1) 已開啟設備定位\n(2) 已授權本網站定位(此設定可於瀏覽器設定調整，請查閱使用瀏覽器相關說明)");
+      // context.commit("setCenter", { lat: context.state.sourceData.cities[1].latitude, lng: context.state.sourceData.cities[1].longitude });
+    });
   },
   setCityAndCenter (context, city){
     context.commit("setCity", city);
