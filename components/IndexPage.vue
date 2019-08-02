@@ -3,7 +3,7 @@
         <Navbar/>
         <div class="index-top">
             <div class="index-filter-tab">
-            <span>{{query}}</span>
+            <span>{{query||"零廢棄地圖綠點"}}</span>
             <ul>
                 <li v-for="(item, index) in typeOptions" @click="setType(item.value)" :class="{'selected-type': checkIfIsSelected(item)}">
                     <img :src="item.icon"/>

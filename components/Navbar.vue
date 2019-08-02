@@ -22,7 +22,7 @@
                       <img src="~/assets/img/icon_search.svg" height="19" width="19">
                   </b-button>
               </b-input-group-prepend>
-              <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" autocomplete="off"></b-form-input>
+              <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" autocomplete="off" :value="query"></b-form-input>
           </b-input-group>
       </b-form>
       
@@ -243,10 +243,6 @@ export default {
 
       this.$store.commit("setQuery", query);
       this.$store.dispatch("getShops");
-
-      if(this.$mq === "lg" && e.target){
-        e.target.elements["query"].value = "";
-      }
 
       if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
       this.showSearchSidebar = false;
