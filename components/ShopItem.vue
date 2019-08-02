@@ -5,7 +5,7 @@
                 </div>
                 <div class='shopItem-aside'>
                     <div style="width: 100%">
-                    <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 綠點推薦</p></div>
+                    <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_like.svg" height="20" width="20"> 精選店家</p></div>
                     <h3><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></h3>
                     <p class='type'>
                         <span v-if="shop.type&&types[shop.type[0]]" v-for="(type, index) in shop.type">

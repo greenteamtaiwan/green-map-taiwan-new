@@ -42,7 +42,7 @@
                 <div class="shop-content">
                     <div class="recommendation-data">
                       <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20">
-                        <span> 綠點推薦</span>
+                        <span> 精選店家</span>
                       </p>
                       <mq-layout mq="lg">
                         <p class="stars">
