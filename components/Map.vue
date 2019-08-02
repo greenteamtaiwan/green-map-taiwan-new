@@ -258,7 +258,7 @@ export default {
       }
     },
     markerClick: function(shop, index) {
-      this.$store.commit("setCenter", { lat: shop.latitude, lng: shop.longitude });
+      // this.$store.commit("setCenter", { lat: shop.latitude, lng: shop.longitude });
       this.$store.commit("markerOnClick", index);
       this.$store.commit("setShop", shop);
     },
