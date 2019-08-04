@@ -327,12 +327,12 @@ export default {
         this.$store.commit("setCenter", this.centerForSync);
     },
     backToIndex(){
-      switch($nuxt.$route.path){
-        case '/map':
-        case '/index-map':
+      switch($nuxt.$route.name){
+        case 'map':
+        case 'index-map':
           $nuxt.$router.push('/');
           break;
-        case '/shop-map':
+        case 'shop-map':
           if(this.selectedShop.objectID) $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
           else $nuxt.$router.push('/');
           break;
