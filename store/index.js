@@ -69,7 +69,7 @@ export const actions = {
     window.$nuxt.$nextTick(async ()=>{
       window.$nuxt.$loading.start();
 
-      if(!index) index = algolia.initIndex('greenmaptaiwan');
+      if(!index) index = algolia.initIndex('firebaseApp_greenmaptaiwan');
       const data = await index.search({ 
         filters: getFilterString({
           name: 'type', value: "" + context.state.type, check: function(value){
@@ -184,8 +184,8 @@ export const actions = {
         city = context.state.city;
       }
       const query = city?context.state.sourceData.cities[city].text.slice(0, 2):'全部';
-      if(city && !recommendationsIndex)recommendationsIndex = algolia.initIndex('recommendations');
-      else if(!recommendationsAllIndex) recommendationsAllIndex = algolia.initIndex('recommendations-all');
+      if(city && !recommendationsIndex)recommendationsIndex = algolia.initIndex('firebaseApp_recommendations');
+      else if(!recommendationsAllIndex) recommendationsAllIndex = algolia.initIndex('firebaseApp_recommendations-all');
 
       let index = city?recommendationsIndex:recommendationsAllIndex;
       const data = await index.search({ 
@@ -205,7 +205,7 @@ export const actions = {
     window.$nuxt.$nextTick(async ()=>{
       window.$nuxt.$loading.start();
 
-      if(!index) index = algolia.initIndex('greenmaptaiwan');
+      if(!index) index = algolia.initIndex('firebaseApp_greenmaptaiwan');
       index.getObject(objectID, (err, shop) => {
         context.commit("setShop", shop);
   
