@@ -357,6 +357,13 @@ if(value.indexOf(cities[i].text) >= 0){
       getValue: function(value){
         return +value;
       }
+  },
+  'googlemap詳情頁link': {
+      key: 'google_map_link',
+      type: "string",
+      getValue: function(value){
+        return value;
+      }
   }
 };
 
