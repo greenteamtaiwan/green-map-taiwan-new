@@ -1,19 +1,35 @@
 <template>
-  <div class="map-container">
-    <Navbar/>
-    <mq-layout mq="lg">
-      <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList" />
-    </mq-layout>
-    <mq-layout mq="md">
-      <MobileShopList :shops="shops" />
-    </mq-layout>
-    <Map>
+  <div>
+    <div class="map-container">
       <mq-layout mq="md">
-        <nuxt-link to="/index-map">
-          <button class="expand-map-button-index mobile" @click="initPageNum">展開地圖</button>
-        </nuxt-link>
+        <Navbar/>
       </mq-layout>
-    </Map>
+
+      <mq-layout mq="lg">
+        <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList" />
+      </mq-layout>
+      <mq-layout mq="md">
+        <MobileShopList :shops="shops" />
+      </mq-layout>
+      <Map :mapSettings="{
+          zoomControl: true,
+          mapTypeControl: false,
+          scaleControl: true,
+          streetViewControl: true,
+          rotateControl: true,
+          fullscreenControl: true,
+          disableDefaultUi: false
+        }">
+        <mq-layout mq="md">
+          <nuxt-link to="/index-map">
+            <button class="expand-map-button-index mobile" @click="initPageNum">展開地圖</button>
+          </nuxt-link>
+        </mq-layout>
+      </Map>
+    </div>
+    <mq-layout mq="lg" class="mapPage-indexFilterTab-container">
+        <IndexFilterTab :hasMapButton="false"/>
+    </mq-layout>
   </div>
 </template>
 
@@ -46,6 +62,25 @@
     list-style-type: none;
   }
 
+  .mapPage-indexFilterTab-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: #f3f4f5;
+    padding: 10px;
+  }
+
+  .mapPage-indexFilterTab-container .index-filter-tab{
+    padding: 5px 10px;
+  }
+  .mapPage-indexFilterTab-container .index-filter-tab li img{
+    height: 30px;
+  }
+  .mapPage-indexFilterTab-container .index-filter-tab span{
+    line-height: px;
+  }
+
   @media screen and (max-width:991px){
       .index-map{
         height: calc(60vh - 116px);
@@ -68,6 +103,7 @@ import markerIcon from '~/assets/img/icon_location.svg';
 import { mapMutations } from 'vuex'
 import ImageHandler from '~/components/ImageHandler.vue';
 import Map from '~/components/Map.vue';
+import IndexFilterTab from '~/components/IndexFilterTab.vue';
 
 export default {
   components: {
@@ -75,7 +111,8 @@ export default {
     ShopList,
     ImageHandler,
     MobileShopList,
-    Map
+    Map,
+    IndexFilterTab
   },
   data() {
     return {
@@ -89,6 +126,9 @@ export default {
     selectedShop: function() {
       return this.$store.state.shop;
     },
+    query: function() {
+      return this.$state.state.query;
+    }
   },
   mounted: function() {
     this.$store.dispatch("getShops");

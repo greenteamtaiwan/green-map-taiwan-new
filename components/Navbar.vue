@@ -210,6 +210,9 @@ export default {
     window.addEventListener('click', this.closeSearchSidebar);
     this.searchHistory = localStorage.getItem("searchHistory")?JSON.parse(localStorage.getItem("searchHistory")):[];
   },
+  beforeDestroy: function(){
+    window.removeEventListener("scroll", this.closeSearchSidebar);
+  },
   components: {
     SearchSidebar
   },

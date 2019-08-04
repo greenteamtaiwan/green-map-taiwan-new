@@ -359,7 +359,7 @@ export default {
     if(this.$store.state.shop !== null && Object.getOwnPropertyNames(this.$store.state.shop).length > 1){
       // this.getRandomPlaceholders();
     }else{
-      let objectID = this.getQueryString("objectID");
+      let objectID = this.$nuxt.$route.query.objectID;
       if(!objectID){
         $nuxt.$router.push(`/`);
       }else{
@@ -391,17 +391,6 @@ export default {
     },
     initPageNum: function() {
       this.$store.commit("initPageNum");
-    },
-    getQueryString: function (name) 
-    {
-      var AllVars = window.location.search.substring(1);
-      var Vars = AllVars.split("&");
-      for (let i = 0; i < Vars.length; i++)
-      {
-        var Var = Vars[i].split("=");
-        if (Var[0] == name) return Var[1];
-      }
-      return "";
     }
   }
 }

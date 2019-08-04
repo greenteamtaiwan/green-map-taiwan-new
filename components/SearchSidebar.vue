@@ -1,6 +1,6 @@
 <template>
     <Sidebar :show="show" :isRight="true" :id="'search-sidebar'">
-        <div slot="content" style="padding: 0 15px;">
+        <div slot="content">
             <mq-layout mq="md">
                 <b-form @submit.stop.prevent @submit="search" id="search-container">
                     <b-input-group class="search">
@@ -45,13 +45,17 @@
     li{
         cursor: pointer;
     }
-    .selected-type, li:hover{
+    .selected-type, .types li:hover{
         background-color: #D8D8D8;
     }
     #search-sidebar{
         width: 300px; 
         padding: 1rem 0;
         z-index: 2;
+    }
+
+    #search-sidebar ul{
+        margin: 0 15px;
     }
 
     .types li{

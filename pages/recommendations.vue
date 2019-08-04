@@ -68,7 +68,7 @@
     overflow-y: auto!important;
   }
 
-  .recommendations-container h3{
+  .recommendations-container .shop-content h3{
     margin-top: 20px;
     overflow: hidden;
     white-space: nowrap;
@@ -115,6 +115,7 @@
     .tags img{
         max-width: 100%;
         align-self: center;
+        max-height: 120px;
     }
 
 
@@ -409,7 +410,12 @@ export default {
   methods: {
     setShop: function(shop) {
         this.$store.commit("setShop", shop);
-        $nuxt.$router.push(`/shop?objectID=${shop.objectID}`);
+        if(shop.google_map_link && !shop.photo1 && !shop.recommendation_description && !shop.description){
+          var win = window.open(shop.google_map_link, '_blank');
+          win.focus();
+        }else{
+          $nuxt.$router.push(`/shop?objectID=${shop.objectID}`);
+        }
     },
     setTag: function(tag) {
         this.$store.commit("setQuery", tag);

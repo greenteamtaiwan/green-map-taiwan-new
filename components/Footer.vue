@@ -1,5 +1,17 @@
 <template>
     <div class="footer-container">
+        <div class="about-map">
+          <h3>台灣零廢棄地圖</h3>
+          <p>
+            集結全台灣最完整的環保的“綠循環地圖”！
+
+            內容包含 無包裝商店（裸買店）、食物銀行、綠色友善餐廳、享食據點（食物分享櫃）、剩食餐廳、二手書店、二手商店、維修商店、飲水機、資源回收站、綠色旅館、工具租借站、圖書館、傳統市集、農夫市集、環保優惠資訊。
+
+            我們提供多元的共享經濟與循環經濟產品服務資訊，目的為了讓更多人支持綠色產業，一起減少台灣人年年劇增的垃圾量。
+
+            有一種環保，叫做用鈔票當選票、用新台幣下架環保商家。台灣的未來由你來守護，快來看看你可以選擇哪些替代性消費方案，一起成為綠循環的重要成員。
+          </p>
+        </div>
         <div class="about-GT">
           <div class="about-GT-text">
             <h3>關於Zero Waste Taiwan</h3>
@@ -35,10 +47,32 @@
       padding: 20px 0 0;
     }
 
+    .footer-container h3{
+      margin-top: 0;
+    }
+
     .footer-container .about-GT h3{
         font-size: 20px;
         font-weight: bold;
         margin-bottom: 30px;
+    }
+    .footer-container .about-map h3{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .about-map{
+      background-color: #f3f4f5;
+      padding: 30px 200px;
+      margin-bottom: 30px;
+    }
+
+    .about-map p{
+      white-space: pre-line;
+    }
+
+    .footer-container .about-map h3{
+      text-align: center;
     }
 
     .about-GT{

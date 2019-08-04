@@ -4,6 +4,9 @@
         <b-col lg='12' class='map'>
           <slot></slot>
           <button class="get-location-button" @click="getUserLocation"><img src="../assets/img/icon_getUserLocation.svg"/></button>
+          <mq-layout mq="lg">
+            <button class="back-to-index-button" @click="backToIndex">✖</button>
+          </mq-layout>
           <no-ssr>
             <gmap-map
               :center="center"
@@ -33,7 +36,7 @@
                 style="width: 100px;"
               >
                 <div class="info-window-container">
-                  <span @click="clearSelectedShop" class="clear-info-window-button">X</span>
+                  <span @click="clearSelectedShop" class="clear-info-window-button">✖</span>
                   <ImageHandler 
                     :src="selectedShop.photo0 || selectedShop.facebook_avatar"
                     v-if="selectedShop.photo0 || selectedShop.facebook_avatar"
@@ -82,6 +85,16 @@
 
     .get-location-button{
         position: absolute;
+        bottom: 190px;;
+        right: 10px;
+        z-index: 1;
+        border: solid 1px gray;
+        width: 45px;
+        height: 45px;
+        padding: 10px;
+    }
+    .back-to-index-button{
+        position: absolute;
         top: 10px;
         right: 10px;
         z-index: 1;
@@ -89,6 +102,7 @@
         width: 45px;
         height: 45px;
         padding: 10px;
+        background-color: white;
     }
 
     .get-location-button img{
@@ -182,6 +196,11 @@
       .map-container{
         margin-top: 116px;
       }
+
+      .get-location-button{
+        top: 10px;
+        bottom: unset;
+      }
   }
   .gmap-info-window-arrow{
     transform: rotate(-90deg)
@@ -246,7 +265,13 @@ export default {
                 streetViewControl: true,
                 rotateControl: true,
                 fullscreenControl: true,
-                disableDefaultUi: false
+                disableDefaultUi: false,
+                streetViewControlOptions: {
+                  position: 8
+                },
+                zoomControlOptions: {
+                  position: 8
+                }
               }
     }
   },
@@ -270,7 +295,12 @@ export default {
     },
     setShop: function() {
       // this.$store.commit("setShop", this.selectedShop);
-      $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
+        if(this.selectedShop.google_map_link && !this.selectedShop.photo1 && !this.selectedShop.recommendation_description && !this.selectedShop.description){
+          var win = window.open(this.selectedShop.google_map_link, '_blank');
+          win.focus();
+        }else{
+          $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
+        }
     },
     getIcon: function(type) {
       if(this.$store.state.type) return this.$store.state.sourceData.types[this.$store.state.type].icon;
@@ -295,6 +325,17 @@ export default {
     },
     dragEnd(){
         this.$store.commit("setCenter", this.centerForSync);
+    },
+    backToIndex(){
+      switch($nuxt.$route.path){
+        case '/map':
+        case '/index-map':
+          $nuxt.$router.push('/');
+        case '/shop-map':
+          if(this.selectedShop.objectID) $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
+          else $nuxt.$router.push('/');
+        default:
+      }
     }
   }
 }
