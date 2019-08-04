@@ -1,5 +1,5 @@
 <template>
-        <div class="shopItem-container" @click="setShop" style="containerStyle">
+        <div class="shopItem-container" @click="setShop" style="containerStyle" :class="{'isMarkerClicked': isMarkerClicked}">
                 <div class='shopItem-main'>
                     <ImageHandler :src="shop.photo0 || shop.facebook_avatar" :alt="shop.name" :altPlaceholders="altPlaceholders"/>
                 </div>
@@ -100,6 +100,10 @@
         background-color: white;
     }
 
+    .isMarkerClicked{
+        border-top: solid 5px #44ad47;
+    }
+
     @media screen and (max-width:1250px){
 
     }
@@ -141,6 +145,10 @@ export default {
         containerStyle: {
             type: Object,
             default: ()=>({})
+        },
+        isMarkerClicked: {
+            type: Boolean,
+            default: false
         }
     },
     methods:{

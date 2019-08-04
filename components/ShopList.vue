@@ -1,12 +1,12 @@
 <template>
     <Sidebar :show="show" :onCloseButtonClick="onCloseButtonClick" :showCloseSidebarButton="true">
         <ul class="shopList" slot="content" v-if="shops.length>0" v-scroll="onScroll" >
-            <ShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop"/>
+            <ShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop" :isMarkerClicked="shop.objectID===selectedShop.objectID"/>
         </ul>
         <div class="no-result-placeholder" slot="content" v-if="shops.length===0">
-            <img src='../assets/img/no-result-placeholder-hint.png'/>
+            <!--<img src='../assets/img/no-result-placeholder-hint.png'/>-->
             <img :src='mascots[Math.floor(Math.random()*mascots.length)]'/>
-            <p>目前沒有符合的搜尋結果</p>
+            <p>{{isLoading?"Loading...":"目前沒有符合的搜尋結果"}}</p>
         </div>
     </Sidebar>
 </template>
@@ -24,12 +24,12 @@
         text-align: center;
     }
 
-    .no-result-placeholder img:nth-child(1){
+    /*.no-result-placeholder img:nth-child(1){
         width: 60%;
         margin: 30px auto 0;
         display: block;
-    }
-    .no-result-placeholder img:nth-child(2){
+    }*/
+    .no-result-placeholder img{
         width: 30%;
         margin: 0 auto 30px;
         display: block;
@@ -83,6 +83,14 @@ export default {
         shops: {
             type: Array,
             default: []
+        }
+    },
+    computed: {
+        isLoading: function() {
+            return this.$store.state.isLoading;
+        },
+        selectedShop: function() {
+            return this.$store.state.shop;
         }
     },
     methods: {

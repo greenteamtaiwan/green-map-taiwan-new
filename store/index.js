@@ -58,7 +58,8 @@ export const state = () => ({
     tag: "",
     largeImg: "",
     pageNum: 1,
-    userLocation: null
+    userLocation: null,
+    isLoading: true
   })
   
 export const actions = {
@@ -146,7 +147,9 @@ export const actions = {
       if(!dontSetShop) context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
       context.commit("setTag", '');
       window.$nuxt.$loading.finish();
+      context.commit("setIsLoading", false);
 
+      context.commit("clearMarkerClickTriggered");
       context.commit("initPageNum");
     });
     
@@ -253,6 +256,7 @@ export const actions = {
       let shops = [...state.shops];
       let result = shops.splice(index, 1).concat(shops);
 
+      state.markerClickTriggered = true;
       state.shops = result;
     },
     setShop (state, shop) {
@@ -284,5 +288,8 @@ export const actions = {
     },
     setUserLocation (state, userLocation){
       state.userLocation = userLocation;
+    },
+    setIsLoading (state, isLoading){
+      state.isLoading = isLoading;
     }
   }

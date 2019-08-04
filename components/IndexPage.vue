@@ -7,9 +7,9 @@
               <IndexShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop"/>
             </div>
             <div class="no-result-placeholder" slot="content" v-else>
-                <img src='../assets/img/no-result-placeholder-hint.png'/>
+                <!--<img src='../assets/img/no-result-placeholder-hint.png'/>-->
                 <img :src='mascots[Math.floor(Math.random()*mascots.length)]'/>
-                <p>目前沒有符合的搜尋結果</p>
+                <p>{{isLoading?"Loading...":"目前沒有符合的搜尋結果"}}</p>
             </div>
         </div>
         <Footer/>
@@ -36,10 +36,10 @@
     margin: 50px auto 0;
     text-align: center;
   }
-  .index-container .no-result-placeholder img:nth-child(1){
+  /*.index-container .no-result-placeholder img:nth-child(1){
     width: 100%;
-  }
-  .index-container .no-result-placeholder img:nth-child(2){
+  }*/
+  .index-container .no-result-placeholder img{
     width: 50%;
     margin-bottom: 20px;
   }
@@ -78,20 +78,29 @@ export default {
     MapPage,
     IndexFilterTab
   },
-    data() {
-        return {
-            mascots: [
-                BubbleGreenTea,
-                GreenBeer,
-                GreenMilkTea,
-                Mocha,
-                GreenTea
-            ]
-        }
-    },
+  data() {
+      return {
+          mascots: [
+              BubbleGreenTea,
+              GreenBeer,
+              GreenMilkTea,
+              Mocha,
+              GreenTea
+          ]
+      }
+  },
+  props: {
+    isLoading: {
+        type: Boolean,
+        default: false
+    }
+  },
   computed: {
     shops: function() {
       return this.$store.state.shops;
+    },
+    isLoading: function() {
+      return this.$store.state.isLoading;
     }
   },
   mounted: function() {

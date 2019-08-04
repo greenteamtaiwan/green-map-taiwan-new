@@ -1,12 +1,12 @@
 <template>
     <div class="mobile mobile-shop-list" v-scroll="onScroll" >
         <ul class="shopList" slot="content" v-if="shops.length>0">
-            <ShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop" />
+            <ShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop" :isMarkerClicked="shop.objectID===selectedShop.objectID"/>
         </ul>
         <div class="no-result-placeholder" slot="content" v-if="shops.length===0">
-            <img src='../assets/img/no-result-placeholder-hint.png'/>
+            <!--<img src='../assets/img/no-result-placeholder-hint.png'/>-->
             <img :src='mascots[Math.floor(Math.random()*mascots.length)]'/>
-            <p>目前沒有符合的搜尋結果</p>
+            <p>{{isLoading?"Loading...":"目前沒有符合的搜尋結果"}}</p>
         </div>
     </div>
 </template>
@@ -38,7 +38,7 @@
         margin: 30px auto 0;
     }
 
-    .mobile-shop-list .no-result-placeholder img:nth-child(2){
+    .mobile-shop-list .no-result-placeholder img{
         height: 20vh;
         width: unset;
         margin: 0 auto 20px;
@@ -86,6 +86,14 @@ export default {
         shops: {
             type: Array,
             default: []
+        }
+    },
+    computed: {
+        isLoading: function() {
+            return this.$store.state.isLoading;
+        },
+        selectedShop: function() {
+            return this.$store.state.shop;
         }
     },
     methods: {
