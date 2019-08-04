@@ -222,7 +222,7 @@
         color: #EE5593;
     }
 
-  @media screen and (max-width:991px){
+  @media screen and (max-width:1250px){
     .recommendations-container{
         margin-top: 0;
         padding: 0;

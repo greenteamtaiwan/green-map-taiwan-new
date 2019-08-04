@@ -188,7 +188,7 @@
   .info-window-container h1:hover {
     color: #44AD47;
   }
-  @media screen and (max-width:991px){
+  @media screen and (max-width:1250px){
       .index-map{
         height: calc(60vh - 116px);
       }

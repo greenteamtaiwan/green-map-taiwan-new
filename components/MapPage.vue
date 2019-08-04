@@ -81,7 +81,7 @@
     line-height: px;
   }
 
-  @media screen and (max-width:991px){
+  @media screen and (max-width:1250px){
       .index-map{
         height: calc(60vh - 116px);
       }

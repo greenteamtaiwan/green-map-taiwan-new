@@ -131,7 +131,7 @@
     box-shadow: 0 0 0 0.2rem rgba(68, 173, 71, 0.5);
   }
 
-  @media screen and (max-width:991px){
+  @media screen and (max-width:1250px){
     nav{
       height: unset;
     }

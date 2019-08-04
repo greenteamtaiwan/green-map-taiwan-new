@@ -148,7 +148,7 @@
         margin-bottom: 20px;
     }
 
-    @media screen and (max-width:991px){
+    @media screen and (max-width:1250px){
 
     }
 </style>

@@ -24,7 +24,7 @@
         transform: translate(-50%, -50%);
     }
 
-    @media screen and (max-width:991px){
+    @media screen and (max-width:1250px){
 
     }
 </style>

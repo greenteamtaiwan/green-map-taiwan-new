@@ -48,7 +48,7 @@
     margin-top: 30px;
   }
 
-  @media screen and (max-width:991px){
+  @media screen and (max-width:1250px){
     .index-container{
       padding-top: 116px;
     }

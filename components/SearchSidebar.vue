@@ -63,7 +63,7 @@
         line-height: 60px;
         margin: 10px;
     }
-    @media screen and (max-width:991px){
+    @media screen and (max-width:1250px){
         .sidebar{
             border-top: solid 1px gray;
         }
