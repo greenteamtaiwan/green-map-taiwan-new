@@ -12,7 +12,7 @@
         overflow: hidden;
     }
   html, body{
-    overflow-y: hidden
+    overflow-y: hidden!important;
   }
 .index-map-container .map-container{
         margin-top: 0;

@@ -68,7 +68,7 @@
     left: 0;
     width: 100vw;
     background-color: #f3f4f5;
-    padding: 10px;
+    padding: 5px 10px;
   }
 
   .mapPage-indexFilterTab-container .index-filter-tab{

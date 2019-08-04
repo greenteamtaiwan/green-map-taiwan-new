@@ -331,9 +331,11 @@ export default {
         case '/map':
         case '/index-map':
           $nuxt.$router.push('/');
+          break;
         case '/shop-map':
           if(this.selectedShop.objectID) $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
           else $nuxt.$router.push('/');
+          break;
         default:
       }
     }
