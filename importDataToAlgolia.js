@@ -206,7 +206,7 @@ if(value.indexOf(cities[i].text) >= 0){
       key: 'phone',
       type: 'array',
       getValue: function(value){
-          return value.trim()?value.trim().replace(/(\r\n|\n|\r)/gm,'\n').replace(/ /gm,'-').split(","):[];
+        return value.trim()?value.trim().replace(/ /gm,'-').split(/(?:\r\n|\n|\r|,)+/gm):[];
       }
   },		
   '粉專網頁': {
