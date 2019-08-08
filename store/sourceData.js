@@ -3,6 +3,11 @@ import food_share from '~/assets/img/icon_food_share.svg';
 import free_shop from '~/assets/img/icon_free_shop.svg';
 import thrift_shop from '~/assets/img/icon_thrift_shop.svg';
 import vegetarian_shop from '~/assets/img/icon_tag_vegetarian_shop.svg';
+import type_food_bank from '~/assets/img/icon_type_food_bank.svg';
+import type_food_share from '~/assets/img/icon_type_food_share.svg';
+import type_free_shop from '~/assets/img/icon_type_free_shop.svg';
+import type_thrift_shop from '~/assets/img/icon_type_thrift_shop.svg';
+import type_vegetarian_shop from '~/assets/img/icon_type_tag_vegetarian_shop.svg';
 
 export const state = () => ({
     types: [
@@ -14,30 +19,35 @@ export const state = () => ({
         {
           value: 1,
           icon: vegetarian_shop,
+          typeIcon: type_vegetarian_shop,
           text: '綠餐廳/蔬食',
           checked: true
         },
         {
           value: 2,
           icon: thrift_shop,
+          typeIcon: type_thrift_shop,
           text: '二手市集/商店',
           checked: true
         },
         {
           value: 3,
           icon: free_shop,
+          typeIcon: type_free_shop,
           text: '免費市集/商店',
           checked: true
         },
         {
           value: 4,
           icon: food_share,
+          typeIcon: type_food_share,
           text: '享食冰箱',
           checked: true
         },
         {
           value: 5,
           icon: food_bank,
+          typeIcon: type_food_bank,
           text: '食物銀行',
           checked: true
         }

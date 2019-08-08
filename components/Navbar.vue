@@ -4,8 +4,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
       <nuxt-link to="/">
         <div class='map-logo'>
-          <img src='../assets/img/icon_map.svg' width="40px"/>
-          <img src='../assets/img/GT logo.png' width="40px"/>
+          <img src='../assets/img/GT_logo.svg' width="40px"/>
         </div>
       </nuxt-link>
       <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
@@ -33,7 +32,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
       <nuxt-link to="/">
         <div class='map-logo'>
-          <img src='../assets/img/icon_map.svg' width="40px"/>
+          <img src='../assets/img/GT_logo_no_text.svg' width="40px"/>
           <img src='../assets/img/GT logo.png' height="70%"/>
         </div>
       </nuxt-link>
@@ -182,7 +181,6 @@
     .map-logo img:nth-child(2){
       height: 70%;
       width: unset;
-      margin-left: 5px;
     }
     
     .input-group.search{

@@ -22,7 +22,7 @@
             <ul class="types">
                 <hr/>   
                 <li v-for="(item, index) in typeOptions" @click="setType(item.value)" :class="{'selected-type': checkIfIsSelected(item)}">
-                    <img :src="item.icon"/>
+                    <img :src="item.typeIcon"/>
                     {{ item.text }}
                 </li>
                 <hr/>

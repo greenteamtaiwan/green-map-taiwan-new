@@ -14,11 +14,12 @@
         </div>
         <div class="first-shop shop">
             <div class="shop-content">
-                <p class="story-title"><span>● 綠點故事</span></p>
+                <img class="green-story-img" src='../assets/img/icon_green_story.svg'/>
+                <p class="story-title"><span>綠點故事</span></p>
                 <h3 @click="setShop(firstShop)">{{firstShop.name}}</h3>
                 <mq-layout mq="lg">
                   <p class="description">
-                    <v-clamp autoresize :max-lines="8">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
+                    <v-clamp autoresize :max-lines="3">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
                   </p>
                 </mq-layout>
 
@@ -41,7 +42,7 @@
                 <div class="img" @click="setShop(shop)"><ImageHandler :src="shop.recommendation_photo || shop.facebook_avatar" :alt="shop.name"/></div>
                 <div class="shop-content">
                     <div class="recommendation-data">
-                      <p class="recommendation-title"><img src="~/assets/img/icon_like.svg" height="20" width="20">
+                      <p class="recommendation-title"><img src="~/assets/img/icon_recommend.svg" height="20" width="20">
                         <span> 精選店家</span>
                       </p>
                       <mq-layout mq="lg">
@@ -118,6 +119,10 @@
         max-height: 120px;
     }
 
+    .green-story-img{
+      width: 150px;
+      margin-bottom: 10px;
+    }
 
     .shop{
         width: calc(calc( 100% - 40px) / 3);
@@ -186,7 +191,7 @@
     }
 
     .first-shop .description{
-      white-space: pre-line;
+      white-space: normal;
       text-align: left;
     }
 
