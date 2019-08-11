@@ -56,7 +56,7 @@ export const state = () => ({
     type: null,
     city: 0,
     tag: "",
-    largeImg: "",
+    largeImgIndex: null,
     pageNum: 1,
     userLocation: null,
     isLoading: true
@@ -277,8 +277,8 @@ export const actions = {
     setTag (state, tag) {
         state.tag = tag;
     },
-    setLargeImg (state, largeImg) {
-        state.largeImg = largeImg;
+    setLargeImgIndex (state, largeImgIndex) {
+        state.largeImgIndex = largeImgIndex;
     },
     addPageNum (state){
       state.pageNum = state.pageNum + 1;

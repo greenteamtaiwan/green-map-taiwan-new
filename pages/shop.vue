@@ -3,17 +3,17 @@
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class='shop-container'>
         <div class='img-container'>
-            <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||NoShopImageHint" :alt="shop.name" :onClick="setLargeImg"/></div>
+            <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||NoShopImageHint" :alt="shop.name" :onClick="setLargeImgIndex" :index="1"/></div>
             <div class="imgs">
-                <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||placeholders[0]" :alt="shop.name" :onClick="setLargeImg"/></div>
-                <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||placeholders[1]" :alt="shop.name" :onClick="setLargeImg"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo2!=='空白'" :src="shop.photo2||placeholders[0]" :alt="shop.name" :onClick="setLargeImgIndex" :index="2"/></div>
+                <div class="img"><ImageHandler v-if="shop.photo3!=='空白'" :src="shop.photo3||placeholders[1]" :alt="shop.name" :onClick="setLargeImgIndex" :index="3"/></div>
             </div>
             <mq-layout mq="lg" class="img">
-              <ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||placeholders[2]" :alt="shop.name" :onClick="setLargeImg"/>
+              <ImageHandler v-if="shop.photo4!=='空白'" :src="shop.photo4||placeholders[2]" :alt="shop.name" :onClick="setLargeImgIndex" :index="4"/>
             </mq-layout>  
             <mq-layout mq="lg" class="imgs">
-              <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||placeholders[3]" :alt="shop.name" :onClick="setLargeImg"/></div>
-              <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||placeholders[4]" :alt="shop.name" :onClick="setLargeImg"/></div>
+              <div class="img"><ImageHandler v-if="shop.photo5!=='空白'" :src="shop.photo5||placeholders[3]" :alt="shop.name" :onClick="setLargeImgIndex" :index="5"/></div>
+              <div class="img"><ImageHandler v-if="shop.photo6!=='空白'" :src="shop.photo6||placeholders[4]" :alt="shop.name" :onClick="setLargeImgIndex" :index="6"/></div>
             </mq-layout>  
         </div>
 
@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-    <LargeImgViewer v-if="this.$store.state.largeImg" :src="this.$store.state.largeImg"/>
+    <LargeImgViewer v-if="this.$store.state.largeImgIndex!==null"/>
   </div>
 </template>
 
@@ -390,8 +390,8 @@ export default {
       return this.$store.state.sourceData.types[type].icon || "";
       // return markerIcon;
     },
-    setLargeImg: function(largeImg){
-      this.$store.commit("setLargeImg", largeImg);
+    setLargeImgIndex: function(src, largeImgIndex){
+      this.$store.commit("setLargeImgIndex", largeImgIndex);
     },
     initPageNum: function() {
       this.$store.commit("initPageNum");

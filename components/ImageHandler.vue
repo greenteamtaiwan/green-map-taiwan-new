@@ -64,6 +64,10 @@ export default {
       altPlaceholders: {
           type: Array,
           default: []
+      },
+      index: {
+          type: Number,
+          default: null
       }
     },
     computed: {
@@ -105,7 +109,7 @@ export default {
 
         },
         clickImg () {
-            this.onClick(this.finalSrc);
+            this.onClick(this.finalSrc, this.index);
         }
     }
 }

@@ -26,6 +26,7 @@
     "nuxt": "^2.4.0",
     "nuxt-mq": "^2.0.0",
     "vue": "^2.6.4",
+    "vue-carousel": "^0.18.0",
     "vue-clamp": "^0.2.1",
     "vue-scroll": "^2.1.12",
     "vue2-google-maps": "^0.10.6",
