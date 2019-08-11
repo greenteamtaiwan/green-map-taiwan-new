@@ -63,11 +63,11 @@
     }
 
     .index-shopItem-container .type span:nth-child(1){
-        color: lightgray;
+        color: rgba(0,0,0,0.4);
     }
 
     .index-shopItem-container .recommendation-data{
-        border-bottom: solid 1px lightgray;
+        border-bottom: solid 1px rgba(0,0,0,0.4);
         padding-bottom: 10px;
         margin-bottom: 40px;
     }

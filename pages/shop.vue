@@ -52,34 +52,35 @@
                   <!--<p style="background-color:#d3d3d3; ">備註（開發顯示用-上線將移除）：【tag】{{ demoShop._tags}} /【子類別】{{ this.$store.state.sourceData.subtypes[demoShop.shop_type][demoShop.sub_shop_type] }}/【城市】{{ this.$store.state.sourceData.cities[demoShop.city].text }}/【屬於推薦綠點？】{{ demoShop.is_recommended}} </p>-->
                 </div>
                 <div class="shop-small-map-container">
-                <no-ssr>
-                    <gmap-map
-                      :center="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
-                      :zoom="13"
-                      map-type-id="roadmap"
-                      class="shop-small-map"
-                      :options="{
-                        zoomControl: false,
-                        mapTypeControl: false,
-                        scaleControl: false,
-                        streetViewControl: false,
-                        rotateControl: false,
-                        fullscreenControl: false,
-                        disableDefaultUi: false
-                      }"
-                    >
-                      <gmap-marker
-                        :key="index"
-                        :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
-                        :clickable="true"
-                        :draggable="false"
-                        :icon="{url: getIcon(shop.type?shop.type[0]:0), scaledSize: {width: 67, height: 79} }"
-                      />
-                    </gmap-map>
-                  </no-ssr>
-                  <nuxt-link to="/shop-map">
-                    <button class="expand-map-button-map" @click="initPageNum">展開地圖</button>
-                  </nuxt-link>
+                  <nuxt-link to="/shop-map" @click="initPageNum">
+                    <no-ssr>
+                        <gmap-map
+                          :center="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
+                          :zoom="13"
+                          map-type-id="roadmap"
+                          class="shop-small-map"
+                          :options="{
+                            zoomControl: false,
+                            mapTypeControl: false,
+                            scaleControl: false,
+                            streetViewControl: false,
+                            rotateControl: false,
+                            fullscreenControl: false,
+                            disableDefaultUi: false
+                          }"
+                        >
+                          <gmap-marker
+                            :key="index"
+                            :position="{lat: parseFloat(shop.latitude), lng: parseFloat(shop.longitude)}"
+                            :clickable="true"
+                            :draggable="false"
+                            :icon="{url: getIcon(shop.type?shop.type[0]:0), scaledSize: {width: 67, height: 79} }"
+                          />
+                        </gmap-map>
+                      </no-ssr>
+                    
+                      <button class="expand-map-button-map">展開地圖</button>
+                    </nuxt-link>
               </div>
             </div>
         </div>
@@ -178,7 +179,7 @@
         border-bottom: solid 1px lightgray;
         margin-bottom: 20px;
         padding-bottom: 20px;
-        color: lightgray;
+        color: rgba(0,0,0,0.4);
         font-size: 14px;
     }
     .shop-container .recommend-container{
@@ -225,7 +226,7 @@
     bottom: 0;
   }
 
-  @media screen and (max-width:991px){
+  @media screen and (max-width:1250px){
     .shop-container{
       margin-top: 116px;
     }
@@ -356,10 +357,13 @@ export default {
     }
   },
   mounted: function() {
+    let objectID = this.$nuxt.$route.query.objectID;
     if(this.$store.state.shop !== null && Object.getOwnPropertyNames(this.$store.state.shop).length > 1){
       // this.getRandomPlaceholders();
+      if(this.$store.state.shop.objectID !== objectID){
+        this.$store.commit("setShop", this.$store.state.shops.find(shop=>shop.objectID===objectID));
+      }
     }else{
-      let objectID = this.$nuxt.$route.query.objectID;
       if(!objectID){
         $nuxt.$router.push(`/`);
       }else{

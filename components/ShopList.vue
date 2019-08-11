@@ -35,7 +35,7 @@
         display: block;
     }
 
-    @media screen and (max-width:991px){
+    @media screen and (max-width:1250px){
         .shopList {
             height: unset;
             padding: 10px;

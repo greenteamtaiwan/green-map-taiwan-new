@@ -46,7 +46,7 @@
     list-style-type: none;
   }
 
-  @media screen and (max-width:991px){
+  @media screen and (max-width:1250px){
       .shop-map-shop-container{
         width: 100%;
       }

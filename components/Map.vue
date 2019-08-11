@@ -169,7 +169,7 @@
   }
   p.type{
     display: block;
-    color: lightgray;
+    color: rgba(0,0,0,0.4);
     font-size: 13px;
   }
 

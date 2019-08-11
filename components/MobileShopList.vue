@@ -34,14 +34,9 @@
     }
 
     .mobile-shop-list .no-result-placeholder img{
-        width: 55%;
-        margin: 30px auto 0;
-    }
-
-    .mobile-shop-list .no-result-placeholder img{
         height: 20vh;
         width: unset;
-        margin: 0 auto 20px;
+        margin: 30px auto 20px;
         display: block;
     }
 
