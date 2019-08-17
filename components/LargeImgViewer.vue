@@ -1,7 +1,10 @@
 <template>
     <div class="large-img-viewer" >    
-        <span @click="closeLargeImgViewer">✖</span>
-        <carousel :perPage="1" :loop="true" style="marginTop: 5vh;" :navigateTo="[this.$store.state.largeImgIndex - 1, false]">
+        <button @click="closeLargeImgViewer" class="large-img-viewer-close-button">✖</button>
+        <carousel :perPage="1" :loop="true" style="margin: 5vh auto 0; width: 85vw; color: white;" :navigateTo="[this.$store.state.largeImgIndex - 1, false]" :navigationEnabled="true"
+            :navigationNextLabel="`》`"
+            :navigationPrevLabel="`《`"
+        >
             <slide v-for="(src, index) in imgs" style="position: relative;width: 90vw;height: 80vh;">
                 <img :src="src"/>
             </slide>
@@ -10,6 +13,14 @@
     </div>
 </template>
 
+<style>
+    .VueCarousel-navigation-button{
+        color: white!important;
+        font-size: 30px;
+        width: 7vw;
+        height: 100%;
+    }
+</style>
 <style scoped>
     .large-img-viewer{
         width: 100vw;
@@ -20,17 +31,21 @@
         top: 0;
     }
     
-    span{
-        right: 10px;
+    .large-img-viewer-close-button{
+        right: 20px;
         color: white;
         position: fixed;
         top: 5px;
         font-size: 36px;
         cursor: pointer;
+        background-color: rgba(0,0,0,0);
+        border: none;
+        height: 5vh;
+        line-height: 5vh;
     }
 
     img{
-        max-width: 90vw;
+        max-width: 80vw;
         max-height: 80vh;
         position: absolute;
         top: 50%;
@@ -49,7 +64,9 @@
     }
 
     @media screen and (max-width:1250px){
-
+        .large-img-viewer-close-button{
+            right: 10px;
+        }
     }
 </style>
 
