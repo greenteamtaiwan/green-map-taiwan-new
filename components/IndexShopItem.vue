@@ -6,7 +6,7 @@
                 <div class='index-shopItem-aside'>
                     <div style="width: 100%">
                     <div class="index-shopItem-title">
-                        <h3><nuxt-link @click="setShop" to="javascript:void"><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></nuxt-link></h3>
+                        <h3><a @click="setShop" href="javascript:void"><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></a></h3>
                         <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_recommend.svg" height="20" width="20"> 精選店家</p></div>
                     </div>
                     <p class='type'>
@@ -41,7 +41,7 @@
         cursor: pointer;
     }
 
-    .index-shopItem-container:hover h3{
+    .index-shopItem-container:hover a{
         color: #44AD47;
     }
 
@@ -103,6 +103,7 @@
         color: #EE5593;
         font-weight: bold;
         margin: 0 0 20px;
+        line-height: 48px;
     }
     .index-shopItem-container .recommend img{
         /*width: 14px;*/
@@ -146,6 +147,7 @@
         display: inline-block;
         width: calc(100% - 120px);
         margin-bottom: 20px;
+        line-height: unset;
     }
 
     @media screen and (max-width:1250px){
@@ -196,7 +198,7 @@ export default {
             this.$store.commit("setShop", this.shop);
             if(this.shop.google_map_link && !this.shop.photo1 && !this.shop.recommendation_description && !this.shop.description){
                 var win = window.open(this.shop.google_map_link, '_blank');
-                win.focus();
+                if(win && win.focus) win.focus();
             }else{
                 $nuxt.$router.push(`/shop?objectID=${this.shop.objectID}`);
             }

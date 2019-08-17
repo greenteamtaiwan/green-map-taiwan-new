@@ -6,7 +6,7 @@
                 <div class='shopItem-aside'>
                     <div style="width: 100%">
                     <div class="recommend-container"><p class="recommend" v-if="shop.is_recommended"><img src="~/assets/img/icon_recommend.svg" height="20" width="20"> 精選店家</p></div>
-                    <h3 @click="setShop"><nuxt-link @click="setShop" to="javascript:void"><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></nuxt-link></h3>
+                    <h3 @click="setShop"><a @click="setShop" href="javascript:void"><v-clamp autoresize :max-lines="1">{{shop.name}}</v-clamp></a></h3>
                     <p class='type'>
                         <span v-if="shop.type&&types[shop.type[0]]" v-for="(type, index) in shop.type">
                             {{shop.open_status && shop.open_status.type?" ‧ ":""}}
@@ -29,7 +29,7 @@
         cursor: pointer;
     }
 
-    .shopItem-container:hover h3{
+    .shopItem-container:hover a{
         color: #44AD47;
     }
 
@@ -156,7 +156,7 @@ export default {
             this.$store.commit("setShop", this.shop);
             if(this.shop.google_map_link && !this.shop.photo1 && !this.shop.recommendation_description && !this.shop.description){
                 var win = window.open(this.shop.google_map_link, '_blank');
-                win.focus();
+                if(win && win.focus) win.focus();
             }else{
                 $nuxt.$router.push(`/shop?objectID=${this.shop.objectID}`);
             }

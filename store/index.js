@@ -40,9 +40,23 @@ let geoIndex;
 
 function getFilterString(){
   const result = Array.from(arguments).reduce((a,v,i)=>{
-    if(a && v.check(v.value)) return `${a} AND ${v.name}:${v.value}`; 
-    else if(v.check(v.value)) return `${v.name}:${v.value}`;
-    else return a;
+    if(!v.check(v.value)) return a;
+
+    let str = "";
+    if(Array.isArray(v.value)){
+      for(let i=0;i<v.value.length;i++){
+        if(v.value[i]){
+          if(str) str = `${str} OR ${v.name}:${i}`;
+          else str = `${v.name}:${i}`;
+        }
+      }
+
+    }else{
+      str = `${v.name}:${v.value}`;
+    }
+
+    if(a) return `${a} AND (${str})`; 
+    else return str;
   }, '');
   
   return result;
@@ -53,7 +67,7 @@ export const state = () => ({
     shops: [],
     shop: {},
     query: "",
-    type: null,
+    type: [],
     city: 0,
     tag: "",
     largeImgIndex: null,
@@ -74,10 +88,11 @@ export const actions = {
       window.$nuxt.$loading.start();
 
       if(!index) index = algolia.initIndex('greenmaptaiwan');
+
       const data = await index.search({ 
         filters: getFilterString({
-          name: 'type', value: "" + context.state.type, check: function(value){
-            return typeof +value === 'number' && isFinite(+value) && +value > 0;
+          name: 'type', value: context.state.type, check: function(value){
+            return Array.isArray(value);
           }
         }, {
           name: 'city', value: "" + context.state.city, check: function(value){
@@ -149,7 +164,6 @@ export const actions = {
       window.$nuxt.$loading.finish();
       context.commit("setIsLoading", false);
 
-      context.commit("clearMarkerClickTriggered");
       context.commit("initPageNum");
     });
     
@@ -256,7 +270,6 @@ export const actions = {
       let shops = [...state.shops];
       let result = shops.splice(index, 1).concat(shops);
 
-      state.markerClickTriggered = true;
       state.shops = result;
     },
     setShop (state, shop) {
@@ -266,7 +279,21 @@ export const actions = {
       state.query = query;
     },
     setType (state, type) {
-        state.type = type;
+        if(!type) state.type = state.sourceData.types.map(data=>false); // all type option button is clicked
+        else{
+          if(!state.type[type] && state.type.filter(data=>data).length === (state.sourceData.types.length - 2)){ // every type option is selected
+            state.type = state.sourceData.types.map(data=>false);
+          }
+          else{
+            if(state.type.length === 0){
+              const result = state.sourceData.types.map((data, i)=>state.type[i]);
+              result.splice(type, 1, !state.type[type]);
+              state.type = result;
+            }
+            else state.type.splice(type, 1, !state.type[type]);
+          } 
+          
+        }
     },
     setCity (state, city) {
         state.city = city;

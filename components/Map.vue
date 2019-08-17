@@ -45,7 +45,7 @@
                     :onClick="setShop"
                   />
                   <div style="padding: 10px; min-width: 160px;">
-                    <h1 @click="setShop">{{selectedShop.name}}</h1>
+                    <h1 @click="setShop"><a @click="setShop" href="javascript:void">{{selectedShop.name}}</a></h1>
                     <br/>
                     <p style="margin-top: 5px;font-size: 14px;">
                       <span v-if="selectedShop.type&&types[selectedShop.type[0]]" v-for="(type, index) in selectedShop.type">{{`${types[type].text}${index===selectedShop.type.length-1?"":", "}`}}</span>
@@ -297,13 +297,13 @@ export default {
       // this.$store.commit("setShop", this.selectedShop);
         if(this.selectedShop.google_map_link && !this.selectedShop.photo1 && !this.selectedShop.recommendation_description && !this.selectedShop.description){
           var win = window.open(this.selectedShop.google_map_link, '_blank');
-          win.focus();
+          if(win && win.focus) win.focus();
         }else{
           $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
         }
     },
     getIcon: function(type) {
-      if(this.$store.state.type) return this.$store.state.sourceData.types[this.$store.state.type].icon;
+      // if(this.$store.state.type) return this.$store.state.sourceData.types[this.$store.state.type].icon;
       return this.$store.state.sourceData.types[type].icon || "";
       // return markerIcon;
     },

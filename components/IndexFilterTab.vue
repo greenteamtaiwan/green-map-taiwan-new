@@ -4,7 +4,7 @@
         <ul>
             <li v-for="(item, index) in typeOptions" 
                 @click="setType(item.value)" tabindex="0" 
-                :class="[item.class ,checkIfIsSelected(item)?item.activeClass:'']"
+                :class="[item.class ,checkIfIsSelected(item)?'selected-type':'']"
             >
                 <img :src="item.typeIcon"/>
                 {{ item.text }}
@@ -23,16 +23,19 @@
 
     .index-filter-tab span{
         display: inline-block;
-        width: calc(calc(100% - 150px) * 0.2);
+        width: 10.5%;
         font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
         
     .index-filter-tab li{
-        width: 19%;
+        width: 16%;
         text-align: left;
         background-color: white;
-        padding: 5px;
+        padding: 5px 0;
         cursor: pointer;
     }
 
@@ -54,27 +57,27 @@
         background-color: #2586db;
     }
 
-    .index-filter-tab .active_type_all, .index-filter-tab .type_all:hover{
+    .index-filter-tab .selected-type.type_all, .index-filter-tab .type_all:hover{
         color: white;
         background-color: #2586db;
     }
-    .index-filter-tab .active_type_vegetarian_shop, .index-filter-tab .type_vegetarian_shop:hover{
+    .index-filter-tab .selected-type.type_vegetarian_shop, .index-filter-tab .type_vegetarian_shop:hover{
         color: white;
         background-color: #22bf5d;
     }
-    .index-filter-tab .active_type_thrift_shop, .index-filter-tab .type_thrift_shop:hover{
+    .index-filter-tab .selected-type.type_thrift_shop, .index-filter-tab .type_thrift_shop:hover{
         color: white;
         background-color: #2586db;
     }
-    .index-filter-tab .active_type_free_shop, .index-filter-tab .type_free_shop:hover{
+    .index-filter-tab .selected-type.type_free_shop, .index-filter-tab .type_free_shop:hover{
         color: white;
         background-color: #f399cc;
     }
-    .index-filter-tab .active_type_food_share, .index-filter-tab .type_food_share:hover{
+    .index-filter-tab .selected-type.type_food_share, .index-filter-tab .type_food_share:hover{
         color: white;
         background-color: #1db9be;
     }
-    .index-filter-tab .active_type_food_bank, .index-filter-tab .type_food_bank:hover{
+    .index-filter-tab .selected-type.type_food_bank, .index-filter-tab .type_food_bank:hover{
         color: white;
         background-color: #f9892f;
     }
@@ -83,12 +86,12 @@
         display: flex;
         justify-content: space-between;
         list-style-type: none;
-        width: calc(calc(100% - 60px) * 0.8);
+        width: 83.5%;
         margin-bottom: 0;
     }
 
     .index-filter-tab img{
-        width: 40px;
+        width: 37px;
     }
 
     @media screen and (max-width:1250px){
@@ -101,25 +104,14 @@ import throttle from '~/functions/throttle.js';
 
 export default {
     computed: {
-        types: function (){
-            return this.$store.state.sourceData.types;
-        },
-        altPlaceholders: function(){
-            return [
-                GT1,
-                GT2,
-                GT3,
-                GT4,
-                GT5
-            ];
-        }
-    },
-    computed: {
         typeOptions: function () {
-        return this.$store.state.sourceData.types.filter(option=>(option.checked)).slice(1);
+            return this.$store.state.sourceData.types.filter(option=>(option.checked));
         },
         query: function() {
-        return this.$store.state.query
+            return this.$store.state.query;
+        },
+        type: function() {
+            return this.$store.state.type;
         }
     },
     props:{
@@ -130,15 +122,11 @@ export default {
     },
     methods:{
         checkIfIsSelected (item) {
-        return +this.$store.state.type === +item.value;
+            if(!item.value) return this.type.filter(data=>data).length === 0;
+            else return this.type[item.value];
         },
         setType: throttle(function(type){
-            console.log("setType");
-            if(type === this.$store.state.type){
-                this.$store.commit("setType", null);
-            }else{
-                this.$store.commit("setType", type);
-            }
+            this.$store.commit("setType", type);
             this.$store.dispatch("getShops");
         }, 500, { trailing: false })
     }

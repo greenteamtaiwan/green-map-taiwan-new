@@ -122,7 +122,8 @@ export default {
     },
     methods: {
         checkIfIsSelected (item) {
-            return +this.$store.state.type === +item.value;
+            if(!item.value) return this.$store.state.type.filter(data=>data).length === 0;
+            else return this.$store.state.type[item.value];
         }
     }
 }

@@ -371,6 +371,9 @@ export default {
       }
     }
   },
+  beforeDestroy: function(){
+    this.$store.commit("setLargeImgIndex", null);
+  },
   methods: {
     getRandomPlaceholders: function(){
       this.placeholders = this.shuffle(this.placeholders);
