@@ -2,7 +2,10 @@
     <div class="index-filter-tab">
         <span>{{query||"零廢棄地圖綠點"}}</span>
         <ul>
-            <li v-for="(item, index) in typeOptions" @click="setType(item.value)" tabindex="0" :class="{'selected-type': checkIfIsSelected(item)}">
+            <li v-for="(item, index) in typeOptions" 
+                @click="setType(item.value)" tabindex="0" 
+                :class="[item.class ,checkIfIsSelected(item)?item.activeClass:'']"
+            >
                 <img :src="item.typeIcon"/>
                 {{ item.text }}
             </li>
@@ -47,9 +50,33 @@
         height: 100%;
     }
 
-    .index-filter-tab .selected-type, .index-filter-tab li:hover, .index-filter-tab button:hover{
+    .index-filter-tab button:hover{
+        background-color: #2586db;
+    }
+
+    .index-filter-tab .active_type_all, .index-filter-tab .type_all:hover{
         color: white;
         background-color: #2586db;
+    }
+    .index-filter-tab .active_type_vegetarian_shop, .index-filter-tab .type_vegetarian_shop:hover{
+        color: white;
+        background-color: #22bf5d;
+    }
+    .index-filter-tab .active_type_thrift_shop, .index-filter-tab .type_thrift_shop:hover{
+        color: white;
+        background-color: #2586db;
+    }
+    .index-filter-tab .active_type_free_shop, .index-filter-tab .type_free_shop:hover{
+        color: white;
+        background-color: #f399cc;
+    }
+    .index-filter-tab .active_type_food_share, .index-filter-tab .type_food_share:hover{
+        color: white;
+        background-color: #1db9be;
+    }
+    .index-filter-tab .active_type_food_bank, .index-filter-tab .type_food_bank:hover{
+        color: white;
+        background-color: #f9892f;
     }
 
     .index-filter-tab ul{

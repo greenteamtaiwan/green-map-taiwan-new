@@ -144,7 +144,7 @@
     .index-shopItem-title h3{
         font-size: 32px;
         display: inline-block;
-        width: calc(100% - 100px);
+        width: calc(100% - 120px);
         margin-bottom: 20px;
     }
 

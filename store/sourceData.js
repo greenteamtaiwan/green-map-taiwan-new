@@ -3,6 +3,7 @@ import food_share from '~/assets/img/icon_food_share.svg';
 import free_shop from '~/assets/img/icon_free_shop.svg';
 import thrift_shop from '~/assets/img/icon_thrift_shop.svg';
 import vegetarian_shop from '~/assets/img/icon_tag_vegetarian_shop.svg';
+import type_all from '~/assets/img/icon_type_all.svg';
 import type_food_bank from '~/assets/img/icon_type_food_bank.svg';
 import type_food_share from '~/assets/img/icon_type_food_share.svg';
 import type_free_shop from '~/assets/img/icon_type_free_shop.svg';
@@ -14,42 +15,55 @@ export const state = () => ({
         {
           value: 0,
           text: '所有分類',
-          checked: true
+          checked: true,
+          typeIcon: type_all,
+          class: "type_all",
+          activeClass: "active_type_all"
         },
         {
           value: 1,
           icon: vegetarian_shop,
           typeIcon: type_vegetarian_shop,
           text: '綠餐廳/蔬食',
-          checked: true
+          checked: true,
+          class: "type_vegetarian_shop",
+          activeClass: "active_type_vegetarian_shop"
         },
         {
           value: 2,
           icon: thrift_shop,
           typeIcon: type_thrift_shop,
           text: '二手市集/商店',
-          checked: true
+          checked: true,
+          class: "type_thrift_shop",
+          activeClass: "active_type_thrift_shop"
         },
         {
           value: 3,
           icon: free_shop,
           typeIcon: type_free_shop,
           text: '免費市集/商店',
-          checked: true
+          checked: true,
+          class: "type_free_shop",
+          activeClass: "active_type_free_shop"
         },
         {
           value: 4,
           icon: food_share,
           typeIcon: type_food_share,
           text: '享食冰箱',
-          checked: true
+          checked: true,
+          class: "type_food_share",
+          activeClass: "active_type_food_share"
         },
         {
           value: 5,
           icon: food_bank,
           typeIcon: type_food_bank,
           text: '食物銀行',
-          checked: true
+          checked: true,
+          class: "type_food_bank",
+          activeClass: "active_type_food_bank"
         }
       ],
       subtypes: [
