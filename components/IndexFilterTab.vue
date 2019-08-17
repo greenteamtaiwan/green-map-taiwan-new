@@ -70,6 +70,8 @@
 </style>
 
 <script>
+import throttle from '~/functions/throttle.js';
+
 export default {
     computed: {
         types: function (){
@@ -103,14 +105,15 @@ export default {
         checkIfIsSelected (item) {
         return +this.$store.state.type === +item.value;
         },
-        setType (type){
-        if(type === this.$store.state.type){
-            this.$store.commit("setType", null);
-        }else{
-            this.$store.commit("setType", type);
-        }
-        this.$store.dispatch("getShops");
-        }
+        setType: throttle(function(type){
+            console.log("setType");
+            if(type === this.$store.state.type){
+                this.$store.commit("setType", null);
+            }else{
+                this.$store.commit("setType", type);
+            }
+            this.$store.dispatch("getShops");
+        }, 500, { trailing: false })
     }
 }
 </script>
