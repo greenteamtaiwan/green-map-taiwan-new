@@ -14,14 +14,14 @@
                 </b-form>
             </mq-layout>
             <ul class="history-container">
-                <li v-for="(history, index) in searchHistory" @click="search(history)">
+                <li v-for="(history, index) in searchHistory" @click="search(history)" tabindex="0">
                     <img src="~/assets/img/icon_search.svg" height="19" width="19">
                     {{history}}
                 </li>
             </ul>
             <ul class="types">
                 <hr/>   
-                <li v-for="(item, index) in typeOptions" @click="setType(item.value)" :class="{'selected-type': checkIfIsSelected(item)}">
+                <li v-for="(item, index) in typeOptions" @click="setType(item.value)" :class="{'selected-type': checkIfIsSelected(item)}" tabindex="0">
                     <img :src="item.typeIcon"/>
                     {{ item.text }}
                 </li>

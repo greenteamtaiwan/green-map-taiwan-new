@@ -16,7 +16,7 @@
             <div class="shop-content">
                 <img class="green-story-img" src='../assets/img/icon_green_story.svg'/>
                 <p class="story-title"><span>綠點故事</span></p>
-                <h3 @click="setShop(firstShop)">{{firstShop.name}}</h3>
+                <h3 @click="setShop(firstShop)" tabindex="0">{{firstShop.name}}</h3>
                 <mq-layout mq="lg">
                   <p class="description">
                     <v-clamp autoresize :max-lines="3">{{ firstShop.recommendation_description?firstShop.recommendation_description.trim():'' }}</v-clamp>
@@ -52,7 +52,7 @@
                       </mq-layout>
                     </div>
                     
-                    <h3 @click="setShop(shop)" >{{shop.name}}</h3>
+                    <h3 @click="setShop(shop)" tabindex="0">{{shop.name}}</h3>
                 </div>
             </div>
         </div>

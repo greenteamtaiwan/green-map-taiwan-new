@@ -2,7 +2,7 @@
     <div class="index-filter-tab">
         <span>{{query||"零廢棄地圖綠點"}}</span>
         <ul>
-            <li v-for="(item, index) in typeOptions" @click="setType(item.value)" :class="{'selected-type': checkIfIsSelected(item)}">
+            <li v-for="(item, index) in typeOptions" @click="setType(item.value)" tabindex="0" :class="{'selected-type': checkIfIsSelected(item)}">
                 <img :src="item.typeIcon"/>
                 {{ item.text }}
             </li>
