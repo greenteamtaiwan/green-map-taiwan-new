@@ -59,7 +59,7 @@ export default {
       },
       onClick: {
           type: Function,
-          default: ()=>{}
+          default: null
       },
       altPlaceholders: {
           type: Array,
@@ -109,7 +109,7 @@ export default {
 
         },
         clickImg () {
-            this.onClick(this.finalSrc, this.index);
+            if(this.onClick) this.onClick(this.finalSrc, this.index);
         }
     }
 }

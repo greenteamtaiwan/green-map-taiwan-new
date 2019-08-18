@@ -254,7 +254,7 @@ export const actions = {
       });
 
       context.commit("setShops", data.hits);
-      context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
+      context.commit("setShop", {});
 
       window.$nuxt.$loading.finish();
     });

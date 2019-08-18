@@ -1,10 +1,15 @@
 <template>
-    <div class="index-filter-tab">
+    <div class="index-filter-tab" :class="containerClass">
         <span v-if="hasQuery">{{query||"零廢棄地圖綠點"}}</span>
         <ul :class="typesContainerClass">
-            <li v-for="(item, index) in typeOptions" 
-                @click="setType(item.value)" tabindex="0" 
-                :class="[item.class , checkIfIsSelected(item)?'selected-type':'']"
+            <li v-for="(item, index) in showAllType?typeOptions:typeOptions.slice(1)" 
+                @click="()=>{ 
+                    if(onTypeClick) onTypeClick(item.value);
+                    else setType(item.value);
+                }" 
+                tabindex="0" 
+                :class="[item.class , checkIfIsSelectedFunc(item)?'selected-type':'']"
+                :style="`width: ${showAllType?'16%':'19%'}`"
             >
                 <img :src="item.typeIcon"/>
                 {{ item.text }}
@@ -32,7 +37,6 @@
 
         
     .index-filter-tab li{
-        width: 16%;
         text-align: left;
         background-color: white;
         padding: 5px 0;
@@ -126,12 +130,32 @@ export default {
         typesContainerClass: {
             type: String,
             default: ""
+        },
+        showAllType: {
+            type: Boolean,
+            default: true
+        },
+        containerClass: {
+            type: String,
+            default: ""
+        },
+        onTypeClick: {
+            type: Function,
+            default: null
+        },
+        checkIfIsSelected: {
+            type: Function,
+            default: null
         }
     },
     methods:{
-        checkIfIsSelected (item) {
-            if(!item.value) return this.type.filter(data=>data).length === 0;
-            else return this.type[item.value];
+        checkIfIsSelectedFunc (item) {
+            if(this.checkIfIsSelected){
+                return this.checkIfIsSelected(item);
+            }else{
+                if(!item.value) return this.type.filter(data=>data).length === 0;
+                else return this.type[item.value];
+            }
         },
         setType: throttle(function(type){
             this.$store.commit("setType", type);

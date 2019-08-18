@@ -18,52 +18,63 @@ export const state = () => ({
           checked: true,
           typeIcon: type_all,
           class: "type_all",
-          activeClass: "active_type_all"
+          activeClass: "active_type_all",
+          description: ""
         },
         {
           value: 1,
           icon: vegetarian_shop,
           typeIcon: type_vegetarian_shop,
           text: '綠餐廳/蔬食',
+          infoText: '綠餐廳',
           checked: true,
           class: "type_vegetarian_shop",
-          activeClass: "active_type_vegetarian_shop"
+          activeClass: "active_type_vegetarian_shop",
+          description: "「綠餐廳」選用有機或友善土地食材（降低化學肥料、化學飼料、農藥對土地的危害）、不使用一次性餐具器皿、少用化學添加物（綠餐廳食材也包含友善土地飼養的肉品，不僅限素食）"
         },
         {
           value: 2,
           icon: thrift_shop,
           typeIcon: type_thrift_shop,
           text: '二手市集/商店',
+          infoText: '二手',
           checked: true,
           class: "type_thrift_shop",
-          activeClass: "active_type_thrift_shop"
+          activeClass: "active_type_thrift_shop",
+          description: "二手商店/市集 是實踐“零廢棄與資源再循環”的空間。\r\n例如：每循環一本二手書，間接相當於種了一顆2歲的樹，節省了15瓶500ml的水！每減少廢棄一件牛仔褲，節省下的其製程需水量足以讓每人淋浴（約70公升）122次。"
         },
         {
           value: 3,
           icon: free_shop,
           typeIcon: type_free_shop,
           text: '免費市集/商店',
+          infoText: '免費商店',
           checked: true,
           class: "type_free_shop",
-          activeClass: "active_type_free_shop"
+          activeClass: "active_type_free_shop",
+          description: "免費商店是一個讓資源得以自由流動的空間，其理念是「帶走你需要的，留下用不到的」，人們將自己用不到的東西當成禮物送到免費商店來，不求任何回報，只為了那個東西有機會重新被使用。人們來到免費商店尋找自己需要的東西，不需任何代價，只要好好珍惜那些東西就是最好的回報。"
         },
         {
           value: 4,
           icon: food_share,
           typeIcon: type_food_share,
           text: '享食冰箱',
+          infoText: '享食冰箱',
           checked: true,
           class: "type_food_share",
-          activeClass: "active_type_food_share"
+          activeClass: "active_type_food_share",
+          description: "為降低大眾將仍新鮮可食用的食材直接丟棄浪費（像是賣相不佳仍新鮮的蔬果、未使用完的剩餘食材、即期麵包等），許多社區據點或餐廳設置「享食冰箱」讓惜食的任何人皆可取用或提供食材，並非只限弱勢者才能取用）"
         },
         {
           value: 5,
           icon: food_bank,
           typeIcon: type_food_bank,
           text: '食物銀行',
+          infoText: '食物銀行',
           checked: true,
           class: "type_food_bank",
-          activeClass: "active_type_food_bank"
+          activeClass: "active_type_food_bank",
+          description: "「食物銀行」整合各方捐贈的食物或物資，提供給三餐有困難之家庭或育幼院、老人院等團體"
         }
       ],
       subtypes: [
