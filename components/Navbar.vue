@@ -10,7 +10,9 @@
       <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
           <div class='navbar-middle'>
             <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
-            <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
+            <nuxt-link to="/recommendations" class="site-link">城市推薦綠點</nuxt-link>
+            <nuxt-link to="/about" class="site-link">什麼是台灣零廢棄地圖</nuxt-link>
+            <nuxt-link to="/about" class="site-link">關於我們</nuxt-link>
           </div>
           
       </b-form>
@@ -49,6 +51,14 @@
 </div>
 </template>
 
+<style scoped>
+  .nuxt-link-active{
+    color: black;
+  }
+  .nuxt-link-active:hover{
+    color: #44AD47;
+  }
+</style>
 <style>
   a{
     color: black;
@@ -103,6 +113,10 @@
     height: 100%;
   }
 
+  .site-link{
+    margin-right: 20px;
+  }
+
   /*--覆蓋預設樣式--*/
   .custom-select{
     background: url('../assets/img/icon_down_arrow.svg') no-repeat right 0.75rem center/8px 10px;
@@ -128,6 +142,10 @@
   }
   .btn-secondary:focus, .btn-secondary.focus{
     box-shadow: 0 0 0 0.2rem rgba(68, 173, 71, 0.5);
+  }
+
+  #search-container{
+    height: 60px;
   }
 
   @media screen and (max-width:1250px){
