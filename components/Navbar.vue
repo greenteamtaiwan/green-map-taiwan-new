@@ -332,6 +332,7 @@ export default {
       this.$store.commit("setType", 0);
       this.$store.commit("setQuery", "");
       if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
+      else this.$store.dispatch("getShops");
     }
   }
 }
