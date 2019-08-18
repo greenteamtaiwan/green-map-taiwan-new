@@ -2,7 +2,7 @@
     <div class="index-container">
         <Navbar/>
         <div class="index-top">
-            <IndexFilterTab/>
+            <IndexFilterTab :hasQuery="false" typesContainerClass="indexPage-types-container"/>
             <div class="index-shop-list" v-if="shops.length>0">
               <IndexShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop"/>
             </div>
@@ -46,6 +46,10 @@
 
   .index-shop-list{
     margin-top: 30px;
+  }
+
+  .indexPage-types-container{
+    width: calc(100% - 70px)!important;
   }
 
   @media screen and (max-width:1250px){
@@ -120,7 +124,7 @@ export default {
       this.$store.commit("initPageNum");
     },
     onScroll: throttle(function ({target: elem}) {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500 && this.$store.state.pageNum < Math.ceil(this.shops.length / 20) ) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2500 && this.$store.state.pageNum < Math.ceil(this.shops.length / 20) ) {
             this.$store.commit("addPageNum");
         }
     }, 1000)

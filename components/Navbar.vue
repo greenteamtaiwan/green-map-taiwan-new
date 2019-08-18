@@ -10,11 +10,7 @@
       <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
           <div class='navbar-middle'>
             <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
-            <nuxt-link to="/recommendations" class="site-link">城市推薦綠點</nuxt-link>
-            <nuxt-link to="/about" class="site-link">什麼是台灣零廢棄地圖</nuxt-link>
-            <nuxt-link to="/about" class="site-link">關於我們</nuxt-link>
           </div>
-          
       </b-form>
       <b-form inline @submit.stop.prevent @submit="search" id="search-container">
           <b-input-group class="search">
@@ -25,8 +21,25 @@
               </b-input-group-prepend>
               <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" autocomplete="off" :value="query"></b-form-input>
           </b-input-group>
+          <SearchSidebar 
+            v-if="this.$mq==='lg'"
+            v-show="showSearchSidebar"
+            :show="true" 
+            :typeOptions="typeOptions" 
+            :searchHistory="searchHistory" 
+            :query="query" 
+            :search="search" 
+            :setType="setType"
+            :isRight="false"
+            :sidebarStyle="{left: 'auto', transform: 'translateX(0)'}"
+          />
       </b-form>
-      
+      <div class="navbar-links">
+          <nuxt-link to="/recommendations" class="site-link">城市推薦綠點</nuxt-link>
+          <nuxt-link to="/about?section=type" class="site-link" exact>什麼是綠餐廳</nuxt-link>
+          <nuxt-link to="/about?section=map" class="site-link" exact>什麼是台灣零廢棄地圖</nuxt-link>
+      </div>
+
     </nav>
   </mq-layout>
 
@@ -47,18 +60,18 @@
       </b-form>
     </nav>
   </mq-layout>
-  <SearchSidebar :show="showSearchSidebar" :typeOptions="typeOptions" :searchHistory="searchHistory" :query="query" :search="search" :setType="setType"/>
+  <SearchSidebar 
+    v-if="this.$mq==='md'"
+    :show="showSearchSidebar" 
+    :typeOptions="typeOptions" 
+    :searchHistory="searchHistory" 
+    :query="query" 
+    :search="search" 
+    :setType="setType"
+  />
 </div>
 </template>
 
-<style scoped>
-  .nuxt-link-active{
-    color: black;
-  }
-  .nuxt-link-active:hover{
-    color: #44AD47;
-  }
-</style>
 <style>
   a{
     color: black;
@@ -82,7 +95,11 @@
     height: 11px;
   }
 
-  nav > div, nav > form > div{
+  .navbar-middle{
+    padding: 10px 0 10px 20px;
+  }
+  
+  .input-group.search{
     padding: 10px 20px;
   }
 
@@ -99,9 +116,6 @@
 
   .input-group.search{
     height: 60px;
-    border-left: solid 1px lightgray;
-    position: absolute;
-    right: 0;
     width: 300px; 
   }
 
@@ -122,7 +136,6 @@
     background: url('../assets/img/icon_down_arrow.svg') no-repeat right 0.75rem center/8px 10px;
     background-size: 15px 15px;
     border: none;
-    margin-right: 10px;
   }
   button.gm-ui-hover-effect{
     display: none!important;
@@ -145,7 +158,14 @@
   }
 
   #search-container{
+    height: 60px; /* fix safari layout error */
+  }
+
+  .navbar-links{
+    position: absolute;
+    right: 0px;
     height: 60px;
+    padding: 10px 20px;
   }
 
   @media screen and (max-width:1250px){
@@ -207,7 +227,12 @@
       background-color: white;
       padding: 10px 20px;
     }
-    
+    .navbar-middle{
+      padding: 10px 20px;
+    }
+    .custom-select{
+      margin-right: 10px;
+    }
   }
 </style>
 

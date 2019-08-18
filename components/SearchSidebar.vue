@@ -1,5 +1,5 @@
 <template>
-    <Sidebar :show="show" :isRight="true" :id="'search-sidebar'">
+    <Sidebar :show="show" :isRight="isRight" :id="'search-sidebar'" :style="sidebarStyle">
         <div slot="content">
             <mq-layout mq="md">
                 <b-form @submit.stop.prevent @submit="search" id="search-container">
@@ -113,6 +113,14 @@ export default {
       query: {
           type: String,
           default: ""
+      },
+      isRight: {
+          type: Boolean,
+          default: true
+      },
+      sidebarStyle: {
+          type: Object,
+          default: {}
       }
     },
     computed: {

@@ -1,10 +1,10 @@
 <template>
     <div class="index-filter-tab">
-        <span>{{query||"零廢棄地圖綠點"}}</span>
-        <ul>
+        <span v-if="hasQuery">{{query||"零廢棄地圖綠點"}}</span>
+        <ul :class="typesContainerClass">
             <li v-for="(item, index) in typeOptions" 
                 @click="setType(item.value)" tabindex="0" 
-                :class="[item.class ,checkIfIsSelected(item)?'selected-type':'']"
+                :class="[item.class , checkIfIsSelected(item)?'selected-type':'']"
             >
                 <img :src="item.typeIcon"/>
                 {{ item.text }}
@@ -118,6 +118,14 @@ export default {
         hasMapButton: {
             type: Boolean,
             default: true
+        },
+        hasQuery: {
+            type: Boolean,
+            default: true
+        },
+        typesContainerClass: {
+            type: String,
+            default: ""
         }
     },
     methods:{
