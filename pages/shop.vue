@@ -30,7 +30,7 @@
             <div class="shop-content">
                 <div class="shop-info">
                   <p v-if="shop.business_hours || shop.alt_business_hours" style="white-space: pre-line"><img src="~/assets/img/icon_time.svg"/>{{shop.business_hours || shop.alt_business_hours}}</p>
-                  <p v-if="shop.address"><a :href="`https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}`" target="_blank" rel="nofollow noopener noreferrer"title="至導航 Google Map"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</a></p>
+                  <p v-if="shop.address"><a :href="shop.google_map_link?shop.google_map_link:`https://www.google.com/maps/dir/?api=1${userLocation?`&origin=${userLocation.lat},${userLocation.lng}`:''}&destination=${shop.latitude},${shop.longitude}`" target="_blank" rel="nofollow noopener noreferrer"title="至導航 Google Map"><img src="~/assets/img/icon_location.svg"/>{{shop.address}}</a></p>
                   <p v-if="shop.phone && shop.phone.length > 0"><img src="~/assets/img/icon_phone.svg"/>
                     <span>
                       <a v-for="(phone, index) in shop.phone" :href="`tel:${phone.replace(/\D/g, '')}`" rel="nofollow noopener noreferrer">{{phone}}</a>
@@ -45,7 +45,7 @@
                   <mq-layout mq="md">
                     <p>
                       <img src="~/assets/img/icon_navigation.svg"/>
-                      <a :href="`https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}`" target="_blank">我要導航</a>
+                      <a :href="shop.google_map_link?shop.google_map_link:`https://www.google.com/maps/dir/?api=1${userLocation?`&origin=${userLocation.lat},${userLocation.lng}`:''}&destination=${shop.latitude},${shop.longitude}`" target="_blank">我要導航</a>
                     </p>
                   </mq-layout>
                   <!--<p v-if="shop._tags">tags: {{shop.tags}}</p>-->
@@ -354,6 +354,9 @@ export default {
     },
     types: function (){
         return this.$store.state.sourceData.types;
+    },
+    userLocation: function(){
+      return this.$store.state.userLocation;
     }
   },
   mounted: function() {
