@@ -92,7 +92,7 @@ export const actions = {
 
       if(!index) index = algolia.initIndex('greenmaptaiwan');
 
-      await setTimeout(()=>{}, 200);
+      await new Promise(resolve => setTimeout(resolve, 200));
       const data = await index.search({ 
         filters: getFilterString({
           name: 'type', value: context.state.type, check: function(value){
