@@ -289,7 +289,7 @@ export default {
       this.$store.commit("setQuery", query);
       this.$store.dispatch("getShops");
 
-      if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
+      if($nuxt.$route.name !== 'index' && $nuxt.$route.name !== 'map') $nuxt.$router.push('/');
       this.showSearchSidebar = false;
     },
     setCity (city){

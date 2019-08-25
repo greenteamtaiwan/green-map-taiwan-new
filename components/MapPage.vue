@@ -1,9 +1,7 @@
 <template>
   <div>
-    <div class="map-container">
-      <mq-layout mq="md">
-        <Navbar/>
-      </mq-layout>
+    <div class="map-page-container">
+      <Navbar/>
 
       <mq-layout mq="lg">
         <ShopList :show="showShopList" :shops="shops" :onCloseButtonClick="toggleShopList" />
@@ -49,9 +47,16 @@
     overflow-y: hidden
   }
   
-  .index-map{
+  .map-page-container{
+    margin-top: 50px;
+  }
+  .map-page-container .map-container{
+    margin-top: 110px;
+  }
+
+  .map-page-container .index-map{
     width: 100%; 
-    height: calc(100vh - 60px);
+    height: calc(100vh - 110px);
   }
 
   p{
@@ -64,7 +69,7 @@
 
   .mapPage-indexFilterTab-container{
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
     width: 100vw;
     background-color: #f3f4f5;

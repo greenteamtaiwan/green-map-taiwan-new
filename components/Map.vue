@@ -220,10 +220,12 @@
 import markerIcon from '~/assets/img/icon_location.svg';
 import { mapMutations } from 'vuex'
 import ImageHandler from '~/components/ImageHandler.vue';
+import Navbar from '~/components/Navbar.vue';
 
 export default {
   components: {
-    ImageHandler
+    ImageHandler,
+    Navbar
   },
   data() {
     return {

@@ -1,5 +1,5 @@
 <template>
-    <Sidebar :show="show" :onCloseButtonClick="onCloseButtonClick" :showCloseSidebarButton="true">
+    <Sidebar :show="show" :onCloseButtonClick="onCloseButtonClick" :showCloseSidebarButton="true" :id="`shopList-sidebar`">
         <ul class="shopList" slot="content" v-if="shops.length>0" v-scroll="onScroll" >
             <ShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop" :isMarkerClicked="shop.objectID===selectedShop.objectID"/>
         </ul>
@@ -18,6 +18,15 @@
         transition: left 1s;
         overflow-y: auto;
         height: 100%;
+    }
+
+    .map-page-container #shopList-sidebar .content{
+        height: calc(100vh - 110px);
+    }
+
+    .map-page-container #shopList-sidebar{
+        height: calc(100vh - 110px);
+        margin-top: 60px;
     }
 
     .no-result-placeholder{
