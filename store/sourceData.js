@@ -99,7 +99,7 @@ export const state = () => ({
         ]
       ],
       cities: [
-        {value: 0, text: "全部"},
+        {value: 0, text: "全台"},
         {value: 1, text: "台北", longitude: 121.5147601, latitude: 25.047819},
         {value: 2, text: "新北", longitude: 121.4800102, latitude: 25.0366869},
         {value: 3, text: "基隆", longitude: 121.7361073, latitude: 25.131712},

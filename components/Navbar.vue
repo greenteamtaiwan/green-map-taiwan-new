@@ -35,9 +35,9 @@
           />
       </b-form>
       <div class="navbar-links">
-          <nuxt-link to="/recommendations" class="site-link">城市推薦綠點</nuxt-link>
+          <nuxt-link to="/recommendations" class="site-link">城市精選綠點</nuxt-link>
           <nuxt-link to="/about?section=type" class="site-link" exact>什麼是綠餐廳</nuxt-link>
-          <nuxt-link to="/about?section=map" class="site-link" exact>什麼是台灣零廢棄地圖</nuxt-link>
+          <nuxt-link to="/about?section=map" class="site-link" exact>關於我們</nuxt-link>
       </div>
 
     </nav>
@@ -55,7 +55,7 @@
       <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
           <div class='navbar-middle'>
             <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
-            <nuxt-link to="/recommendations">城市推薦綠點</nuxt-link>
+            <nuxt-link to="/recommendations">城市精選綠點</nuxt-link>
           </div>
       </b-form>
     </nav>
