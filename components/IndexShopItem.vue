@@ -16,7 +16,7 @@
                         </span>
                         <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span>
                     </p>
-                    <div class="recommendation-data">
+                    <!--<div class="recommendation-data">
                         <p class="stars">
                             <span v-for="num in shop.stars">★ </span>
                         </p>
@@ -25,9 +25,9 @@
                             <li>環境<span>5.0</span></li>
                             <li>服務<span>5.0</span></li>
                         </ul>
-                    </div>
+                    </div>-->
                     <p class="index-shopItem-description">
-                        <v-clamp autoresize :max-lines="3">{{shop.description}}</v-clamp>
+                        <v-clamp autoresize :max-lines="5">{{shop.description}}</v-clamp>
                     </p> 
                     </div>
                 </div>
@@ -39,6 +39,7 @@
         padding: 0;
         margin-bottom: 20px;        
         cursor: pointer;
+        height: 400px;
     }
 
     .index-shopItem-container:hover a{
@@ -56,6 +57,8 @@
     .index-shopItem-description{
         min-height: 70px;
         margin-bottom: 0;
+        border-top: solid 1px rgba(0,0,0,0.4);
+        padding-top: 20px;
     }
 
     .index-shopItem-container .type{
