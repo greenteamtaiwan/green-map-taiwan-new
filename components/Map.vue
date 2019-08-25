@@ -230,8 +230,15 @@ export default {
   data() {
     return {
       zoomLevel: 14,
-      centerForSync: {...this.$store.center}
+      centerForSync: {...this.$store.center},
+      waitForCentering: true
     }
+  },
+  mounted: function(){
+    const that = this;
+    setTimeout(()=>{
+      that.waitForCentering = false;
+    }, 500);
   },
   computed: {
     visiableItemArray: function() {
@@ -248,7 +255,7 @@ export default {
       return this.$store.state.shops;
     },
     center: function() {
-      return this.$store.state.center;
+      return this.waitForCentering?{ lng: 121.5147601, lat: 25.047819 } : this.$store.state.center;
     },
     selectedShop: function() {
       return this.$store.state.shop;

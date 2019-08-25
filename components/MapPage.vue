@@ -87,7 +87,7 @@
   }
 
   @media screen and (max-width:1250px){
-      .index-map{
+      .map-page-container .index-map{
         height: calc(60vh - 116px);
       }
       html, body{
