@@ -30,10 +30,16 @@
           <div class="about-GT-contact">
                 <h3 class="fontSize24">聯絡我們</h3>
                 <a  href="javascript:void(0);" @click="openFBPagePlugin">
-                    <span class="fontSize16"><img src="../assets/img/contact_us_messenger_icon.svg" />Zero Waste Taiwan</span>
+                    <span class="fontSize16"><img src="../assets/img/contact_us_messenger_icon.svg" />Zero Waste Taiwan 粉絲專頁</span>
+                </a>
+                <a  href="https://www.facebook.com/groups/622061734624660/" target="_blank" rel="nofollow noreferer noopener">
+                    <span class="fontSize16"><img src="../assets/img/icon_facebook_group.svg" />Zero Waste Taiwan 臉書社團</span>
+                </a>
+                <a  href="https://greenteamtaiwan.github.io/gt-home/" target="_blank" rel="nofollow noreferer noopener">
+                    <span class="fontSize16"><img src="../assets/img/GT logo.png" class="zero-waste-taiwan-logo"/>Zero Waste Taiwan 官方網站</span>
                 </a>
                 <a Href="mailto:greenteamtaiwan@gmail.com ?subject=【來信洽詢】&CC=ivy11628@gmail.com">
-                    <span class="fontSize16"><img src="../assets/img/contact_us_gmail_icon.svg" />Greenteamtaiwan@gmail.com</span>  
+                    <span class="fontSize16"><img src="../assets/img/contact_us_gmail_icon.svg" />Zero Waste Taiwan 電子信箱</span>  
                 </a>
           </div>
         </div>
@@ -80,7 +86,7 @@
 
     .about-GT{
       background-color: #f3f4f5;
-      padding: 30px 100px;
+      padding: 30px 90px;
       display: flex;
       justify-content: space-between;
     }
@@ -91,7 +97,7 @@
     }
 
     .about-GT-contact{
-        width: 30%;
+        width: 35%;
         font-size: 16px;
         display: flex;
         flex-direction: column;
@@ -101,6 +107,11 @@
         width: 30px;
         display: inline-block;
         margin-right: 10px;
+    }
+
+    .about-GT-contact img.zero-waste-taiwan-logo{
+        width: unset;
+        height: 25px;
     }
 
     .about-GT-contact a{
