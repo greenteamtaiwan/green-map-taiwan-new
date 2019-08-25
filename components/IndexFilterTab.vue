@@ -15,7 +15,7 @@
                 {{ item.text }}
             </li>
         </ul>
-        <nuxt-link to="/map" v-if="hasMapButton"><button><img src='../assets/img/GT_logo_no_text.svg' width="40px"/></button></nuxt-link>
+        <nuxt-link to="/map" v-if="hasMapButton"><button><img src='../assets/img/icon_map.svg' width="40px"/></button></nuxt-link>
     </div>  
 </template>
 
