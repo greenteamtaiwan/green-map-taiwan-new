@@ -1,21 +1,23 @@
 <template>
-  <div class="about-container">
+  <div class="about-container" >
     <Navbar/>
-    <IndexFilterTab 
-      :hasMapButton="false" 
-      :hasQuery="false" 
-      :showAllType="false" 
-      :typesContainerClass="'about-types-container'"
-      :onTypeClick="setType"
-      :checkIfIsSelected="checkIfIsSelected"
-    />
-    <div class="type-info">
-      <div class="type-info-text">
-        <h3>什麼是{{typeOptions[type].infoText}}</h3>
-        <p>{{typeOptions[type].description}}</p>
-      </div>
-      <div class="type-info-img">
-        <img :src="typeOptions[type].typeImg"/>
+    <div id="typeInfo">
+      <IndexFilterTab 
+        :hasMapButton="false" 
+        :hasQuery="false" 
+        :showAllType="false" 
+        :typesContainerClass="'about-types-container'"
+        :onTypeClick="setType"
+        :checkIfIsSelected="checkIfIsSelected"
+      />
+      <div class="type-info">
+        <div class="type-info-text">
+          <h3>什麼是{{typeOptions[type].infoText}}</h3>
+          <p>{{typeOptions[type].description}}</p>
+        </div>
+        <div class="type-info-img">
+          <img :src="typeOptions[type].typeImg"/>
+        </div>
       </div>
     </div>
     <Footer :containerClass="'about-footer-container'" :sectionClass="'about-footer-section'"/>
@@ -104,6 +106,8 @@ import Navbar from '~/components/Navbar.vue';
 import Footer from '~/components/Footer.vue';
 import IndexFilterTab from '~/components/IndexFilterTab.vue';
 import ImageHandler from '~/components/ImageHandler.vue';
+
+import throttle from '~/functions/throttle.js';
 
 export default {
   components: {

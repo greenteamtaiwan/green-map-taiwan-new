@@ -36,8 +36,8 @@
       </b-form>
       <div class="navbar-links">
           <nuxt-link to="/recommendations" class="site-link">城市精選綠點</nuxt-link>
-          <nuxt-link to="/about?section=type" class="site-link" exact>什麼是綠餐廳</nuxt-link>
-          <nuxt-link to="/about?section=map" class="site-link" exact>關於我們</nuxt-link>
+          <nuxt-link to="/about#typeInfo" class="site-link" exact id="typeInfo-link">什麼是綠餐廳</nuxt-link>
+          <nuxt-link to="/about#aboutUs" class="site-link" exact id="aboutUs-link">關於我們</nuxt-link>
       </div>
 
     </nav>

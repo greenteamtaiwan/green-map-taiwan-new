@@ -1,5 +1,5 @@
 <template>
-    <div class="footer-container" :class="containerClass">
+    <div class="footer-container" :class="containerClass" id="aboutUs">
         <div class="about-map" :class="sectionClass">
           <h3>台灣零廢棄地圖介紹</h3>
           <p>
