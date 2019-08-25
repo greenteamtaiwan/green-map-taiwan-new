@@ -1,7 +1,7 @@
 <template>
   <div>
   <mq-layout mq="lg">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav" :class="{'show-backdrop': showSearchSidebar}">
       <a href="javascript:0" @click="resetSearchParams">
         <div class='map-logo'>
           <img src='../assets/img/GT_logo.svg' width="40px"/>
@@ -44,14 +44,16 @@
   </mq-layout>
 
   <mq-layout mq="md">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav">
-      <a href="javascript:0" @click="resetSearchParams">
-        <div class='map-logo'>
-          <img src='../assets/img/GT_logo_no_text.svg' width="40px"/>
-          <img src='../assets/img/GT logo.png' height="70%"/>
-        </div>
-      </a>
-      <button id="mobile-button" @click="setShowSearchSidebar(!showSearchSidebar)">{{showSearchSidebar?"✖":"☰"}}</button>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav" :class="{'show-backdrop': showSearchSidebar}">
+      <div class="mobile-navbar-content">
+        <a href="javascript:0" @click="resetSearchParams">
+          <div class='map-logo'>
+            <img src='../assets/img/GT_logo_no_text.svg' width="40px"/>
+            <img src='../assets/img/GT logo.png' height="70%"/>
+          </div>
+        </a>
+        <button id="mobile-button" @click="setShowSearchSidebar(!showSearchSidebar)" >{{showSearchSidebar?"✖":"☰"}}</button>
+      </div>
       <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
           <div class='navbar-middle'>
             <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
@@ -159,6 +161,17 @@
 
   #search-container{
     height: 60px; /* fix safari layout error */
+    z-index: 2;
+    background-color: #fff;
+  }
+  .show-backdrop::after{
+    content: "";
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.4);
   }
 
   .navbar-links{
@@ -232,6 +245,11 @@
     }
     .custom-select{
       margin-right: 10px;
+    }
+    .mobile-navbar-content{
+      width: 100%;
+      background-color: #fff;
+      z-index: 2;
     }
   }
 </style>
