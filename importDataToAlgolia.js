@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+var sanitizeHtml = require('sanitize-html'); 
 
 var types = [
   {
@@ -364,6 +365,13 @@ if(value.indexOf(cities[i].text) >= 0){
       getValue: function(value){
         return value;
       }
+  },
+  '字詞搜尋的比對來源': {
+    key: 'crawl_link',
+    type: "array",
+    getValue: function(value){
+      return value.trim()?value.trim().split(/(?:\r\n|\n|\r|,)+/gm):[];;
+    }
   }
 };
 
@@ -434,13 +442,60 @@ function importToAlgolia(result){
   // Build an array of all records to push to Algolia
 
   const records = [];
-  result.forEach((data, i) => {
+  result.forEach(async (data, i) => {
       // We set the Algolia objectID as the Firebase .key
       data.objectID = i;
+      data.search_source = "";
 
-      // Add object for indexing
-      records.push(data);
-    // }
+      // get crawling data
+      if(data.crawl_link.length === 0){
+        // Add object for indexing
+        records.push(data);
+      }else{
+        let result;
+        for(let j=0;j<data.crawl_link.length;j++){
+          if(data.crawl_link[j].indexOf("facebook") > -1 || data.crawl_link.indexOf("gmail") > -1) continue;
+
+          try{
+            result = await fetch(encodeURI(data.crawl_link[j]), { method: 'GET' })
+            if(result.status!== 200) continue;
+  
+            result = await result.text();
+            result = sanitizeHtml(result, {
+              allowedTags: [ 'title', 'h1', 'h2', 'h3', ,'h4', 'h5', 'h6', 'img' ],
+              allowedAttributes: {
+                'img': [ 'alt' ],
+                'meta': [ 'content' ]
+              },
+              exclusiveFilter: function(frame) {
+                  return frame.tag === 'meta'?
+                    frame.attribs.name === 'description' ||
+                    frame.attribs.name === 'keywords'
+                    :frame.tag === 'title' ||
+                    frame.tag === 'h1' ||
+                    frame.tag === 'h2' ||
+                    frame.tag === 'h3' ||
+                    frame.tag === 'h4' ||
+                    frame.tag === 'h5' ||
+                    frame.tag === 'h6' ||
+                    frame.tag === 'img';
+              },
+              textFilter: function(text) {
+                return text.replace(/[^\u4E00-\u9FFF]+/gm, ' ').trim();
+              }
+            });
+  
+            console.log(result);
+            data.search_source += result.slice(0, 200);
+          }catch(err){
+            continue;
+          }
+
+        }
+        // Add object for indexing
+        records.push(data);
+      }
+
   });
 
   // Add or update new objects

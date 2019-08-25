@@ -109,7 +109,8 @@ export const actions = {
         restrictSearchableAttributes: [
           "name",
           "description",
-          "tags"
+          "tags",
+          "search_source"
         ]
       });
   
