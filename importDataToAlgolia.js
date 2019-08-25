@@ -441,17 +441,13 @@ function importToAlgolia(result){
   
   // Build an array of all records to push to Algolia
 
-  const records = [];
   result.forEach(async (data, i) => {
       // We set the Algolia objectID as the Firebase .key
       data.objectID = i;
       data.search_source = "";
 
       // get crawling data
-      if(data.crawl_link.length === 0){
-        // Add object for indexing
-        records.push(data);
-      }else{
+      if(data.crawl_link.length > 0){
         let result;
         for(let j=0;j<data.crawl_link.length;j++){
           if(data.crawl_link[j].indexOf("facebook") > -1 || data.crawl_link.indexOf("gmail") > -1) continue;
@@ -488,14 +484,11 @@ function importToAlgolia(result){
             console.log(result);
             data.search_source += result.slice(0, 200);
           }catch(err){
-            continue;
+            console.log(data.crawl_link[j] + ":::::", err);
           }
 
         }
-        // Add object for indexing
-        records.push(data);
       }
-
   });
 
   // Add or update new objects
@@ -505,7 +498,7 @@ function importToAlgolia(result){
     console.log(content);
     
     index
-    .saveObjects(records)
+    .saveObjects(result)
     .then(() => {
       console.log('greenmaptaiwan imported into Algolia');
       process.exit();

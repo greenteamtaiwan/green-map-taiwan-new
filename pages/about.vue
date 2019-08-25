@@ -10,12 +10,12 @@
       :checkIfIsSelected="checkIfIsSelected"
     />
     <div class="type-info">
-      <div class="type-info-top">
+      <div class="type-info-text">
         <h3>什麼是{{typeOptions[type].infoText}}</h3>
         <p>{{typeOptions[type].description}}</p>
       </div>
       <div class="type-info-img">
-        <img :src="typeOptions[type].typeIcon"/>
+        <img :src="typeOptions[type].typeImg"/>
       </div>
     </div>
     <Footer :containerClass="'about-footer-container'" :sectionClass="'about-footer-section'"/>
@@ -46,18 +46,19 @@
   .type-info{
     background-color: #fff;
     margin: 20px 50px 10px;
+    display: flex;
+    flex-direction: row;
   }
 
-  .type-info-top{
-    padding: 20px 100px;
+  .type-info-text{
+    padding: 50px 30px 20px;
     text-align: center;
   }
-  .type-info-top h3{
-    font-size: 20px;
-    font-weight: bold;
+  .type-info-text h3{
+    font-size: 32px;
     margin-bottom: 40px;
   }
-  .type-info-top p{
+  .type-info-text p{
     text-align: left;
     white-space: pre-line;
   }
@@ -65,14 +66,35 @@
     /*height: 500px;*/
   }
   .type-info-img img{
-    width: 400px;
+    height: 100%;
     margin: auto;
     display: block;
   }
 
+  @media screen and (max-width:1366px){
+    .type-info-text{
+      padding: 25px 20px 5px;
+    }
+    .type-info-text h3{
+      margin-bottom: 15px;
+    }
+  }
+  
   @media screen and (max-width:1250px){
     .about-container{
       padding-top: 116px;
+    }
+    .type-info{
+      flex-direction: column;
+    }
+    .type-info-text{
+      padding: 50px 30px 20px;
+    }
+    .type-info-img{
+      width: 100%;
+    }
+    .type-info-img img{
+      width: 100%;
     }
   }
 </style>
