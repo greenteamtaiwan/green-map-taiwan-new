@@ -86,6 +86,7 @@ export const actions = {
     // context.commit("setShops", shops);
     window.$nuxt.$nextTick(async ()=>{
       window.$nuxt.$loading.start();
+      context.commit("setShops", []);
 
       if(!index) index = algolia.initIndex('greenmaptaiwan');
 
