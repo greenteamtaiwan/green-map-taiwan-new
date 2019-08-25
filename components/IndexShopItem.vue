@@ -95,6 +95,7 @@
 
     .index-shopItem-container .recommend-container{
         display: flex;
+        width: 120px;
         flex-direction: column;
         justify-content: flex-end;
     }
