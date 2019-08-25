@@ -86,10 +86,13 @@ export const actions = {
     // context.commit("setShops", shops);
     window.$nuxt.$nextTick(async ()=>{
       window.$nuxt.$loading.start();
+
+      context.commit("setIsLoading", true);
       context.commit("setShops", []);
 
       if(!index) index = algolia.initIndex('greenmaptaiwan');
 
+      await setTimeout(()=>{}, 200);
       const data = await index.search({ 
         filters: getFilterString({
           name: 'type', value: context.state.type, check: function(value){
