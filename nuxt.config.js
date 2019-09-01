@@ -104,6 +104,8 @@ module.exports = {
         return savedPosition
       }
 
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
       const findEl = async (hash, x) => {
         return document.querySelector(hash) ||
           new Promise((resolve, reject) => {
