@@ -26,9 +26,11 @@
                             <li>服務<span>5.0</span></li>
                         </ul>
                     </div>-->
-                    <p class="index-shopItem-description">
-                        <v-clamp autoresize :max-lines="5">{{shop.description}}</v-clamp>
-                    </p> 
+                        <mq-layout mq="lg">
+                            <p class="index-shopItem-description">
+                                <v-clamp autoresize :max-lines="5">{{shop.description}}</v-clamp>
+                            </p> 
+                        </mq-layout>
                     </div>
                 </div>
         </div>    
@@ -155,7 +157,13 @@
     }
 
     @media screen and (max-width:1250px){
-
+        .index-shopItem-aside{
+            padding: 10px;
+        }
+        .index-shopItem-container{
+            height: unset;
+            margin-bottom: 10px;
+        }
     }
 </style>
 

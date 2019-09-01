@@ -1,26 +1,18 @@
 <template>
     <Sidebar :show="show" :isRight="isRight" :id="'search-sidebar'" :style="sidebarStyle">
         <div slot="content">
-            <mq-layout mq="md">
-                <b-form @submit.stop.prevent @submit="search" id="search-container">
-                    <b-input-group class="search">
-                        <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" :value="query" autocomplete="off"></b-form-input>
-                        <b-input-group-append>
-                            <b-button class="search-button" type="submit">
-                                <img src="~/assets/img/icon_search.svg" height="19" width="19">
-                            </b-button>
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-form>
+            <mq-layout mq="lg">
+                <ul class="history-container">
+                    <li v-for="(history, index) in searchHistory" @click="search(history)" tabindex="0">
+                        <img src="~/assets/img/icon_search.svg" height="19" width="19">
+                        {{history}}
+                    </li>
+                </ul>
             </mq-layout>
-            <ul class="history-container">
-                <li v-for="(history, index) in searchHistory" @click="search(history)" tabindex="0">
-                    <img src="~/assets/img/icon_search.svg" height="19" width="19">
-                    {{history}}
-                </li>
-            </ul>
             <ul class="types">
-                <hr/>   
+                <mq-layout mq="lg">
+                    <hr/>   
+                </mq-layout>
                 <li v-for="(item, index) in typeOptions" @click="setType(item.value)" :class="{'selected-type': checkIfIsSelected(item)}" tabindex="0">
                     <img :src="item.typeIcon"/>
                     {{ item.text }}

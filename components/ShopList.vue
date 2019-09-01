@@ -49,6 +49,9 @@
             height: unset;
             padding: 10px;
         }
+        .index-shop-list{
+            margin-top: 0!important;
+        }
     }
 </style>
 

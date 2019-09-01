@@ -2,15 +2,24 @@
     <div class="index-container">
         <Navbar/>
         <div class="index-top">
+          <mq-layout mq="lg">
             <IndexFilterTab :hasQuery="false" typesContainerClass="indexPage-types-container"/>
-            <div class="index-shop-list" v-if="shops.length>0">
-              <IndexShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop"/>
-            </div>
-            <div class="no-result-placeholder" slot="content" v-else>
-                <!--<img src='../assets/img/no-result-placeholder-hint.png'/>-->
-                <img :src='mascots[Math.floor(Math.random()*mascots.length)]'/>
-                <p>{{isLoading?"Loading...":"目前沒有符合的搜尋結果"}}</p>
-            </div>
+          </mq-layout>
+          <mq-layout mq="lg">
+              <div class="index-shop-list" v-if="shops.length>0">
+                <IndexShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop"/>
+              </div>
+          </mq-layout>
+          <mq-layout mq="md">
+              <div class="index-shop-list" v-if="shops.length>0">
+                <ShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop"/>
+              </div>
+          </mq-layout>
+          <div class="no-result-placeholder" slot="content" v-if="shops.length===0">
+              <!--<img src='../assets/img/no-result-placeholder-hint.png'/>-->
+              <img :src='mascots[Math.floor(Math.random()*mascots.length)]'/>
+              <p>{{isLoading?"Loading...":"目前沒有符合的搜尋結果"}}</p>
+          </div>
         </div>
         <Footer/>
     </div>
@@ -56,12 +65,16 @@
     .index-container{
       padding-top: 116px;
     }
+    .index-top{
+      padding: 10px;
+    }
   }
 </style>
 
 <script>
 import Navbar from '~/components/Navbar.vue';
 import IndexShopItem from '~/components/IndexShopItem.vue';
+import ShopItem from '~/components/ShopItem.vue';
 import Footer from '~/components/Footer.vue';
 import MapPage from '~/components/MapPage.vue';
 import IndexFilterTab from '~/components/IndexFilterTab.vue';
@@ -80,7 +93,8 @@ export default {
     IndexShopItem,
     Footer,
     MapPage,
-    IndexFilterTab
+    IndexFilterTab,
+    ShopItem
   },
   data() {
       return {

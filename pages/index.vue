@@ -1,11 +1,6 @@
 <template>
   <div>
-    <mq-layout mq="lg">
-      <IndexPage/>
-    </mq-layout>
-    <mq-layout mq="md">
-      <MapPage/>
-    </mq-layout>
+    <IndexPage/>
   </div>
 </template>
 

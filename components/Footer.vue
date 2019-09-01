@@ -132,6 +132,47 @@
         right:20px;
         height: 40px;
     }
+
+    @media screen and (max-width:1250px){
+        .footer-container{
+          background-color: #f3f4f5;
+        }
+        .about-map, .about-GT{
+          padding: 20px 50px;
+          margin: 10px;
+          background-color: #fff;
+        }
+        .about-GT{
+          flex-direction: column;
+          text-align: center;
+        }
+        .about-GT-text, .about-GT-contact{
+          width: 100%;
+        }
+        .about-GT-text{
+          padding-bottom: 20px;
+        }
+        .about-GT-contact{
+          position: relative;
+          padding-top: 20px;
+        }
+        .about-GT-contact::after{
+          content: "";
+          position: absolute;
+          top: 0px;
+          left: -60px;
+          background-color: #f3f4f5;
+          width: 100vw;
+          height: 10px;
+        }
+        footer{
+          height: unset;
+          padding: 10px;
+        }
+        footer img{
+          height: 30px;
+        }
+    }
 </style>
 
 <script>

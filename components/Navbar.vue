@@ -44,20 +44,34 @@
   </mq-layout>
 
   <mq-layout mq="md">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav" :class="{'show-backdrop': showSearchSidebar}">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="gt-nav" :class="{'show-backdrop': showSearchSidebar || showAboutSidebar}">
       <div class="mobile-navbar-content">
         <a href="javascript:0" @click="resetSearchParams">
           <div class='map-logo'>
             <img src='../assets/img/GT_logo_no_text.svg' width="40px"/>
-            <img src='../assets/img/GT logo.png' height="70%"/>
           </div>
         </a>
-        <button id="mobile-button" @click="setShowSearchSidebar(!showSearchSidebar)" >{{showSearchSidebar?"✖":"☰"}}</button>
+        <b-form inline @submit.stop.prevent @submit="search" id="search-container">
+          <b-input-group class="search">
+                <b-input-group-prepend>
+                    <b-button class="search-button" type="submit">
+                        <img src="~/assets/img/icon_search.svg" height="19" width="19">
+                    </b-button>
+                </b-input-group-prepend>
+                <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" autocomplete="off" :value="query"></b-form-input>
+            </b-input-group>
+        </b-form>
+        <button id="mobile-button" @click="setShowAboutSidebar(!showAboutSidebar)" >{{showAboutSidebar?"✖":"☰"}}</button>
       </div>
       <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
           <div class='navbar-middle'>
             <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
-            <nuxt-link to="/recommendations">城市精選綠點</nuxt-link>
+            <button id="mobile-type-button" @click="setShowSearchSidebar(true)">
+              <img :src='typeIcon' width="15px"/>
+              {{typeText}}
+              <img src='../assets/img/icon_down_arrow.svg' width="15px"/>
+            </button>
+            <nuxt-link to="/index-map"><button><img src='../assets/img/GT_logo_no_text.svg' width="40px"/></button></nuxt-link>
           </div>
       </b-form>
     </nav>
@@ -70,6 +84,10 @@
     :query="query" 
     :search="search" 
     :setType="setType"
+  />
+  <AboutSidebar 
+    v-if="this.$mq==='md'"
+    :show="showAboutSidebar"
   />
 </div>
 </template>
@@ -181,6 +199,11 @@
     padding: 10px 20px;
   }
 
+  nav button{
+    background-color: rgba(0,0,0,0);
+    border: none;
+  }
+
   @media screen and (max-width:1250px){
     nav{
       height: unset;
@@ -188,6 +211,8 @@
     .map-logo{
       display: inline-block;
       border-right: solid 1px gray;
+      height: 60px;
+      padding: 10px;
     }
     #gt-nav{
       padding: 0;
@@ -206,11 +231,6 @@
       width: 100%;
       display: flex;
       justify-content: space-between;
-    }
-    .map-logo{
-      border: none;
-      height: 60px;
-      padding: 10px;
     }
     #mobile-button{
       border: none;
@@ -250,30 +270,71 @@
       width: 100%;
       background-color: #fff;
       z-index: 2;
+      display: flex;
+    }
+
+    nav .input-group.search{
+      width: calc(100% - 120px);
+    }
+
+    button.btn.btn-secondary.search-button, .search input{
+      border-bottom: none;
+    }
+
+    #mobile-type-button{
+      line-height: 16px;
+      position: relative;
+      padding-left: 40px;
+      left: -15px;
+    }
+
+    #mobile-type-button img{
+      margin-left: 15px;
+      width: 15px;
+      height: 15px;
+    }
+
+    #mobile-type-button img:nth-child(1){
+      margin-left: 0;
+      position: absolute;
+      left: 0;
+      top: -5px;
+      width: 40px;
+      height: 50px;
+    }
+
+    nav .input-group.search{
+      width: unset;
     }
   }
 </style>
 
 <script>
-import SearchSidebar from '~/components/SearchSidebar.vue'
-import { mapMutations } from 'vuex'
+import SearchSidebar from '~/components/SearchSidebar.vue';
+import AboutSidebar from '~/components/AboutSidebar.vue';
+import { mapMutations } from 'vuex';
 
 export default {
   data() {
     return {
       showSearchSidebar: false,
+      showAboutSidebar: false,
       searchHistory: []
     }
   },
   mounted(){
     window.addEventListener('click', this.closeSearchSidebar);
+    window.addEventListener('click', this.closeAboutSidebar);
+
     this.searchHistory = localStorage.getItem("searchHistory")?JSON.parse(localStorage.getItem("searchHistory")):[];
   },
   beforeDestroy: function(){
     window.removeEventListener("scroll", this.closeSearchSidebar);
+    window.removeEventListener("scroll", this.closeAboutSidebar);
   },
   components: {
-    SearchSidebar
+    SearchSidebar,
+    AboutSidebar
   },
   computed: {
     typeOptions () {
@@ -287,6 +348,13 @@ export default {
     },
     city () {
       return this.$store.state.city;
+    },
+    typeText () {
+      return this.$store.state.type? this.$store.state.sourceData.types[0].text : "全部分類";
+    },
+    typeIcon () {
+      const type = 0;
+      return this.$store.state.sourceData.types[type].typeIcon;
     }
   },
   methods: {
@@ -334,16 +402,35 @@ export default {
     setShowSearchSidebar (showSearchSidebar){
       this.showSearchSidebar = showSearchSidebar;
     },
+    setShowAboutSidebar (showAboutSidebar){
+      this.showAboutSidebar = showAboutSidebar;
+    },
     closeSearchSidebar (e){
       console.log(this.$mq);
       if(this.$mq === "lg"){
-        if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#search-container").contains(e.target)){
+        if(!document.querySelector("#search-sidebar").contains(e.target) 
+          && !document.querySelector("#search-container").contains(e.target)){
             this.showSearchSidebar = false;
         }
       }else{
-        if(!document.querySelector("#search-sidebar").contains(e.target) && !document.querySelector("#mobile-button").contains(e.target)){
+        if(!document.querySelector("#search-sidebar").contains(e.target) 
+          && !document.querySelector("#search-container").contains(e.target) 
+          && !document.querySelector("#mobile-button").contains(e.target)
+          && !document.querySelector("#mobile-type-button").contains(e.target)
+        ){
             this.showSearchSidebar = false;
         }
+      }
+    },
+    closeAboutSidebar (e){
+      if(
+        this.$mq === "md"
+        && !document.querySelector("#about-sidebar").contains(e.target) 
+        && !document.querySelector("#search-container").contains(e.target) 
+        && !document.querySelector("#mobile-button").contains(e.target)
+        && !document.querySelector("#mobile-type-button").contains(e.target)
+      ){
+          this.showAboutSidebar = false;
       }
     },
     resetSearchParams (){
