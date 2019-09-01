@@ -17,7 +17,9 @@
           rotateControl: true,
           fullscreenControl: true,
           disableDefaultUi: false
-        }">
+        }"
+        :backToIndexButtonClass="`mapPage-back-to-index-button`"  
+      >
         <mq-layout mq="md">
           <nuxt-link to="/index-map">
             <button class="expand-map-button-index mobile" @click="initPageNum">展開地圖</button>
@@ -26,7 +28,7 @@
       </Map>
     </div>
     <mq-layout mq="lg" class="mapPage-indexFilterTab-container">
-        <IndexFilterTab :hasMapButton="false"/>
+        <IndexFilterTab :hasMapButton="false" :hasQuery="false" :typesContainerClass="`mapPage-type-container`"/>
     </mq-layout>
   </div>
 </template>
@@ -86,6 +88,14 @@
     line-height: px;
   }
 
+  .mapPage-type-container{
+    width: calc(100% - 45px)!important;
+  }
+
+  .mapPage-back-to-index-button{
+      top: -43px;
+  }
+
   @media screen and (max-width:1250px){
       .map-page-container .index-map{
         height: calc(60vh - 116px);
@@ -95,6 +105,9 @@
       }
       .menu{
           display: none;
+      }
+      .mapPage-back-to-index-button{
+          top: 10px;
       }
   }
 </style>

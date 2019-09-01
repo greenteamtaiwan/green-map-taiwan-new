@@ -5,7 +5,7 @@
           <slot></slot>
           <button class="get-location-button" @click="getUserLocation"><img src="../assets/img/icon_getUserLocation.svg"/></button>
           <mq-layout mq="lg">
-            <button class="back-to-index-button" @click="backToIndex">✖</button>
+            <button :class="['back-to-index-button', backToIndexButtonClass]" @click="backToIndex">✖</button>
           </mq-layout>
           <no-ssr>
             <gmap-map
@@ -282,6 +282,10 @@ export default {
                   position: 8
                 }
               }
+    },
+    backToIndexButtonClass: {
+      type: String,
+      default: ''
     }
   },
   methods: {

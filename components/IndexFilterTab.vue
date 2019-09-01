@@ -8,7 +8,7 @@
                     else setType(item.value);
                 }" 
                 tabindex="0" 
-                :class="[item.class , checkIfIsSelectedFunc(item)?'selected-type':'']"
+                :class="[item.class , checkIfIsSelectedFunc(item)?'selected-type':'', typeClass]"
                 :style="`width: ${showAllType?'16%':'19%'}`"
             >
                 <img :src="item.typeIcon"/>
@@ -146,6 +146,10 @@ export default {
         checkIfIsSelected: {
             type: Function,
             default: null
+        },
+        typeClass: {
+            type: String,
+            default: ""
         }
     },
     methods:{
