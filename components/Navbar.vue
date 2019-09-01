@@ -375,7 +375,7 @@ export default {
       this.$store.commit("setQuery", query);
       this.$store.dispatch("getShops");
 
-      if($nuxt.$route.name !== 'index' && $nuxt.$route.name !== 'map') $nuxt.$router.push('/');
+      if($nuxt.$route.name !== 'index' && $nuxt.$route.name !== 'map' && $nuxt.$route.name !== 'index-map') $nuxt.$router.push('/');
       this.showSearchSidebar = false;
     },
     setCity (city){
@@ -396,7 +396,7 @@ export default {
     setType (type){
       this.$store.commit("setType", type);
       this.$store.dispatch("getShops");
-      if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
+      if($nuxt.$route.name !== 'index' && $nuxt.$route.name !== 'map' && $nuxt.$route.name !== 'index-map') $nuxt.$router.push('/');
       this.showSearchSidebar = false;
     },
     setShowSearchSidebar (showSearchSidebar){

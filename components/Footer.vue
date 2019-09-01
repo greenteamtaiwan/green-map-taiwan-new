@@ -162,7 +162,7 @@
           top: 0px;
           left: -60px;
           background-color: #f3f4f5;
-          width: 100vw;
+          width: calc(100vw - 20px);
           height: 10px;
         }
         footer{

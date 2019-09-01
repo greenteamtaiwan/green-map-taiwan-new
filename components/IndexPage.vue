@@ -65,6 +65,9 @@
     .index-container{
       padding-top: 116px;
     }
+    ..index-map-container .index-map{
+      height: calc(100vh - 116px);
+    }
     .index-top{
       padding: 10px;
     }
