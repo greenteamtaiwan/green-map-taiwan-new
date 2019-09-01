@@ -71,7 +71,8 @@
               {{typeText}}
               <img src='../assets/img/icon_down_arrow.svg' width="15px"/>
             </button>
-            <nuxt-link to="/index-map"><button><img src='../assets/img/GT_logo_no_text.svg' width="40px"/></button></nuxt-link>
+            <button :class="['back-to-index-button']" v-if="isMapPage()" @click="backToIndex">✖</button>
+            <nuxt-link to="/index-map" v-else><button><img src='../assets/img/GT_logo_no_text.svg' width="40px"/></button></nuxt-link>
           </div>
       </b-form>
     </nav>
@@ -306,6 +307,14 @@
     nav .input-group.search{
       width: unset;
     }
+
+    button.back-to-index-button{
+      position: relative;
+      border: none;
+      padding: 0;
+      height: unset;
+      top: 0px;
+    }
   }
 </style>
 
@@ -438,6 +447,25 @@ export default {
       this.$store.commit("setQuery", "");
       if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
       else this.$store.dispatch("getShops");
+    },
+    backToIndex(){
+      switch($nuxt.$route.name){
+        case 'map':
+        case 'index-map':
+          $nuxt.$router.push('/');
+          break;
+        case 'shop-map':
+          if(this.selectedShop.objectID) $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
+          else $nuxt.$router.push('/');
+          break;
+        default:
+      }
+    },
+    isMapPage () {
+      if (process.browser) {
+        return $nuxt.$route.name === 'index-map' || $nuxt.$route.name === 'shop-map';      
+      }
+      return false;
     }
   }
 }
