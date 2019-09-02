@@ -274,8 +274,8 @@
       display: flex;
     }
 
-    nav .input-group.search{
-      width: calc(100% - 120px);
+    #search-container{
+      width: calc(100% - 122px);
     }
 
     button.btn.btn-secondary.search-button, .search input{
@@ -314,6 +314,8 @@
       padding: 0;
       height: unset;
       top: 0px;
+      right: 0;
+      width: unset;
     }
   }
 </style>

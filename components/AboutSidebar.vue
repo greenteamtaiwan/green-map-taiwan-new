@@ -26,7 +26,6 @@
         display: inline-block;
         width: 100%;
         padding: 20px 30px;
-        font-weight: bold;
     }
     .selected-type, .types li:hover{
         background-color: #D8D8D8;

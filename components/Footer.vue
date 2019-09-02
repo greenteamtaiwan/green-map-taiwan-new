@@ -78,6 +78,7 @@
 
     .about-map p{
       white-space: pre-line;
+      word-break: break-all;
     }
 
     .footer-container .about-map h3{

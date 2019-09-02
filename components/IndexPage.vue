@@ -26,10 +26,6 @@
 </template>
 
 <style>
-  html, body{
-    overflow-y: initial!important;
-  }
-
   .index-container{
     padding-top: 60px;
   }
@@ -65,7 +61,7 @@
     .index-container{
       padding-top: 116px;
     }
-    ..index-map-container .index-map{
+    .index-map-container .index-map{
       height: calc(100vh - 116px);
     }
     .index-top{
@@ -91,6 +87,16 @@ import Mocha from '~/assets/img/Mocha.png';
 import GreenTea from '~/assets/img/GreenTea.png';
 
 export default {
+  head() {
+    return {
+      bodyAttrs: {
+        class: 'overflow-visible'
+      },
+      htmlAttrs: {
+        class: 'overflow-visible'
+      }
+    }
+  },
   components: {
     Navbar,
     IndexShopItem,

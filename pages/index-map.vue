@@ -14,9 +14,6 @@
         width: 100vw;
         overflow: hidden;
     }
-  html, body{
-    overflow-y: hidden!important;
-  }
 .index-map-container .map-container{
         margin-top: 0;
     }
@@ -48,6 +45,16 @@ import IndexMapShopList from '~/components/IndexMapShopList.vue';
 import Map from '~/components/Map.vue';
 
 export default {
+  head() {
+    return {
+      bodyAttrs: {
+        class: 'overflow-hidden'
+      },
+      htmlAttrs: {
+        class: 'overflow-hidden'
+      }
+    }
+  },
   components: {
     IndexMapShopList,
     Map,
