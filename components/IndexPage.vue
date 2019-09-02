@@ -147,7 +147,8 @@ export default {
       this.$store.commit("initPageNum");
     },
     onScroll: throttle(function ({target: elem}) {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2500 && this.$store.state.pageNum < Math.ceil(this.shops.length / 20) ) {
+        const footerHeight = document.querySelector(".footer-container").offsetHeight;
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - footerHeight - 2500 && this.$store.state.pageNum < Math.ceil(this.shops.length / 20) ) {
             this.$store.commit("addPageNum");
         }
     }, 1000)
