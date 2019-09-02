@@ -139,7 +139,7 @@
           background-color: #f3f4f5;
         }
         .about-map, .about-GT{
-          padding: 20px 50px;
+          padding: 20px 30px;
           margin: 10px;
           background-color: #fff;
         }
@@ -161,9 +161,9 @@
           content: "";
           position: absolute;
           top: 0px;
-          left: -60px;
+          left: -30px;
           background-color: #f3f4f5;
-          width: calc(100vw - 20px);
+          width: calc(100% + 60px);
           height: 10px;
         }
         footer{
