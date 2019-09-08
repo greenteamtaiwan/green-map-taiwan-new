@@ -118,8 +118,15 @@ export const actions = {
         ]
       });
   
+      const result = [];
       let today = new Date();
       for (let i=0;i<data.hits.length;i++) {
+        if(data.hits[i].google_map_link){
+          result.push(data.hits[i]);
+        }else{
+          continue;
+        }
+
         let info = data.hits[i].business_hours.match(/(星期[一|二|三|四|五|六|日]\s*(休息中|休息|\d+:*\d+\s*\-\s*\d+:*\d+))/gm);
         if(!info) continue;
         if(!info[today.getDay()?today.getDay()-1:6]) continue;
@@ -163,8 +170,8 @@ export const actions = {
         }
       }
   
-      context.commit("setShops", data.hits);
-      if(!dontSetShop) context.commit("setShop", data.hits.length > 0?data.hits[0]:{});
+      context.commit("setShops", result);
+      if(!dontSetShop) context.commit("setShop", result.length > 0?result[0]:{});
       context.commit("setTag", '');
       window.$nuxt.$loading.finish();
       context.commit("setIsLoading", false);

@@ -308,12 +308,12 @@ export default {
     },
     setShop: function() {
       // this.$store.commit("setShop", this.selectedShop);
-        if(this.selectedShop.google_map_link && !this.selectedShop.photo1 && !this.selectedShop.recommendation_description && !this.selectedShop.description){
+        // if(this.selectedShop.google_map_link && !this.selectedShop.photo1 && !this.selectedShop.recommendation_description && !this.selectedShop.description){
           var win = window.open(this.selectedShop.google_map_link, '_blank');
           if(win && win.focus) win.focus();
-        }else{
-          $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
-        }
+        // }else{
+          // $nuxt.$router.push(`/shop?objectID=${this.selectedShop.objectID}`);
+        // }
     },
     getIcon: function(type) {
       // if(this.$store.state.type) return this.$store.state.sourceData.types[this.$store.state.type].icon;

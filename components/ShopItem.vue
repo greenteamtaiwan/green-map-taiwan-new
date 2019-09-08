@@ -154,12 +154,12 @@ export default {
     methods:{
         setShop: function() {
             this.$store.commit("setShop", this.shop);
-            if(this.shop.google_map_link && !this.shop.photo1 && !this.shop.recommendation_description && !this.shop.description){
+            // if(this.shop.google_map_link && !this.shop.photo1 && !this.shop.recommendation_description && !this.shop.description){
                 var win = window.open(this.shop.google_map_link, '_blank');
                 if(win && win.focus) win.focus();
-            }else{
-                $nuxt.$router.push(`/shop?objectID=${this.shop.objectID}`);
-            }
+            // }else{
+                // $nuxt.$router.push(`/shop?objectID=${this.shop.objectID}`);
+            // }
         }
     }
 }
