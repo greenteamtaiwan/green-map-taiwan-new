@@ -28,7 +28,9 @@
     .shopItem-container{
         padding: 0;
         cursor: pointer;
-        min-width: 450px;
+        flex-basis: 450px;
+        flex-grow: 0;
+        flex-shrink: 0;
         margin: 5px;
     }
 
@@ -109,7 +111,7 @@
 
     @media screen and (max-width:1250px){
         .shopItem-container{
-            min-width: 200px;
+            flex-basis: 200px;
             flex-direction: column;
         }
         .shopItem-main{

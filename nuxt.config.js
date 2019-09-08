@@ -117,8 +117,15 @@ module.exports = {
       }
       const offset = window.innerWidth>1250?60:115;
 
+      if(to.name==='about' && from.name==='about'
+        && to.hash && from.hash
+      ){
+        const btn = document.querySelector("#mobile-button");
+        if(btn) btn.click();
+      }
       if (to.hash) {
-        let el = await findEl(to.hash)
+        let el = await findEl(to.hash);
+
         if ('scrollBehavior' in document.documentElement.style) {
           return window.scrollTo({ top: el.offsetTop - offset, behavior: 'smooth' })
         } else {

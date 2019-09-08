@@ -274,12 +274,16 @@ export default {
                 streetViewControl: true,
                 rotateControl: true,
                 fullscreenControl: true,
-                disableDefaultUi: false,
+                disableDefaultUi: true,
+                fullscreenControlOptions: {
+                  position: 3
+                  // regarding position: https://developers.google.com/maps/documentation/javascript/reference/control#ControlPosition
+                },
                 streetViewControlOptions: {
-                  position: 8
+                  position: 7
                 },
                 zoomControlOptions: {
-                  position: 8
+                  position: 7
                 }
               }
     },

@@ -30,7 +30,7 @@
   }
 
   @media screen and (max-width:1250px){
-    .index-map{
+    .index-map-container .index-map{
       height: calc(100vh - 116px);
     }
     .index-map-container .map-container{
