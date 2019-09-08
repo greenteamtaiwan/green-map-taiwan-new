@@ -23,14 +23,11 @@
                 </div>
         </div>    
 </template>
-
 <style scoped>
     .shopItem-container{
         padding: 0;
         cursor: pointer;
-        flex-basis: 450px;
-        flex-grow: 0;
-        flex-shrink: 0;
+        min-width: 450px;
         margin: 5px;
     }
 
@@ -111,7 +108,7 @@
 
     @media screen and (max-width:1250px){
         .shopItem-container{
-            flex-basis: 200px;
+            min-width: 200px;
             flex-direction: column;
         }
         .shopItem-main{
