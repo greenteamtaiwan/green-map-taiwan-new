@@ -19,7 +19,7 @@
                       <img src="~/assets/img/icon_search.svg" height="19" width="19">
                   </b-button>
               </b-input-group-prepend>
-              <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" autocomplete="off" :value="query"></b-form-input>
+              <b-form-input placeholder= " 搜尋「店家」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" autocomplete="off" :value="query"></b-form-input>
           </b-input-group>
           <SearchSidebar 
             v-if="this.$mq==='lg'"
@@ -58,21 +58,21 @@
                         <img src="~/assets/img/icon_search.svg" height="19" width="19">
                     </b-button>
                 </b-input-group-prepend>
-                <b-form-input placeholder= " 搜尋「減塑」 " name="query" aria-label="Search" autocomplete="off" :value="query"></b-form-input>
+                <b-form-input placeholder= " 搜尋「店家」 " name="query" aria-label="Search" autocomplete="off" :value="query"></b-form-input>
             </b-input-group>
         </b-form>
         <button id="mobile-button" @click="setShowAboutSidebar(!showAboutSidebar)" >{{showAboutSidebar?"✖":"☰"}}</button>
       </div>
       <b-form inline @submit.stop.prevent class='sidebar-inline-form'>
           <div class='navbar-middle'>
-            <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity"></b-form-select>
+            <b-form-select :value='city' :options="cities" class='cities-select' @change="setCity" v-if="!isAboutPage()"></b-form-select>
             <button id="mobile-type-button" @click="setShowSearchSidebar(true)">
               <img :src='typeIcon' width="15px"/>
               {{typeText}}
               <img src='../assets/img/icon_down_arrow.svg' width="15px"/>
             </button>
             <button :class="['back-to-index-button']" v-if="isMapPage()" @click="backToIndex">✖</button>
-            <nuxt-link to="/index-map" v-else><button><img src='../assets/img/GT_logo_no_text.svg' width="40px"/></button></nuxt-link>
+            <nuxt-link to="/index-map" v-if="!isMapPage() && !isAboutPage()"><button><img src='../assets/img/icon_map.svg' width="40px"/></button></nuxt-link>
           </div>
       </b-form>
     </nav>
@@ -228,7 +228,7 @@
     }
     .sidebar-inline-form .navbar-middle{
       padding: 7px 20px;
-      height: unset;
+      height: 59px;
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -287,6 +287,7 @@
       position: relative;
       padding-left: 40px;
       left: -15px;
+      margin: 0 auto;
     }
 
     #mobile-type-button img{
@@ -331,6 +332,12 @@ export default {
       showSearchSidebar: false,
       showAboutSidebar: false,
       searchHistory: []
+    }
+  },
+  props: {
+    setTypeProps: {
+      type: Function,
+      default: ()=>{}
     }
   },
   mounted(){
@@ -405,9 +412,13 @@ export default {
       }
     },
     setType (type){
-      this.$store.commit("setType", type);
-      this.$store.dispatch("getShops");
-      if($nuxt.$route.name !== 'index' && $nuxt.$route.name !== 'map' && $nuxt.$route.name !== 'index-map') $nuxt.$router.push('/');
+      if(this.setTypeProps){
+        this.setTypeProps(type);
+      }else{
+        this.$store.commit("setType", type);
+        this.$store.dispatch("getShops");
+        if($nuxt.$route.name !== 'index' && $nuxt.$route.name !== 'map' && $nuxt.$route.name !== 'index-map') $nuxt.$router.push('/');
+      }
       this.showSearchSidebar = false;
     },
     setShowSearchSidebar (showSearchSidebar){
@@ -466,6 +477,12 @@ export default {
     isMapPage () {
       if (process.browser) {
         return $nuxt.$route.name === 'index-map' || $nuxt.$route.name === 'shop-map';      
+      }
+      return false;
+    },
+    isAboutPage () {
+      if (process.browser) {
+        return $nuxt.$route.name === 'about';      
       }
       return false;
     }

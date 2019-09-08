@@ -1,15 +1,17 @@
 <template>
   <div class="about-container" >
-    <Navbar/>
+    <Navbar :setTypeProps="this.$mq==='lg'?null:this.setType"/>
     <div id="typeInfo">
-      <IndexFilterTab 
-        :hasMapButton="false" 
-        :hasQuery="false" 
-        :showAllType="false" 
-        :typesContainerClass="'about-types-container'"
-        :onTypeClick="setType"
-        :checkIfIsSelected="checkIfIsSelected"
-      />
+      <mq-layout mq="lg" class="img">
+        <IndexFilterTab 
+          :hasMapButton="false" 
+          :hasQuery="false" 
+          :showAllType="false" 
+          :typesContainerClass="'about-types-container'"
+          :onTypeClick="setType"
+          :checkIfIsSelected="checkIfIsSelected"
+        />
+      </mq-layout>
       <div class="type-info">
         <div class="type-info-text">
           <h3>什麼是{{typeOptions[type].infoText}}</h3>

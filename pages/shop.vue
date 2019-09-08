@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Navbar :cities="cities" :typeOptions="items"/>
+    <mq-layout mq="lg" class="img">
+      <Navbar :cities="cities" :typeOptions="items"/>
+    </mq-layout> 
     <div class='shop-container'>
         <div class='img-container'>
             <div class="img"><ImageHandler v-if="shop.photo1!=='空白'" :src="shop.photo1||NoShopImageHint" :alt="shop.name" :onClick="setLargeImgIndex" :index="1"/></div>
@@ -264,6 +266,10 @@
     .shop-container .expand-map-button-map{
       bottom: unset;
       top: 30px;
+    }
+
+    .shop-container{
+      margin-top: 0;
     }
   }
 </style>
