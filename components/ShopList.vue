@@ -107,7 +107,6 @@ export default {
     },
     methods: {
         onScroll: throttle(function({target: elem}) {
-            console.log("??");
             if (elem.scrollTop >= (elem.scrollHeight - elem.offsetHeight - 500) && this.$store.state.pageNum < Math.ceil(this.shops.length / 20) ) {
                 this.$store.commit("addPageNum");
             }

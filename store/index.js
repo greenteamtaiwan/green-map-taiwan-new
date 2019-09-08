@@ -290,19 +290,21 @@ export const actions = {
     setQuery (state, query) {
       state.query = query;
     },
-    setType (state, type) {
+    setType (state, { type, isSingleSelection }) {
         if(!type) state.type = state.sourceData.types.map(data=>false); // all type option button is clicked
         else{
           if(!state.type[type] && state.type.filter(data=>data).length === (state.sourceData.types.length - 2)){ // every type option is selected
             state.type = state.sourceData.types.map(data=>false);
           }
           else{
-            if(state.type.length === 0){
+            if(isSingleSelection){
+              const result = state.sourceData.types.map((data, i)=>i===type);
+              state.type = result;
+            }else{
               const result = state.sourceData.types.map((data, i)=>state.type[i]);
               result.splice(type, 1, !state.type[type]);
               state.type = result;
             }
-            else state.type.splice(type, 1, !state.type[type]);
           } 
           
         }

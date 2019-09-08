@@ -1,6 +1,6 @@
 <template>
   <div class="about-container" >
-    <Navbar :setTypeProps="this.$mq==='lg'?null:this.setType"/>
+    <Navbar :setTypeProps="this.$mq==='lg'?null:this.setType" :typeProps="type"/>
     <div id="typeInfo">
       <mq-layout mq="lg" class="img">
         <IndexFilterTab 

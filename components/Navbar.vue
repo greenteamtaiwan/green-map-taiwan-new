@@ -338,7 +338,11 @@ export default {
   props: {
     setTypeProps: {
       type: Function,
-      default: ()=>{}
+      default: null
+    },
+    typeProps: {
+      type: Number,
+      default: null
     }
   },
   mounted(){
@@ -369,10 +373,25 @@ export default {
       return this.$store.state.city;
     },
     typeText () {
-      return this.$store.state.type? this.$store.state.sourceData.types[0].text : "全部分類";
+      let type;
+      if(this.typeProps){
+        type = this.typeProps;
+      }else{
+        type = this.$store.state.type.findIndex(data=>data);
+        type = type>=0? type: 0;
+      }
+
+      return this.$store.state.sourceData.types[type].text;
     },
     typeIcon () {
-      const type = 0;
+      let type;
+      if(this.typeProps){
+        type = this.typeProps;
+      }else{
+        type = this.$store.state.type.findIndex(data=>data);
+        type = type>=0? type: 0;
+      }
+
       return this.$store.state.sourceData.types[type].typeIcon;
     }
   },
@@ -390,7 +409,10 @@ export default {
         localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory));
       }
 
-      this.$store.commit("setType", 0);
+      this.$store.commit("setType", {
+        type: 0, 
+        isSingleSelection: this.$mq==='md'
+      });
       this.$store.commit("setQuery", query);
       this.$store.dispatch("getShops");
 
@@ -407,7 +429,6 @@ export default {
           $nuxt.$router.push('/');
           break;
         case 'index':
-          console.log("getShops");
           this.$store.dispatch("getShops");
         default:
       }
@@ -416,7 +437,10 @@ export default {
       if(this.setTypeProps){
         this.setTypeProps(type);
       }else{
-        this.$store.commit("setType", type);
+        this.$store.commit("setType", {
+          type, 
+          isSingleSelection: this.$mq==='md'
+        });
         this.$store.dispatch("getShops");
         if($nuxt.$route.name !== 'index' && $nuxt.$route.name !== 'map' && $nuxt.$route.name !== 'index-map') $nuxt.$router.push('/');
       }
@@ -429,7 +453,6 @@ export default {
       this.showAboutSidebar = showAboutSidebar;
     },
     closeSearchSidebar (e){
-      console.log(this.$mq);
       if(this.$mq === "lg"){
         if(!document.querySelector("#search-sidebar").contains(e.target) 
           && !document.querySelector("#search-container").contains(e.target)){
@@ -457,7 +480,10 @@ export default {
       }
     },
     resetSearchParams (){
-      this.$store.commit("setType", 0);
+      this.$store.commit("setType", {
+        type: 0, 
+        isSingleSelection: this.$mq==='md'
+      });
       this.$store.commit("setQuery", "");
       if($nuxt.$route.name !== 'index') $nuxt.$router.push('/');
       else this.$store.dispatch("getShops");

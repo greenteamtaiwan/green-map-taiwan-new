@@ -290,7 +290,6 @@ export default {
   },
   methods: {
     mapClick: function(event) {
-      // console.log(this.$refs.myMap.mapObject._zoom)
       if (this.$refs.myMap.mapObject._zoom < 15) {
         alert('需要再縮小')
       }

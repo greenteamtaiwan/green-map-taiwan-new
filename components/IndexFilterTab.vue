@@ -162,7 +162,10 @@ export default {
             }
         },
         setType: throttle(function(type){
-            this.$store.commit("setType", type);
+            this.$store.commit("setType", {
+                type, 
+                isSingleSelection: this.$mq==='md'
+            });
             this.$store.dispatch("getShops");
         }, 500, { trailing: false })
     }
