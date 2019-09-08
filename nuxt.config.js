@@ -115,13 +115,14 @@ module.exports = {
             setTimeout(() => { resolve(findEl(hash, ++x || 1)) }, 100)
           })
       }
+      const offset = window.innerWidth>1250?60:115;
 
       if (to.hash) {
         let el = await findEl(to.hash)
         if ('scrollBehavior' in document.documentElement.style) {
-          return window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' })
+          return window.scrollTo({ top: el.offsetTop - offset, behavior: 'smooth' })
         } else {
-          return window.scrollTo(0, el.offsetTop - 60)
+          return window.scrollTo(0, el.offsetTop - offset)
         }
       }
 
