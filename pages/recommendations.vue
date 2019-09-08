@@ -45,11 +45,11 @@
                       <p class="recommendation-title"><img src="~/assets/img/icon_recommend.svg" height="20" width="20">
                         <span> 精選店家</span>
                       </p>
-                      <mq-layout mq="lg">
+                      <!--<mq-layout mq="lg">
                         <p class="stars">
                           <span v-for="num in shop.stars">★ </span>
                         </p>
-                      </mq-layout>
+                      </mq-layout>-->
                     </div>
                     
                     <h3 @click="setShop(shop)" tabindex="0">{{shop.name}}</h3>
