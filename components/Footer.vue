@@ -41,6 +41,12 @@
                 <a Href="mailto:greenteamtaiwan@gmail.com ?subject=【來信洽詢】&CC=ivy11628@gmail.com">
                     <span class="fontSize16"><img src="../assets/img/contact_us_gmail_icon.svg" />Zero Waste Taiwan 電子信箱</span>  
                 </a>
+                <a  href="https://docs.google.com/forms/d/e/1FAIpQLSdq7ZkehYa4Gtoe6Km2a1sNko9GKzYn5Rt43-vADv3kcElZXw/viewform?usp=sf_link" target="_blank" rel="nofollow noreferer noopener">
+                    <span class="fontSize16">錯誤回報</span>
+                </a>
+                <a  href="https://docs.google.com/forms/d/e/1FAIpQLSf7og7s-3XCO68Fz9J_TxWKD5UMxoBkHro1aHkPU5iAZA2ApQ/viewform?usp=sf_link" target="_blank" rel="nofollow noreferer noopener">
+                    <span class="fontSize16">我想提供店家</span>
+                </a>
           </div>
         </div>
         <footer class="footer">
