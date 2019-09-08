@@ -1,30 +1,28 @@
-import * as firebase from 'firebase'
-import { user } from 'firebase-functions/lib/providers/auth';
-export const strict = false;
-const config = {
-  apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
-  authDomain: 'greenmaptaiwan.firebaseapp.com',
-  databaseURL: 'https://greenmaptaiwan.firebaseio.com',
-  projectId: 'greenmaptaiwan',
-  storageBucket: 'greenmaptaiwan.appspot.com',
-  messagingSenderId: '395267289672',
-  databaseURL: 'https://greenmaptaiwan.firebaseio.com/'
-}
+// import * as firebase from 'firebase'
+// import { user } from 'firebase-functions/lib/providers/auth';
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(config)
-}
+// 目前沒有使用firebase
+// const config = {
+//   apiKey: 'AIzaSyA5siB2Jg64LhQNlieawQ69kOL78X5Kov8',
+//   authDomain: 'greenmaptaiwan.firebaseapp.com',
+//   databaseURL: 'https://greenmaptaiwan.firebaseio.com',
+//   projectId: 'greenmaptaiwan',
+//   storageBucket: 'greenmaptaiwan.appspot.com',
+//   messagingSenderId: '395267289672',
+//   databaseURL: 'https://greenmaptaiwan.firebaseio.com/'
+// }
+
+// if (!firebase.apps.length) {
+//   firebase.initializeApp(config)
+// }
+// const database = firebase.database();
 
 const algoliasearch = require('algoliasearch');
 
-const database = firebase.database();
-
 // configure algolia
 const algolia = algoliasearch(
-  // 'HNGIWGJG9Q',
-  // 'a9dc298f742ab70ad577ccc6f2195ea0'
-  'WLQYM2VEOS',
-  '5b7c1bdd81c884fecd44ce897c93dbbf'
+  'Z1TQILX2PS',
+  '5af274c2ae7f9edc9ae4fcf378911ded'
 );
 let index;
 let recommendationsIndex;

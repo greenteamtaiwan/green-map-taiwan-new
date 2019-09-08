@@ -432,10 +432,8 @@ function importToAlgolia(result){
 
   // configure algolia
   const algolia = algoliasearch(
-    // 'HNGIWGJG9Q',
-    // 'a9dc298f742ab70ad577ccc6f2195ea0'
-    'WLQYM2VEOS',
-    '5b7c1bdd81c884fecd44ce897c93dbbf'
+    'Z1TQILX2PS',
+    '5af274c2ae7f9edc9ae4fcf378911ded'
   );
   const index = algolia.initIndex('greenmaptaiwan');
   
