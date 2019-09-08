@@ -227,7 +227,7 @@
       border-top: solid 1px gray;
     }
     .sidebar-inline-form .navbar-middle{
-      padding: 7px 20px;
+      padding: 7px 10px;
       height: 59px;
       width: 100%;
       display: flex;
@@ -288,6 +288,7 @@
       padding-left: 40px;
       left: -15px;
       margin: 0 auto;
+      white-space: nowrap;
     }
 
     #mobile-type-button img{
