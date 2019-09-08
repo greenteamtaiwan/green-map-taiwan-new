@@ -4,7 +4,7 @@
       <Navbar/>
     </mq-layout>
     <Map />
-    <div class="shop-map-shop-container" v-if="selectedShop.name"><ShopItem :shop="selectedShop" /></div>
+    <div class="shop-map-shop-container" v-if="selectedShop.name"><MapShopItem :shop="selectedShop" /></div>
   </div>
 </template>
 
@@ -65,14 +65,14 @@
 <script>
 import IndexMapShopList from '~/components/IndexMapShopList.vue';
 import Map from '~/components/Map.vue';
-import ShopItem from '~/components/ShopItem.vue';
+import MapShopItem from '~/components/MapShopItem.vue';
 import Navbar from '~/components/Navbar.vue';
 
 export default {
   components: {
     IndexMapShopList,
     Map,
-    ShopItem,
+    MapShopItem,
     Navbar
   },
   computed: {
