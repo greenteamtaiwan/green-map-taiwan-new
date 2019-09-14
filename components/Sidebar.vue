@@ -1,6 +1,6 @@
 <template>
     <div class='sidebar' :class="{'show-sidebar': show, 'is-right': isRight}" style="style" :id="id">
-        <button class='close-sidebar-button' :class="{'showCloseSidebarButton': showCloseSidebarButton}" @click="onCloseButtonClick">◂</button>
+        <button class='close-sidebar-button' :class="{'showCloseSidebarButton': showCloseSidebarButton}" @click="onCloseButtonClick">{{show?"◂":"▸"}}</button>
         <div class='content'>
             <slot name="content"></slot>
         </div>
@@ -35,7 +35,7 @@
         top: 60px;
         left: 0;
         transform: translateX(-100%);
-        z-index: 1;    
+        z-index: 1;
         transition: transform 0.5s;
     }
 
