@@ -21,14 +21,14 @@
               </b-input-group-prepend>
               <b-form-input placeholder= " 搜尋「店家」 " name="query" aria-label="Search" @focus.native="setShowSearchSidebar(true)" autocomplete="off" :value="query"></b-form-input>
           </b-input-group>
-          <SearchSidebar 
+          <SearchSidebar
             v-if="this.$mq==='lg'"
             v-show="showSearchSidebar"
-            :show="true" 
-            :typeOptions="typeOptions" 
-            :searchHistory="searchHistory" 
-            :query="query" 
-            :search="search" 
+            :show="true"
+            :typeOptions="typeOptions"
+            :searchHistory="searchHistory"
+            :query="query"
+            :search="search"
             :setType="setType"
             :isRight="false"
             :sidebarStyle="{left: 'auto', transform: 'translateX(0)'}"
@@ -77,16 +77,16 @@
       </b-form>
     </nav>
   </mq-layout>
-  <SearchSidebar 
+  <SearchSidebar
     v-if="this.$mq==='md'"
-    :show="showSearchSidebar" 
-    :typeOptions="typeOptions" 
-    :searchHistory="searchHistory" 
-    :query="query" 
-    :search="search" 
+    :show="showSearchSidebar"
+    :typeOptions="typeOptions"
+    :searchHistory="searchHistory"
+    :query="query"
+    :search="search"
     :setType="setType"
   />
-  <AboutSidebar 
+  <AboutSidebar
     v-if="this.$mq==='md'"
     :show="showAboutSidebar"
   />
@@ -119,7 +119,7 @@
   .navbar-middle{
     padding: 10px 0 10px 20px;
   }
-  
+
   .input-group.search{
     padding: 10px 20px;
   }
@@ -137,7 +137,7 @@
 
   .input-group.search{
     height: 60px;
-    width: 300px; 
+    width: 300px;
   }
 
   .search input{
@@ -160,7 +160,7 @@
   }
   button.gm-ui-hover-effect{
     display: none!important;
-    
+
   }
   .cities-select.custom-select{
     width: 90px;
@@ -168,11 +168,11 @@
   button.btn.btn-secondary.search-button{
     border: none;
     border-radius: 0;
-    background-color: rgba(0,0,0,0); 
+    background-color: rgba(0,0,0,0);
     border-bottom: solid 1px black;
   }
   button.btn.btn-secondary.search-button:active{
-    background-color: rgba(0,0,0,0); 
+    background-color: rgba(0,0,0,0);
   }
   .btn-secondary:focus, .btn-secondary.focus{
     box-shadow: 0 0 0 0.2rem rgba(68, 173, 71, 0.5);
@@ -254,7 +254,7 @@
       height: 70%;
       width: unset;
     }
-    
+
     .input-group.search{
       position: relative;
       border-bottom: none;
@@ -410,7 +410,7 @@ export default {
       }
 
       this.$store.commit("setType", {
-        type: 0, 
+        type: 0,
         isSingleSelection: this.$mq==='md'
       });
       this.$store.commit("setQuery", query);
@@ -429,6 +429,7 @@ export default {
           $nuxt.$router.push('/');
           break;
         case 'index':
+        case 'index-map':
           this.$store.dispatch("getShops");
         default:
       }
@@ -438,7 +439,7 @@ export default {
         this.setTypeProps(type);
       }else{
         this.$store.commit("setType", {
-          type, 
+          type,
           isSingleSelection: this.$mq==='md'
         });
         this.$store.dispatch("getShops");
@@ -454,13 +455,13 @@ export default {
     },
     closeSearchSidebar (e){
       if(this.$mq === "lg"){
-        if(!document.querySelector("#search-sidebar").contains(e.target) 
+        if(!document.querySelector("#search-sidebar").contains(e.target)
           && !document.querySelector("#search-container").contains(e.target)){
             this.showSearchSidebar = false;
         }
       }else{
-        if(!document.querySelector("#search-sidebar").contains(e.target) 
-          && !document.querySelector("#search-container").contains(e.target) 
+        if(!document.querySelector("#search-sidebar").contains(e.target)
+          && !document.querySelector("#search-container").contains(e.target)
           && !document.querySelector("#mobile-button").contains(e.target)
           && !document.querySelector("#mobile-type-button").contains(e.target)
         ){
@@ -471,8 +472,8 @@ export default {
     closeAboutSidebar (e){
       if(
         this.$mq === "md"
-        && !document.querySelector("#about-sidebar").contains(e.target) 
-        && !document.querySelector("#search-container").contains(e.target) 
+        && !document.querySelector("#about-sidebar").contains(e.target)
+        && !document.querySelector("#search-container").contains(e.target)
         && !document.querySelector("#mobile-button").contains(e.target)
         && !document.querySelector("#mobile-type-button").contains(e.target)
       ){
@@ -481,7 +482,7 @@ export default {
     },
     resetSearchParams (){
       this.$store.commit("setType", {
-        type: 0, 
+        type: 0,
         isSingleSelection: this.$mq==='md'
       });
       this.$store.commit("setQuery", "");
@@ -503,13 +504,13 @@ export default {
     },
     isMapPage () {
       if (process.browser) {
-        return $nuxt.$route.name === 'index-map' || $nuxt.$route.name === 'shop-map';      
+        return $nuxt.$route.name === 'index-map' || $nuxt.$route.name === 'shop-map';
       }
       return false;
     },
     isAboutPage () {
       if (process.browser) {
-        return $nuxt.$route.name === 'about';      
+        return $nuxt.$route.name === 'about';
       }
       return false;
     }
