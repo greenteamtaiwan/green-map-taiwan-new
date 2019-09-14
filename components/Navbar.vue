@@ -430,6 +430,7 @@ export default {
           break;
         case 'index':
         case 'index-map':
+        case 'map':
           this.$store.dispatch("getShops");
         default:
       }
