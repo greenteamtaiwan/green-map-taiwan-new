@@ -1,7 +1,7 @@
 <template>
     <div class="index-map-shop-list-container" v-scroll="onScroll" >
         <ul class="index-map-shop-list" v-if="shops.length>0">
-            <MapShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop"/>
+            <IndexMapShopItem v-for="(shop, index) in shops.slice(0, 20 * this.$store.state.pageNum)" :shop="shop"/>
         </ul>
     </div>
 </template>
@@ -23,9 +23,9 @@
         flex-direction: row;
     }
     .index-map-shop-list .lazy-load{
-        
+
     }
-    
+
     .no-result-placeholder{
         text-align: center;
     }
@@ -45,7 +45,7 @@
 </style>
 
 <script>
-import MapShopItem from '~/components/MapShopItem.vue'
+import IndexMapShopItem from '~/components/IndexMapShopItem.vue'
 import Sidebar from '~/components/Sidebar.vue'
 
 import throttle from '~/functions/throttle.js';
@@ -58,7 +58,7 @@ import GreenTea from '~/assets/img/GreenTea.png';
 
 export default {
     components: {
-        MapShopItem,
+        IndexMapShopItem,
         Sidebar
     },
     data() {
