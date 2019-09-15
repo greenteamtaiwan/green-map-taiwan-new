@@ -15,17 +15,17 @@
                         <span class="running-status">{{shop.open_status && shop.open_status.type?shop.open_status.text:""}}</span>
                     </p>
                     <p class="shopItem-description">
-                        <v-clamp autoresize :max-lines="2">{{shop.description}}</v-clamp>
-                    </p> 
+                        <v-clamp v-if="ifShowShopDescription" autoresize :max-lines="2">{{shop.description}}</v-clamp>
+                    </p>
                     </div>
                 </div>
-        </div>    
+        </div>
 </template>
 
 <style scoped>
     .shopItem-container{
         padding: 0;
-        margin: 20px 0;        
+        margin: 20px 0;
         cursor: pointer;
     }
 
@@ -53,15 +53,15 @@
     .shopItem-aside{
         padding: 10px;
     }
-    
+
     .shopItem-description{
         min-height: 45px;
     }
 
-    .shopItem-container .type{
+    .shopItem-container{
         border-bottom: solid 1px lightgray;
-        padding-bottom: 5px;
-        margin-bottom: 5px;
+        /* padding-bottom: 5px;
+        margin-bottom: 5px; */
     }
 
     .shopItem-container .recommend-container{
@@ -147,6 +147,10 @@ export default {
             default: ()=>({})
         },
         isMarkerClicked: {
+            type: Boolean,
+            default: false
+        },
+        ifShowShopDescription: {
             type: Boolean,
             default: false
         }
