@@ -3,7 +3,7 @@
     <Navbar :cities="cities" :typeOptions="items"/>
     <div class="recommendations-container">
       <div class="recommendations-top">
-        <div class="tags-container">
+        <!-- <div class="tags-container">
             <p>城市熱搜</p>
             <ul class="tags">
                   <li v-for="(item, index) in tags" :key="index" @click="setTag(item.name)">
@@ -11,7 +11,7 @@
                         <p>{{ item.name }}</p>
                   </li>
             </ul>
-        </div>
+        </div> -->
         <div class="first-shop shop">
             <div class="shop-content">
                 <img class="green-story-img" src='../assets/img/icon_green_story.svg'/>
@@ -51,7 +51,7 @@
                         </p>
                       </mq-layout>-->
                     </div>
-                    
+
                     <h3 @click="setShop(shop)" tabindex="0">{{shop.name}}</h3>
                 </div>
             </div>
