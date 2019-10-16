@@ -3,12 +3,12 @@
         <div class="about-map" :class="sectionClass">
           <h3>台灣零廢棄地圖介紹</h3>
           <p>
-            集結全台灣最完整環保實體店面資訊的“零廢棄地圖”誕生！ 
+            集結全台灣最完整環保實體店面資訊的“零廢棄地圖”誕生！
             一鍵點選”不塑、減廢、共享”資源全都露，做環保變得超級方便！
 
             目前內容包含：綠餐廳、二手市集/商店、免費市集/商店、享食冰箱、食物銀行、蔬（素）食餐廳。
 
-            未來將陸續推出：環保優惠總彙整、維修商店據點(含縫紉店、清洗店)、飲水機(含加水站)、綠色旅館、無包裝商店(含裸賣店、傳統/農夫市集、洗衣粉補充機)、剩食餐廳、資源回收站(含自動回收機)、工具租借站、圖書館(含漂書站)、共享交通(含停車位)、共享工作空間…等地圖資訊整合服務。 
+            未來將陸續推出：環保優惠總彙整、維修商店據點(含縫紉店、清洗店)、飲水機(含加水站)、綠色旅館、無包裝商店(含裸賣店、傳統/農夫市集、洗衣粉補充機)、剩食餐廳、資源回收站(含自動回收機)、工具租借站、圖書館(含漂書站)、共享交通(含停車位)、共享工作空間…等地圖資訊整合服務。
 
             Zero Waste Taiwan的目標是提供多元的循環/共享經濟產品服務資訊，讓更多人輕鬆實踐<a href="https://greenteamtaiwan.github.io/gt-home/idea.html" target="_blank" rel="nofollow noreferer noopener">7R原則</a>；優化＂使用權＂的服務範圍，讓每一份資源(人力、物資、能源、空間)都能更有效率的被利用。
 
@@ -39,7 +39,7 @@
                     <span class="fontSize16"><img src="../assets/img/GT logo.png" class="zero-waste-taiwan-logo"/>Zero Waste Taiwan 官方網站</span>
                 </a>
                 <a Href="mailto:greenteamtaiwan@gmail.com ?subject=【來信洽詢】&CC=ivy11628@gmail.com">
-                    <span class="fontSize16"><img src="../assets/img/contact_us_gmail_icon.svg" />Zero Waste Taiwan 電子信箱</span>  
+                    <span class="fontSize16"><img src="../assets/img/contact_us_gmail_icon.svg" />Zero Waste Taiwan 電子信箱</span>
                 </a>
                 <a  href="https://docs.google.com/forms/d/e/1FAIpQLSdq7ZkehYa4Gtoe6Km2a1sNko9GKzYn5Rt43-vADv3kcElZXw/viewform?usp=sf_link" target="_blank" rel="nofollow noreferer noopener">
                     <span class="fontSize16">錯誤回報</span>
@@ -50,8 +50,9 @@
           </div>
         </div>
         <footer class="footer">
-            Copyright 2019 GT. Imagined by GT. 
-            <img src="../assets/img/GT logo.png" alt="GT logo" class="logo" /> 
+            Copyright 2019 GT. Imagined by GT.
+            <img src="../assets/img/GT logo.png" alt="GT logo" class="logo" />
+             <img src="../assets/img/icon_algolia.svg" alt="algolia logo" class="footer-algolia-logo" />
         </footer>
     </div>
 </template>
@@ -127,16 +128,22 @@
     }
 
     footer{
-        height: 80px; 
+        height: 80px;
         color:#9FA0A0;
-        display: flex; 
-        align-items: center; 
+        display: flex;
+        align-items: center;
         padding: 20px
     }
 
     footer img{
-        position: absolute; 
-        right:20px;
+        position: absolute;
+        right: 55px;
+        height: 40px;
+    }
+
+    .footer-algolia-logo{
+        position: absolute;
+        right: 10px;
         height: 40px;
     }
 
@@ -175,6 +182,7 @@
         footer{
           height: unset;
           padding: 10px;
+          font-size: 10px;
         }
         footer img{
           height: 30px;
@@ -203,15 +211,15 @@ export default {
     //   // Fixes dual-screen position                         Most browsers      Firefox
     //   var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;
     //   var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
-  
+
     //   var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
     //   var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-  
+
     //   var systemZoom = width / window.screen.availWidth;
     //   var left = (width - w) / 2 / systemZoom + dualScreenLeft
     //   var top = (height - h) / 2 / systemZoom + dualScreenTop
     //   var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-    
+
     //   // Puts focus on the newWindow
     //   if (window.focus) newWindow.focus();
     // }
