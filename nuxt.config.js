@@ -46,6 +46,7 @@ module.exports = {
   plugins: [
     // '@/plugins/vuetify',
     // { src: '~/plugins/vue-lazyload', ssr: true },
+    { src: '~plugins/ga.js', ssr: false },
     { src: '~plugins/vue-carousel.js', ssr: false },
     { src: '~plugins/leaflet.js', ssr: false },
     { src: '~plugins/vue-scroll.js', ssr: false }
@@ -105,7 +106,7 @@ module.exports = {
       }
 
       await new Promise(resolve => setTimeout(resolve, 200));
-      
+
       const findEl = async (hash, x) => {
         return document.querySelector(hash) ||
           new Promise((resolve, reject) => {
